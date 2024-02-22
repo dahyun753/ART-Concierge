@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const adminExhibitsRouter = require('./routes/admin/exhibit'); // 관리자 페이지 for 전시 관리 
+const adminCategoriesRouter = require('./routes/admin/category'); // 관리자 페이지 for 전시 관리 
 
 var app = express();
 
@@ -22,6 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin/exhibits', adminExhibitsRouter ); //관리자 라우터 (전시)
+app.use('/admin/categories', adminCategoriesRouter); //관리자 라우터 (카테고리)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

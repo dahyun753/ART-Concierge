@@ -11,16 +11,17 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+/* 
     password: {
         type: String,
         //소셜 로그인 넣을 경우에는 false
         required: true,
-    },
-    phone: {
+    },*/
+    phoneNumber: {
         type: String,
         required: true,
     },
-    userAddress: {
+    address: {
         type: String,
         required: true,
     },

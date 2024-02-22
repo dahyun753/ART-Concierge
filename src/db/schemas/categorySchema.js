@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose'
+const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
 
 const categorySchema = new Schema({

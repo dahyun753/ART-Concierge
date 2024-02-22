@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose'
+const { Schema } = require('mongoose');
 const orderId = require('./types/order-id');
 
 const orderSchema = new Schema({
@@ -9,17 +9,17 @@ const orderSchema = new Schema({
         type: String,
         reauired: true,
     },
-    userAddress: {
+    address: {
         type: String,
         required: true,
     },
-    phone: {
+    phoneNumber: {
         type: String,
         required: true,
     },
     //상품 관련 정보 (주문한 상품 이름, 상품 수량, 금액, 이미지 url)
-    item: [{
-        exhibitName: {
+    items: [{
+        name: {
             type: String,
             required: true,
         },
@@ -32,7 +32,7 @@ const orderSchema = new Schema({
             required: true,
         },
         //배열 처리를 해야하는지 
-        image: {
+        imageUrl: {
             type: [String],
             required: true,
         },
@@ -46,11 +46,6 @@ const orderSchema = new Schema({
     orderedDate: {
         type: Date,
         default: Date.now,
-    },
-    deliveryStatus: {
-        type: String,
-        default: 1,
-        required: true,
     }
 })
 
