@@ -47,6 +47,8 @@ const orderSchema = new Schema({
         type: Date,
         default: Date.now,
     }
+},{
+    collection: "orders" 
 })
 
 module.exports = orderSchema;

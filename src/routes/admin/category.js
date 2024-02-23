@@ -6,9 +6,6 @@ router.post('/', async(req, res, next) => {
     try{
         const { category } = req.body;
 
-        if( !category ) {
-            throw new Error ("카테고리 명을 입력해주세요!")
-        }
         const newcategory = await Category.create({ category });
         res.status(200).json(newcategory);
     } catch (err){

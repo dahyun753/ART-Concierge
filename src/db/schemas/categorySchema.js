@@ -8,6 +8,8 @@ const categorySchema = new Schema({
         type: String,
         required: true,
     },
+},{
+    collection: "categories"
 });
 
 module.exports = categorySchema;
