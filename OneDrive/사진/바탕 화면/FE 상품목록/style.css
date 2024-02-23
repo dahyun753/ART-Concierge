@@ -20,7 +20,7 @@
     padding-top: 6rem;
 }
 
-.전시회제목 div{
+.exhibitTitle div{
     padding-top: 0.5rem;
     font-size: 0.8rem;
     text-align: left;
@@ -33,7 +33,7 @@ a{
     text-decoration-line: none;
 }
  
-.관람상세 a{
+.exhibitInfo a{
     padding-top: 0.2rem;
     font-size: 0.7rem;
     text-align: left;
@@ -43,6 +43,6 @@ a{
 }
 
 
-.관람상세{
+.exhibitInfo{
     text-align: left;
 }
