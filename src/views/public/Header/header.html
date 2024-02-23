@@ -1,0 +1,96 @@
+<header id="header" class="header columns is-full has-background-white" >
+  <div id="header-container" class="columns is-flex" style="margin: 0 auto;">
+    <nav id="header-nav" class="is-flex is-full is-justify-content-space-between is-align-items-center is-flex">
+      <ul id="header-nav-1depth" class="is-flex is-justify-content-space-between is-align-items-center">
+        <!-- Logo -->
+        <li class="column is-150px mr-2">
+          <div id="header-logo" class="is-flex is-flex-direction-column is-align-items-center">
+            <a href="/">
+              <img class="is-full" src="../public/Header/assets/logo.png" alt="logo" />
+            </a>
+            <span>Prestige Collection</span>
+          </div>
+        </li>
+
+        <!-- Category -->
+        <li class="column mr-5">
+          <div id="header-nav" class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Category
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                전체
+              </a>
+              <!-- 카테고리 목록 가져와서 for문으로 생성할 구간 -->
+              <a class="navbar-item">
+                사진 전시회
+              </a>
+              <a class="navbar-item">
+                그림 전시회
+              </a>
+              <a class="navbar-item">
+                조각 전시회
+              </a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Search Box -->
+        <li class="column mr-5">
+          <form id="header-search-box" class="pl-4">
+            <input id="header-search-input" type="text" placeholder="Search Exhibition">
+            <button id="header-search-submit" type="submit">
+              <i id="header-search-submit-icon" class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+        </li>
+
+        <!-- Cart -->
+        <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
+          <a href="javascript:void(0)">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
+          <span style="font-size: 10px;">Cart</span>
+        </li>
+
+        <!-- Mypage -->
+        <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
+          <a href="javascript:void(0)">
+            <i class="fa-solid fa-user"></i>
+          </a>
+          <span style="font-size: 10px;">Mypage</span>
+        </li>
+        
+        <!-- 로그인 X -->
+        <li id="isNotLogined" class="column is-flex is-flex-direction-column is-align-items-center mr-2">
+          <a href="javascript:void(0)">
+            <i class="fa-solid fa-right-to-bracket"></i>
+          </a>
+          <span style="font-size: 10px;">Login</span>
+        </li>
+
+        <!-- 로그인 O -->
+        <li id="isLogined" class="column is-flex is-flex-direction-column is-align-items-center mr-2 is-hidden">
+          <a href="javascript:void(0)">
+            <i class="fa-solid fa-seedling"></i>
+          </a>
+          <span>Welcome! </span>
+        </li>
+
+        <script>
+          let isLogin = 0;
+
+          // 로그인 X
+          if (isLogin === 0) {
+            document.getElementById('isLogined').className += ' is-hidden';
+          }
+          // 로그인 O 
+          else {
+            document.getElementById('isNotLogined').className += ' is-hidden';
+          }
+        </script>
+      </ul>
+  </nav>
+  </div>
+</header>

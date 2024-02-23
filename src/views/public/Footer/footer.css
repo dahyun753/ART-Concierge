@@ -1,0 +1,23 @@
+#footer {
+    /* max-width: 100vw; */
+    width: 100%;
+    height: 240px;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: #e2e2e2;
+}
+
+#footer-title {
+    font-family: Cinzel, serif;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+#footer-copyright-description {
+    color: purple;
+}
+
+i#footer-icon {
+    font-size: 36px;
+}

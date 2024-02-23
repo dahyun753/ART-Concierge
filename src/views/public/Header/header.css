@@ -1,0 +1,77 @@
+header i {
+  font-size: 36px;
+}
+
+header span {
+  font-size: 10px;
+  text-align: center;
+}
+
+header#header  {
+  max-width: 100vw;
+  height: 100px;
+  z-index: 100;
+  position: sticky;
+  top: 0;
+  left: 0;
+  box-shadow: 0 8px 16px #00000026;
+}
+
+nav#header-nav {
+  height: 100%;
+  gap: 20px;
+}
+
+ul#header-nav-1depth {
+  font-size: 18px;
+  width: 1000px;
+}
+
+#header-logo > a > img {
+  height: 36px;
+}
+
+#header-logo > span {
+  font-size: 10px;
+  text-align: center;
+}
+
+#header-search-box {
+  position: relative;
+  width: 30vw;
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: rgb(247, 248, 249);
+  border: 1px solid rgb(197, 200, 206);
+}
+
+#header-search-input {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 90%;
+  height: 100%;
+  background-color: rgb(247, 248, 249);
+  border: transparent;
+  font-size: 14px;
+}
+
+#header-search-submit {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  background: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+}
+
+#header-search-submit-icon {
+  color: rgb(149, 154, 158);
+  font-size: 16px;
+  line-height: 40px;
+}
