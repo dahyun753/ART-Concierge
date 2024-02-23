@@ -1,0 +1,128 @@
+.custom-ul{
+    margin-bottom: 50px;
+}
+
+.flex-container {
+    justify-content: center;
+}
+
+.info-list-column{
+    text-align:center;
+}
+
+.info-text {
+    text-align: center;
+}
+
+.button{
+    margin-top: 30px;
+}
+
+.btn-container{
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 10%;
+}
+
+.notification{
+    background-color: #FE7A2C;
+    float: left;
+}
+
+.button {
+    background-color: #FE7A2C;
+    justify-content: center;
+}
+
+.author-container {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        padding: 0px;
+        flex-direction: column;
+        max-width: 100%;
+        font-family: sans-serif !important;
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+        float: left;
+}
+
+.author-header {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0px;
+    flex-direction: column;
+    max-width: 100%;
+    font-family: sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+    float: left;
+    margin-top: 30px;
+}
+
+.author-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    margin-right: 10px;
+}
+
+.author-description {
+    margin-top: 2rem !important;
+    /* font-family: 'Pretendard',serif !important; */
+    font-size: 16px;
+    color: #000;
+    margin: 0;
+    white-space: break-spaces;
+    max-width: 100%;
+    line-height: 2rem;
+    text-align: left;
+    width: 100%;
+}
+
+.author-name {
+    float: left;
+    margin-top: 13px;
+}
+
+.content {
+    justify-content: center;
+}
+
+li {
+    margin-left: 0;
+    padding-left: 0px;
+}
+
+ul, ol {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.info-list ul li {
+    align-items: center;
+    box-sizing: border-box;
+    color: #000;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.column {
+    align-items: flex-start;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-grow: 1;
+}
+
+.columns.is-mobile {
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-between; /* 요소들을 가로로 고르게 분배 */
+    align-items: center; /* 요소들을 세로로 가운데 정렬 */
+}

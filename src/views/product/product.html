@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibition_list</title>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Font - Noto Sans Korean semibold 600 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS & JS -->
+    <script src="../public/loadHTML.js"></script>
+    <link rel="stylesheet" href="../public/Header/header.css" />
+    <link rel="stylesheet" href="../public/Footer/footer.css" />
+    <link rel="stylesheet" href="./product.css">
+
+</head>
+
+<body>
+    <script>
+        loadHTML("../public/Header/header.html");
+    </script>
+    <main>
+        <!-- 상단 배너 -->
+        <div class="banner" style="max-width: 100%;">
+            EXHIBITION
+        </div>
+
+        <!-- +++추가기능+++ -->
+        <!-- 필터링 -->
+        <!-- 체크박스형태?로 구현 -->
+
+        <!-- 전시회 LIST -->
+        <div class="exhibition-list" id="exhibitionColumns">
+            <!-- <div class="columns" id="exhibitionColumns"> -->
+                <!-- JavaScript로 생성된 HTML 삽입 -->
+            </div>
+        </div>
+    </main>
+    <script>
+        loadHTML("../public/Footer/footer.html");
+    </script>
+</body>
+<script src="./product.js"></script>
+<!-- <script src="./Scroll.js"></script> -->
+</html>
