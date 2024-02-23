@@ -52,7 +52,7 @@ router.delete('/:exhibitId', async(req, res, next) => {
     
         res.send('OK');
     } catch (err) {
-        res.status(400).json(err)
+        res.json(err)
     }
 })
 

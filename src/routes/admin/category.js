@@ -37,10 +37,6 @@ router.put('/:categoryId', async(req, res, next) => {
         const { categoryId } = req.params;
         const { category } = req.body;
 
-        if(!category) {
-            throw new Error ("카테고리 명을 입력해주세요!")
-        }
-
         const newcategory = await Category.updateOne({categoryId},{ category });
         res.send('OK');
     } catch (err) {
@@ -55,7 +51,7 @@ router.delete('/:categoryId', async(req, res, next) => {
     
         res.send('OK');
     } catch (err) {
-        res.status(400).json(err)
+        res.json(err)
     }
 })
 
