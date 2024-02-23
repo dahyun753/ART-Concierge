@@ -1,0 +1,48 @@
+.banner{
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #353637b9;
+    font-weight: 500;
+    color: aliceblue;
+}
+
+
+.column {
+    text-align: center;
+  }
+
+.columns{
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 6rem;
+}
+
+.exhibitTitle div{
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+    text-align: left;
+    color: black;
+    font-weight: 700;
+    text-overflow: ellipsis;
+}
+
+a{
+    text-decoration-line: none;
+}
+ 
+.exhibitInfo a{
+    padding-top: 0.2rem;
+    font-size: 0.7rem;
+    text-align: left;
+    color: #717070;
+    font-weight: 600;
+    text-overflow: ellipsis;
+}
+
+
+.exhibitInfo{
+    text-align: left;
+}
