@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="basket.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script defer src="basket.js" type="module"></script>
+
+  <title>장바구니</title>
+</head>
+
+<body>
+  <!-- sweetalert2 를 사용하기 위한 코드 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+
+          <a class="navbar-item">
+            Documentation
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                About
+              </a>
+              <a class="navbar-item">
+                Jobs
+              </a>
+              <a class="navbar-item">
+                Contact
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="title has-text-weight-bold">Shopping Cart</h1>
+        <div class="columns is-4 is-variable my-6">
+          <div class="column is-8">
+            <!-- Left Container -->
+            <div class="columns is-vcentered selection">
+              <div class="column is-2">
+                <label name="selectAll" class="itemContainer">
+                  <input class="priceCheckbox selectAll" type="checkbox">
+                  <div class="cbx">
+                    <div class="flip">
+                      <div class="front"></div>
+                      <div class="back">
+                        <svg width="16" height="14" viewBox="0 0 16 14">
+                          <path d="M2 8.5L6 12.5L14 1.5"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  전체 선택
+                </label>
+              </div>
+              <div class="column is-1">
+                <span>|</span>
+              </div>
+              <div class="column is-2">
+                <div class="deleteSelection" style="cursor:pointer">선택 삭제</div>
+              </div>
+            </div>
+
+            <ul class="productList" style="border-bottom:solid #C0C0C0 1.5px">
+              <div>
+                비어있음
+              </div>
+            </ul>
+
+          </div>
+          <div class="column is-4 is-fixed" style="margin-top: 34px;">
+            <!-- Right Container -->
+            <div class="tile has-background-white-ter"
+              style="height: 430px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; position:sticky; top:100px ">
+              <div class="test">
+                <p class="title is-size-4" style="margin-top: 10px;">Order Summary</p>
+
+                <div class="priceSection" style="display: flex; justify-content: space-between; ">
+                  <span class="#">Subtotal</span>
+                  <div>
+                    <span class="totalItemPrice">0</span>
+                    <span>￦</span>
+                  </div>
+                </div>
+                <hr>
+                <div class="discountSection" style="display: flex; justify-content: space-between; ">
+                  <span class="#">Discount</span>
+                  <div>
+                    <span class="discountFee">0</span>
+                    <span>￦</span>
+                  </div>
+                </div>
+                <hr>
+                <div class="deliveryFeeSection" style="display: flex; justify-content: space-between; ">
+                  <span class="#">Shipping estimate</span>
+                  <div>
+                    <span class="delivertFee">0</span>
+                    <span>￦</span>
+                  </div>
+                </div>
+                <hr>
+                <div class="paymentAmount" style="display: flex; justify-content: space-between; ">
+                  <span class="#">Order total</span>
+                  <div>
+                    <span class="totalPrice">0</span>
+                    <span>￦</span>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <button class="buy button is-dark is-fullwidth" style="margin-top: 10px;">BUY</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </section>
+    <button class="button" id="test">담기</button>
+  </main>
+
+</body>
+
+</html>
