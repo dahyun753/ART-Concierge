@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="registration.css">
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script defer src="registration.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+
+          <a class="navbar-item">
+            Documentation
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                About
+              </a>
+              <a class="navbar-item">
+                Jobs
+              </a>
+              <a class="navbar-item">
+                Contact
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light">
+                Log in
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <section class="section">
+    <div class="container" style="width: 50%;">
+      <h1 class="title has-text-centered">회원 가입</h1>
+      <form>
+        <div style="display: flex; justify-content: flex-end;">
+          <div><span class="essential">*</span> 필수 입력 사항</div>
+        </div>
+        <div class="container mt-1 px-4 py-3" style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;">
+          <div class="columns is-vcentered">
+            <div class="column is-2 ">이메일<span class="essential">*</span></div>
+            <div class="column is-6"><input type="email" class="input is-medium" placeholder="이메일을 입력해주세요"></div>
+            <div class="column is-1"></div>
+            <div class="column is-3"><button class="button is-fullwidth is-medium">중복확인</button></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">비밀번호<span class="essential">*</span></div>
+            <div class="column is-6"><input type="password" class="input is-medium" placeholder="비밀번호를 입력해주세요"></div>
+            <div class="column is-1"></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">비밀번호 확인<span class="essential">*</span></div>
+            <div class="column is-6"><input type="password" class="input is-medium" placeholder="비밀번호를 한번 더 입력해주세요">
+            </div>
+            <div class="column is-1"></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">이름<span class="essential">*</span></div>
+            <div class="column is-6"><input type="text" class="input is-medium" placeholder="이름을 입력해주세요"></div>
+            <div class="column is-1"></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">휴대폰<span class="essential">*</span></div>
+            <div class="column is-6"><input type="text" class="input is-medium" placeholder="휴대폰 번호를 입력해주세요"></div>
+            <div class="column is-1"></div>
+            <div class="column is-3"><button class="button is-fullwidth is-medium">인증번호 받기</button></div>
+          </div>
+          <div class="columns is-vcentered" id="test">
+            <div class="column is-2">주소<span class="essential">*</span></div>
+            <div class="column is-6" id="address"><input type="button" onclick="sample6_execDaumPostcode()"
+                value="🔍︎주소 검색" class="button is-fullwidth is-medium"></div>
+            <div class="column is-1"></div>
+            <div id="research" class="column is-3" style="display: none;"><input type="button"
+                onclick="sample6_execDaumPostcode()" value="🔍︎재검색" class="button is-fullwidth is-medium"></div>
+          </div>
+          <div class="columns is-vcentered" style="display: none;" id="sample6_detailAddress">
+            <div class="column is-2">상세 주소<span class="essential">*</span></div>
+            <div class="column is-6"><input type="text" class="input is-medium" placeholder="상세 주소를 입력해주세요"></div>
+            <div class="column is-4"></div>
+          </div>
+          <div class="has-text-centered mt-6"> <button class="button is-large">가입하기</button></div>
+
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+</body>
+
+</html>
