@@ -1,5 +1,6 @@
 const { Schema } = require("mongoose");
 const orderId = require("./types/order-id");
+const shortId = require('./types/short-id');
 
 const orderSchema = new Schema({
   //상품 식별
@@ -59,6 +60,8 @@ const orderSchema = new Schema({
     default: 1,
     // required: true,
   },
+},{
+    collection: "orders"
 });
 
 module.exports = orderSchema;
