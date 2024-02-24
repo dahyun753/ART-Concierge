@@ -11,19 +11,18 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-/* 
     password: {
         type: String,
         //소셜 로그인 넣을 경우에는 false
         required: true,
-    },*/
-    phoneNumber: {
+    },
+    phone: {
         type: String,
         required: true,
     },
     address: {
         type: String,
-        required: true,
+        required: false,
     },
     //관리자 여부
     isAdmin: {
