@@ -2,6 +2,7 @@ const $searchAddress = document.querySelector('#address')
 const $detailAddress = document.querySelector('#sample6_detailAddress')
 const $research = document.querySelector('#research')
 
+
 function sample6_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
