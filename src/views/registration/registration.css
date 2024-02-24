@@ -1,7 +1,5 @@
-*{
-	font-family: 'Noto Sans KR', sans-serif !important;
+section{
   font-weight: 600 !important; /* 굵게 표시하려면 값을 'bold'로 설정 */ 
-
 }
 
 .essential{
