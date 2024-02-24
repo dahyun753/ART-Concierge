@@ -8,13 +8,14 @@ const router = Router();
 
 //주문추가, 주문하기
 router.post('/', async (req, res, next) => {
-    const { item: [{exhibitId, name, quantity, price, image}], address, phone, orderId } = req.body;
+    const { item: [{exhibitId, name, quantity, price, image}], address, phone, orderId, userId } = req.body;
     const orderedDate = new Date(); // 주문일을 현재 날짜로 설정
     console.log(req.body);
     try {
         // 여기에서 주문을 생성하고 데이터베이스에 저장
         const newOrder = await Order.create({
             orderId,
+            userId,
             phone,
             address,
             item: [{
@@ -26,13 +27,16 @@ router.post('/', async (req, res, next) => {
             }],
             orderedDate
         });
-        res.json({ orderId: newOrder.orderId });
+        res.json({ 
+            orderId: newOrder.orderId, 
+            userId: newOrder.userId
+        });
     } catch (err) {
         res.json(err);
     }
 })
 
-//특정 유저 주문조회
+// 주문조회
 router.get('/', async (req, res, next) => {
     try {
         const orders = await Order.find({});
@@ -47,7 +51,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // 주문 정보 수정(배송지, 휴대폰 번호) - 배송 전까지 정보 수정 가능
-router.put('/', async (req, res, next) => {
+router.put('/:orderId', async (req, res, next) => {
     //배송전 주문정보 수정
     const orderId = req.params.orderId;
     const { userAddress, phone } = req.body;
@@ -69,7 +73,7 @@ router.put('/', async (req, res, next) => {
 });
 
 //유저 주문 취소 - 배송 전까지
-router.delete('/', async (req, res, next) => {
+router.delete('/:orderId', async (req, res, next) => {
     const orderId = req.params.orderId;
     try {
         const order = await Order.find({ orderId }).lean();

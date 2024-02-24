@@ -1,18 +1,12 @@
 const { Schema } = require('mongoose');
 const orderId = require('./types/order-id');
+const shortId = require('./types/short-id');
 
 const orderSchema = new Schema({
     //상품 식별
     orderId,
     //주문자 관련 정보 (주문자 이름, 배송지, 전화번호)
-    userId: {
-        type: String,
-        reauired: false,
-    },
-    customerId: {
-        type: Schema.Types.ObjectId,
-        ref: "user",
-    },
+    userId: shortId,
     address: {
         type: String,
         required: true,
