@@ -4,14 +4,13 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index'); // 관리자 페이지 for 전시 관리 
 const adminExhibitsRouter = require('./routes/admin/exhibit'); // 관리자 페이지 for 전시 관리 
 const adminCategoriesRouter = require('./routes/admin/category'); // 관리자 페이지 for 전시 관리 
 const authRouter = require('./routes/auth'); // 로그인/ 회원가입
 const adminRouter = require('./routes/admin');
 var cartsRouter = require("./routes/carts");
-var userMypageRouter = require("./routes/userMypage");
+var usersRouter = require("./routes/users");
 
 const orderRouter = require('./routes/orderRouter'); // 주문
 
@@ -28,13 +27,13 @@ app.use(express.urlencoded({ extended: true })); // 배열을 다룰 수 있는
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+app.use("/", indexRouter);
 app.use('/admin/exhibits', adminExhibitsRouter ); //관리자 라우터 (전시)
 app.use('/admin/categories', adminCategoriesRouter); //관리자 라우터 (카테고리)
 app.use('/auth', authRouter); // 로그인 + 회원가입 
 app.use("/carts", cartsRouter);
-app.use("/user-mypage", userMypageRouter);
+app.use("/users", usersRouter);
 
 app.use('/orders', orderRouter);  // 주문 라우터
 /* 
