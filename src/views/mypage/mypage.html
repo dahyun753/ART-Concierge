@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <title>Document</title>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Font - Noto Sans Korean semibold 600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS & JS -->
+  <script src="../public/loadHTML.js"></script>
+  <link rel="stylesheet" href="../public/Header/header.css" />
+  <link rel="stylesheet" href="../public/Footer/footer.css" />
+  <link rel="stylesheet" href="mypage.css">
+  <script defer src="mypage.js"></script>
+
+
+</head>
+
+<body>
+  <!-- Header -->
+  <script>
+    loadHTML("../public/Header/header.html");
+  </script>
+  <aside>
+    <div class="side-menu">
+      <h3 class="title is-3">My Page</h3>
+      <a class="active has-text-black" href="#">회원 정보 수정</a><br />
+      <a class="has-text-black" href="#">주문 / 배송</a><br />
+      <a class="has-text-black" href="#">장바구니</a>
+    </div>
+  </aside>
+  <section class="section">
+    <div class="container" style="width: 50%;">
+      <h1 class="title has-text-centered">회원 정보</h1>
+      <form>
+        <div style="display: flex; justify-content: flex-end;">
+          <div><span class="essential">*</span> 필수 입력 사항</div>
+        </div>
+        <div class="container mt-1 px-4 py-3"
+          style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;">
+          <div class="columns is-vcentered">
+            <div class="column is-2 ">이메일<span class="essential">*</span></div>
+            <div class="column is-6"><input type="email" class="input is-medium" value="60191645@mju.ac.kr" readonly>
+            </div>
+            <div class="column is-1"></div>
+
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">비밀번호<span class="essential">*</span></div>
+            <div class="column is-6"><input type="password" class="input is-medium" placeholder="비밀번호를 입력해주세요"></div>
+            <div class="column is-1"></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">비밀번호 확인<span class="essential">*</span></div>
+            <div class="column is-6"><input type="password" class="input is-medium" placeholder="비밀번호를 한번 더 입력해주세요">
+            </div>
+            <div class="column is-1"></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">이름<span class="essential">*</span></div>
+            <div class="column is-6"><input type="text" class="input is-medium" value="김민서"></div>
+            <div class="column is-1"></div>
+          </div>
+          <div class="columns is-vcentered">
+            <div class="column is-2">휴대폰<span class="essential">*</span></div>
+            <div class="column is-6"><input type="tel" class="input is-medium" value="01066176739"></div>
+            <div class="column is-1"></div>
+            <div class="column is-3"></div>
+          </div>
+          <div class="columns is-vcentered" id="test">
+            <div class="column is-2">주소<span class="essential">*</span></div>
+            <div class="column is-6" id="address"><input type="text" class="input is-medium" value="전남 여수시 웅천동 지웰3차"
+                readonly></div>
+            <div class="column is-1"></div>
+            <div id="research" class="column is-3"><input type="button" onclick="sample6_execDaumPostcode()"
+                value="🔍︎재검색" class="button is-fullwidth is-medium"></div>
+          </div>
+          <div class="columns is-vcentered" id="sample6_detailAddress">
+            <div class="column is-2">상세 주소<span class="essential">*</span></div>
+            <div class="column is-6"><input type="text" class="input is-medium" value="309동 1404호"></div>
+            <div class="column is-4"></div>
+          </div>
+          <div class="columns is-vcentered" id="sample6_detailAddress">
+            <div class="column is-3"></div>
+            <div class="column is-3 columnhas-text-centered mt-6"> <button class="button is-large">탈퇴 하기</button></div>
+            <div class="column is-3 has-text-centered mt-6"> <button class="button is-large">정보 수정</button></div>
+            <div class="column is-3" </div>
+
+
+            </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <script>
+    loadHTML("../public/Footer/footer.html");
+  </script>
+</body>
+
+</html>
