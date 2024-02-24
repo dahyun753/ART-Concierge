@@ -29,7 +29,7 @@ for (let i = 0; i < numRows; i++) {
                     <a href="${data.infolink}">
                         <img src="${data.img}" alt="">
                         <div class="exhibitTitle"><a href="${data.infolink}"><div>${data.author}: ${data.title}</div></a></div>
-                        <div class="exhibitInfo"><a href="${data.infolink}" class="locations">${data.locations}</a><br><a href="${data.infolink}" class="date">${data.startDate}~${data.endDate}</a></div>
+                        <div class="exhibitInfo" id='listEnd'><a href="${data.infolink}" class="locations">${data.locations}</a><br><a href="${data.infolink}" class="date">${data.startDate}~${data.endDate}</a></div>
                     </a>
                 </div>`;
             columnsContainer.innerHTML += columnContents;
@@ -39,34 +39,3 @@ for (let i = 0; i < numRows; i++) {
     document.getElementById('exhibitionColumns').appendChild(columnsContainer);
 }
 
-
-{/* // let author_title = ['이지연, 현내음: 빛과 향기를 담다', '백주미: COMFORT ZONE', '음하영: MY LITTLE', '송현화: LUXURY PLASTIC : #3 Magic Airs'];
-
-// let image = [
-//     'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLPhlN%2FbtsEyde34xx%2F0pf18lIU5kNPkpWNJ9Bezk%2Fimg.png',
-//     'https://cdn.imweb.me/thumbnail/20240213/d6d9a9f57fc6a.jpg',
-//     'https://static.wixstatic.com/media/ab9818_8f4201bf4ce84390bc0eb2111aa4a5c7~mv2.png/v1/fill/w_714,h_714,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/KakaoTalk_20240215_183219107_01.png',
-//     'http://www.gallerywe.com/wp-content/uploads/2024/02/1.Magic-Airs-130.3x130.jpg'
-// ];
-
-// let infolink = ['https://art-map.co.kr/exhibition/view.php?idx=29641', 'https://art-map.co.kr/exhibition/view.php?idx=29641', 'https://art-map.co.kr/exhibition/view.php?idx=29641', 'https://art-map.co.kr/exhibition/view.php?idx=29641'];
-
-// let locations = ['하람갤러리/서울', '하람갤러리/서울', '스페이스다온/서울', '스페이스다온/서울'];
-
-// let date = ['2024.2.8~2024.5.27', '2024.2.8~2024.5.27', '2024.2.8~2024.5.27', '2024.2.8~2024.5.27'];
-
-// const columnLength = author_title.length;
-// let text = '';
-
-// for (let i = 0; i < columnLength; i++) {
-    text += `<div class="column" id='listEnd'>`;
-    text += `<a href="${infolink[i]}">`;
-    text += `<img src="${image[i]}" alt="">`;
-    text += `<div class="exhibitTitle"><a href="${infolink[i]}"><div>${author_title[i]}</div></a></div>`;
-    text += `<div class="exhibitInfo"><a href="${infolink[i]}" class="locations">${locations[i]}</a><br><a href="${infolink[i]}" class="date">${date[i]}</a></div>`;
-    text += `</a>`;
-    text += `</div>`; // column 요소 닫기
-}
-
-// exhibitionColumns 요소에 삽입
-document.getElementById('exhibitionColumns').innerHTML = text; */}
