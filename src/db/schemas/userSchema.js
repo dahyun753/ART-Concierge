@@ -1,8 +1,6 @@
 const { Schema } = require('mongoose');
-const shortId = require('./types/short-id');
 
 const userSchema = new Schema({
-    shortId,    //사용자 고유번호 -> 고객 식별
     name: {
         type: String,
         required: true,

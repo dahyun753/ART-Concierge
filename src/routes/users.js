@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { User } = require("../db/index.js");
-const shortId = require("../db/schemas/types/short-id");
 const router = Router();
 
 //회원정보 조회
@@ -8,7 +7,7 @@ router.get("/", async (req, res, next) => {
   try {
     const users = await User.find({});
     const userList = users.map((user) => ({
-      shortId: user.shortId,
+      _id: user._id,
       name: user.name,
       email: user.email,
       userAddress: user.userAddress,
@@ -22,10 +21,10 @@ router.get("/", async (req, res, next) => {
 
 //회원정보 수정
 router.put("/", async (req, res, next) => {
-  const { shortId, email, password, phone, userAddress } = req.body;
+  const { _id, email, password, phone, userAddress } = req.body;
   try {
     const updatedUSer = await User.updateOne(
-      { shortId: shortId },
+      { _id: _id },
       {
         $set: {
           email: email,
@@ -43,10 +42,10 @@ router.put("/", async (req, res, next) => {
 
 //회원 탈퇴
 router.delete("/", async (req, res, next) => {
-  const { shortId } = req.body;
+  const { _id } = req.body;
 
   try {
-    const deleteUser = await User.deleteMany({ shortId: { $in: shortId } });
+    const deleteUser = await User.deleteMany({ _id: { $in: _id } });
     res.json("ok");
   } catch (error) {
     res.json(error);
