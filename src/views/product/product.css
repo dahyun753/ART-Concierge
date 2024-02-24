@@ -36,12 +36,10 @@ a{
 .exhibitInfo a{
     padding-top: 0.2rem;
     font-size: 0.7rem;
-    text-align: left;
     color: #717070;
     font-weight: 600;
     text-overflow: ellipsis;
 }
-
 
 .exhibitInfo{
     text-align: left;
