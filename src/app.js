@@ -9,6 +9,9 @@ var usersRouter = require('./routes/users');
 const adminExhibitsRouter = require('./routes/admin/exhibit'); // 관리자 페이지 for 전시 관리 
 const adminCategoriesRouter = require('./routes/admin/category'); // 관리자 페이지 for 전시 관리 
 const authRouter = require('./routes/auth'); // 로그인/ 회원가입
+const adminRouter = require('./routes/admin');
+var cartsRouter = require("./routes/carts");
+var userMypageRouter = require("./routes/userMypage");
 
 var app = express();
 
@@ -28,6 +31,8 @@ app.use('/users', usersRouter);
 app.use('/admin/exhibits', adminExhibitsRouter ); //관리자 라우터 (전시)
 app.use('/admin/categories', adminCategoriesRouter); //관리자 라우터 (카테고리)
 app.use('/auth', authRouter); // 로그인 + 회원가입 
+app.use("/carts", cartsRouter);
+app.use("/user-mypage", userMypageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

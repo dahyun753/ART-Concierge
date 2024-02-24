@@ -4,6 +4,7 @@ const shortId = require('./types/short-id');
 const exhibitSchema = new Schema({
     // 전시(상품) 식별번호
     exhibitId: shortId,
+
     // 전시(상품) 이름
     exhibitName: {
         type: String,
