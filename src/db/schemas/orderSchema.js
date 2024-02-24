@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose'
+const { Schema } = require('mongoose');
 const orderId = require('./types/order-id');
 
 const orderSchema = new Schema({
@@ -7,9 +7,13 @@ const orderSchema = new Schema({
     //주문자 관련 정보 (주문자 이름, 배송지, 전화번호)
     userId: {
         type: String,
-        reauired: true,
+        reauired: false,
     },
-    userAddress: {
+    customerId: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+    },
+    address: {
         type: String,
         required: true,
     },
@@ -19,7 +23,12 @@ const orderSchema = new Schema({
     },
     //상품 관련 정보 (주문한 상품 이름, 상품 수량, 금액, 이미지 url)
     item: [{
-        exhibitName: {
+        exhibitId: {
+            type: String,
+            ref: "Exhibit", // 'Exhibit' 스키마모델을 참조
+            required: true,
+        },
+        name: {
             type: String,
             required: true,
         },
@@ -36,22 +45,19 @@ const orderSchema = new Schema({
             type: [String],
             required: true,
         },
-    }, ],
+    },],
     //주문한 전체 상품 가격
     totalPrice: {
         type: Number,
-        required: true,
+        required: false,
     },
     //주문 날짜
     orderedDate: {
         type: Date,
         default: Date.now,
-    },
-    deliveryStatus: {
-        type: String,
-        default: 1,
-        required: true,
     }
+}, {
+    collection: "orders"
 })
 
 module.exports = orderSchema;

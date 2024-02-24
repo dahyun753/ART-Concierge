@@ -31,7 +31,8 @@ const exhibitSchema = new Schema({
     },
     // 전시(상품) 장르
 	category: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "category",
         required: true,
     },
     // 전시(상품) 작가
@@ -49,6 +50,8 @@ const exhibitSchema = new Schema({
         type: [String],
         required: true,
     },
-})
+},{
+    collection: "exhibits"
+});
 
 module.exports = exhibitSchema;

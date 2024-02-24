@@ -29,6 +29,8 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
     },
+}, {
+    collection: "users"
 });
 
 module.exports = userSchema;

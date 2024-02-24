@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose'
+const { Schema } = require('mongoose');
 const shortId = require('./types/short-id');
 
 const categorySchema = new Schema({
@@ -8,6 +8,8 @@ const categorySchema = new Schema({
         type: String,
         required: true,
     },
+},{
+    collection: "categories"
 });
 
 module.exports = categorySchema;
