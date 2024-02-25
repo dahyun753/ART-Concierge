@@ -11,6 +11,7 @@ const authRouter = require('./routes/auth'); // 로그인/ 회원가입
 const adminRouter = require('./routes/admin');
 var cartsRouter = require("./routes/carts");
 var usersRouter = require("./routes/users");
+const adminOrderRouter = require('./routes/admin/adminOrder');  // 관리자 페이지 for 주문
 
 const orderRouter = require('./routes/orderRouter'); // 주문
 
@@ -36,6 +37,8 @@ app.use("/carts", cartsRouter);
 app.use("/users", usersRouter);
 
 app.use('/orders', orderRouter);  // 주문 라우터
+app.use('/admin/orders', adminOrderRouter); //관리자 라우터 (주문)
+
 /* 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
