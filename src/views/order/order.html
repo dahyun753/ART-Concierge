@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <title>Document</title>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Font - Noto Sans Korean semibold 600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS & JS -->
+  <script src="../public/loadHTML.js"></script>
+  <link rel="stylesheet" href="../public/Header/header.css" />
+  <link rel="stylesheet" href="../public/Footer/footer.css" />
+  <link rel="stylesheet" href="order.css">
+  <script defer src="order.js"></script>
+</head>
+
+<body>
+  <!-- Header -->
+  <script>
+    loadHTML("../public/Header/header.html");
+  </script>
+  <main>
+    <section class="section">
+      <div class="side-menu">
+        <h3 class="title is-3">My Page</h3>
+        <a class="has-text-black" href="#">회원 정보 수정</a><br />
+        <a class="active has-text-black" href="#">주문 / 배송</a><br />
+        <a class="has-text-black" href="#">장바구니</a>
+      </div>
+      <div class="container">
+        <h1 class="title has-text-centered">Your order summary</h1>
+        <div class="columns is-centered my-6">
+          <div class="tabs is-toggle is-toggle-rounded">
+            <ul>
+              <li class="is-active">
+                <a style="background-color: #171717;">
+                  <span>Current Order</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span>&nbsp;&nbsp;Past Order&nbsp;&nbsp;</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="columns my-5">
+          <div class="column is-12">
+            <table style="border-collapse: collapse; width: 100%;" class="table is-striped">
+              <thead>
+                <tr>
+                  <th  width: 200px;"></th>
+                  <th  width: 350px;">상품 이름</th>
+                  <th>주문 일자</th>
+                  <th>주문 금액<br></th>
+                  <th  style="text-align:center">주문 상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="height:130px;">
+                  <td >
+                    <a>
+                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
+                    </a>
+                  </td>
+                  <td >상품 이름</td>
+                  <td >주문 일자</td>
+                  <td >
+                    주문 금액<br>
+                    수량 : 5개
+                  </td>
+                  <td>
+                    <div class="container has-text-centered">
+                      배송 준비중<br>
+                      <button class="button">주문 취소</button>
+                    </div>
+                  </td>
+                </tr>
+                
+                <tr style="height:130px;">
+                  <td >
+                    <a>
+                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
+                    </a>
+                  </td>
+                  <td >상품 이름</td>
+                  <td >주문 일자</td>
+                  <td >
+                    주문 금액<br>
+                    수량 : 5개
+                  </td>
+                  <td>
+                    <div class="container has-text-centered">
+                      배송 준비중<br>
+                      <button class="button">주문 취소</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr style="height:130px;">
+                  <td >
+                    <a>
+                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
+                    </a>
+                  </td>
+                  <td >상품 이름</td>
+                  <td >주문 일자</td>
+                  <td >
+                    주문 금액<br>
+                    수량 : 5개
+                  </td>
+                  <td>
+                    <div class="container has-text-centered">
+                      배송 준비중<br>
+                      <button class="button">주문 취소</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr style="height:130px;">
+                  <td >
+                    <a>
+                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
+                    </a>
+                  </td>
+                  <td >상품 이름</td>
+                  <td >주문 일자</td>
+                  <td >
+                    주문 금액<br>
+                    수량 : 5개
+                  </td>
+                  <td>
+                    <div class="container has-text-centered">
+                      배송 준비중<br>
+                      <button class="button">주문 취소</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>
