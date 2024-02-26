@@ -10,10 +10,10 @@ const indexRouter = require('./routes/index'); // 관리자 페이지 for 전시
 const adminExhibitsRouter = require('./routes/admin/exhibit'); // 관리자 페이지 for 전시 관리 
 const adminCategoriesRouter = require('./routes/admin/category'); // 관리자 페이지 for 전시 관리 
 const authRouter = require('./routes/auth'); // 로그인/ 회원가입
-const adminRouter = require('./routes/admin');
 var cartsRouter = require("./routes/carts");
 var usersRouter = require("./routes/users");
 const exhibitRouter = require('./routes/exhibits')
+const adminOrderRouter = require('./routes/admin/adminOrder');  // 관리자 페이지 for 주문
 
 const orderRouter = require('./routes/orderRouter'); // 주문
 
@@ -53,6 +53,8 @@ app.use("/carts", cartsRouter);
 app.use("/users", usersRouter);
 app.use("/exhibits", exhibitRouter);// 전시보기 
 app.use('/orders', orderRouter);  // 주문 라우터
+app.use('/admin/orders', adminOrderRouter); //관리자 라우터 (주문)
+
 /* 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

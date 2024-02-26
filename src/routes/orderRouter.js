@@ -43,7 +43,8 @@ router.get('/', async (req, res, next) => {
             // orderId: order.orderId,
             _id: order._id,
             item: order.item,
-            userName: order.userName
+            userName: order.userName,
+            deliveryStatus: deliveryStatus
         }));
         res.json(orderList);
     } catch (err) {
@@ -60,11 +61,11 @@ router.put('/:_id', async (req, res, next) => {
         console.log(order);
         const deliveryStatus = order[0].deliveryStatus;
         if (deliveryStatus == 1) {
-            await Order.updateOne(
-                { "item.exhibitId": exhibitId },
-                { $set: { "item.$[].exhibitName": exhibitName, userAddress, phone, userName } }
-            );
+            await Order.updateMany(
+                { _id: _id },
+                { userAddress, phone, userName }).lean();
             res.send("유저 주문 정보가 수정되었습니다.");
+            console.log(userName);
         } else {
             res.send("이미 배송중인 상품입니다.");
         }
