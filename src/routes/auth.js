@@ -20,7 +20,8 @@ router.post('/', passport.authenticate('local', { session: false }), (req, res, 
     // 유저 토큰 생성 및 쿠키 전달
     setUserToken(res, req.user);
     console.log('로그인 성공!')
-    res.redirect('/'); // 쿠키를 전달 받아 토큰을 브라우져에 저장
+    // res.redirect('/'); // 쿠키를 전달 받아 토큰을 브라우져에 저장
+    res.status(204).send()
     });
 
 // 로그아웃 
