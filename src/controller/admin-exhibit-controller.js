@@ -1,4 +1,4 @@
-const adminService = require('../services/admin-service');
+const a_exhibitService = require('../services/admin-exhibit-service');
 
 // 전시 추가 (관리자 페이지)
 async function postExhibit(req, res, next) {
@@ -14,7 +14,7 @@ async function postExhibit(req, res, next) {
             information,
             image } = req.body;
     
-        const exhibit = await adminService.addExhibit({
+        const exhibit = await a_exhibitService.addExhibit({
             exhibitName, 
             exhibitAddress, 
             price, 
@@ -36,7 +36,7 @@ async function postExhibit(req, res, next) {
 // 전시 리스트 조회 (작가, 이미지, 전시제목, 날짜, 카테고리만) + 카테고리도 함께 
 async function getExhibitList(req, res, next) {
     try{
-        const contents = await adminService.searchExhibit();
+        const contents = await a_exhibitService.searchExhibit();
         res.status(201).json( contents );
     } catch (err) {
         // res.status(err.statusCode || 500).json(message: err.message );
@@ -48,7 +48,7 @@ async function getExhibitList(req, res, next) {
 async function getExhibitById(req, res, next) {
     try{
         const { exhibitId } = req.params
-        const content = await adminService.searchById(exhibitId);
+        const content = await a_exhibitService.searchById(exhibitId);
         res.status(201).json( content );
     } catch (err) {
         // res.status(err.statusCode || 500).json(message: err.message );
@@ -71,7 +71,7 @@ async function putExhibit(req, res, next) {
             information,
             image } = req.body;
 
-        const content = await adminService.updateExhibit( exhibitId ,{
+        const content = await a_exhibitService.updateExhibit( exhibitId ,{
             exhibitName, 
             exhibitAddress, 
             price, 
@@ -93,7 +93,7 @@ async function putExhibit(req, res, next) {
 async function deleteExhibit(req, res, next) {
     try{
         const { exhibitId } = req.params
-        const content = await adminService.deleteExhibit(exhibitId);
+        const content = await a_exhibitService.deleteExhibit(exhibitId);
         res.status(201).json( content );
     } catch (err) {
         // res.status(err.statusCode || 500).json(message: err.message );

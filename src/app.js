@@ -7,8 +7,7 @@ const session = require('express-session');
 const passport = require('passport'); 
 
 const indexRouter = require('./routes/index'); // 관리자 페이지 for 전시 관리 
-const adminExhibitsRouter = require('./routes/admin-Router'); // 관리자 페이지 for 전시 관리 
-const adminCategoriesRouter = require('./routes/admin/category'); // 관리자 페이지 for 전시 관리 
+const adminRouter = require('./routes/admin-Router'); // 관리자 페이지 for 전시 관리 
 const authRouter = require('./routes/auth'); // 로그인/ 회원가입
 var cartsRouter = require("./routes/carts");
 var usersRouter = require("./routes/users");
@@ -46,8 +45,7 @@ app.use(getUserFromJWT); // 로그인을 위한 미들웨어
 
 
 app.use("/", indexRouter);
-app.use('/admin/exhibits', adminExhibitsRouter ); //관리자 라우터 (전시)
-app.use('/admin/categories', adminCategoriesRouter); //관리자 라우터 (카테고리)
+app.use('/admin', adminRouter ); //관리자 라우터 (전시 + 카테고리)
 app.use('/auth', authRouter); // 로그인 + 회원가입 
 app.use("/carts", cartsRouter);
 app.use("/users", usersRouter);
