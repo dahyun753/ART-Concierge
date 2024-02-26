@@ -7,7 +7,7 @@ const session = require('express-session');
 const passport = require('passport'); 
 
 const indexRouter = require('./routes/index'); // 관리자 페이지 for 전시 관리 
-const adminExhibitsRouter = require('./routes/admin/exhibit'); // 관리자 페이지 for 전시 관리 
+const adminExhibitsRouter = require('./routes/admin-Router'); // 관리자 페이지 for 전시 관리 
 const adminCategoriesRouter = require('./routes/admin/category'); // 관리자 페이지 for 전시 관리 
 const authRouter = require('./routes/auth'); // 로그인/ 회원가입
 var cartsRouter = require("./routes/carts");
