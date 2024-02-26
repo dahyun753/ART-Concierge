@@ -1,3 +1,8 @@
+.exhibition-list {
+    margin: 0 3rem 0 3rem;
+}
+
+
 .banner{
     height: 8rem;
     display: flex;
@@ -12,6 +17,7 @@
 
 .column {
     text-align: center;
+    padding: 1.5rem;
   }
 
 .columns{
