@@ -26,7 +26,7 @@ router.get('/', async(req, res, next) => {
 router.get('/:exhibitId', async(req, res, next) => {
     try {
         const { exhibitId } = req.params;
-        const exhibits = await Exhibit.findOne({exhibitId});
+        const exhibits = await Exhibit.findOne({_id: exhibitId});
         res.json(exhibits);
     }   catch (err) {
         res.json(err)
@@ -38,7 +38,7 @@ router.put('/:exhibitId', async(req, res, next) => {
         const { exhibitId } = req.params;
         const {exhibitName, exhibitAddress, price, startDate, endDate, category,  author, information,image } = req.body;
 
-        const exhibit = await Exhibit.updateOne({exhibitId},{exhibitName, exhibitAddress, price, startDate, endDate, category,  author, information,image });
+        const exhibit = await Exhibit.updateOne({_id: exhibitId},{exhibitName, exhibitAddress, price, startDate, endDate, category,  author, information,image });
         res.send('OK');
     } catch (err) {
         res.json(err)
@@ -48,7 +48,7 @@ router.put('/:exhibitId', async(req, res, next) => {
 router.delete('/:exhibitId', async(req, res, next) => {
     try{
         const { exhibitId } = req.params;
-        await Exhibit.deleteOne({exhibitId });
+        await Exhibit.deleteOne({_id: exhibitId });
     
         res.send('OK');
     } catch (err) {

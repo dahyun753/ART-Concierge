@@ -1,14 +1,14 @@
 const { Schema } = require("mongoose");
-const orderId = require("./types/order-id");
-const shortId = require('./types/short-id');
 
 const orderSchema = new Schema({
-  //상품 식별
-  orderId,
   //주문자 관련 정보 (주문자 이름, 배송지, 전화번호)
-  userId: {
+  // userId: {  // 이게 왜 필요??????????🔥
+  //   type: String,
+  //   // required: true,
+  // },
+  userName:{
     type: String,
-    // required: true,
+    required: true,
   },
   userAddress: {
     type: String,
@@ -22,7 +22,7 @@ const orderSchema = new Schema({
   item: [
     {
       exhibitId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: "Exhibit", // 'Exhibit' 스키마모델을 참조
         required: true,
       },

@@ -25,7 +25,7 @@ router.get('/', async(req, res, next) => {
 router.get('/:categoryId', async(req, res, next) => {
     try {
         const { categoryId } = req.params;
-        const category = await Exhibit.findOne({categoryId});
+        const category = await Exhibit.findOne({_id : categoryId});
         res.json(category);
     }   catch (err) {
         res.json(err)
@@ -37,7 +37,7 @@ router.put('/:categoryId', async(req, res, next) => {
         const { categoryId } = req.params;
         const { category } = req.body;
 
-        const newcategory = await Category.updateOne({categoryId},{ category });
+        const newcategory = await Category.updateOne({_id : categoryId},{ category });
         res.send('OK');
     } catch (err) {
         res.json(err)
@@ -47,7 +47,7 @@ router.put('/:categoryId', async(req, res, next) => {
 router.delete('/:categoryId', async(req, res, next) => {
     try{
         const { categoryId } = req.params;
-        await Category.deleteOne({ categoryId });
+        await Category.deleteOne({ _id : categoryId  });
     
         res.send('OK');
     } catch (err) {
