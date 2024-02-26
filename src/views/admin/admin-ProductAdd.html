@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Collection</title>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Font - Noto Sans Korean semibold 600 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS & JS -->
+    <script src="../public/loadHTML.js"></script>
+    <link rel="stylesheet" href="../public/Header/header.css" />
+    <link rel="stylesheet" href="../public/Footer/footer.css" />
+
+</head>
+<body>
+    <!-- Header -->
+    <script>
+      loadHTML("../public/Header/header.html");
+    </script>
+    
+    <main class="main">
+      <aside>
+        <div class="side-menu" style="
+          float: left;
+          position: fixed;
+          top: 100px;
+          margin-top : 120px;
+          margin-left : 250px;
+          width: 200px; 
+        ">
+          <h3 class="title is-3">Admin</h3>
+          <a class="active has-text-black" href="#" style="font-weight: bold;">카테고리 관리</a><br />
+          <a class="has-text-black" href="#">상품 관리</a><br/>
+          <a class="has-text-black" href="#">주문 관리</a>
+        </div>
+      </aside>
+      <section class="section">
+        <div class="container" style="width: 50%;">
+          <h1 class="title has-text-centered">상품 추가</h1>
+          <form>
+            <div class="container mt-1 px-4 py-3"
+              style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;"> 
+              <div class="columns is-vcentered">
+                <div class="column is-2">카테고리</div>
+                <div class="column is-6">
+                  <div class="select is-hovered">
+                    <select>
+                      <option>사진</option>
+                      <option>그림</option>
+                      <option>조각</option>
+                      <option>체험형</option>
+                    </select>
+                  </div>
+                    <!-- <div class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                            <span>종류</span>
+                            <span class="icon is-small">
+                              <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                          </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                          <div class="dropdown-content">
+                            <a href="#" class="dropdown-item">
+                              사진
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              그림
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              체험형
+                            </a>
+                            <a href="#" class="dropdown-item">
+                              조각
+                            </a>
+                          </div>
+                        </div>
+                      </div> -->
+                </div>
+                <div class="column is-1"></div>
+              </div>
+              
+
+              <div class="columns is-vcentered">
+                <div class="column is-2 ">전시회 제목</div>
+                <div class="column is-6"><input type="email" class="input is-medium" value="">
+                </div>
+              </div>
+              
+              <div class="columns is-vcentered">
+                <div class="column is-2">작가 이름</div>
+                <div class="column is-6"><input type="text" class="input is-medium" value=""></div>
+                <div class="column is-1"></div>
+              </div>
+              <div class="columns is-vcentered">
+                <div class="column is-2">전시 장소</div>
+                <div class="column is-6"><input type="tel" class="input is-medium" value=""></div>
+                <div class="column is-1"></div>
+                <div class="column is-3"></div>
+              </div>
+              <div class="columns is-vcentered" id="test">
+                <div class="column is-2">가격</div>
+                <div class="column is-6" id="address"><input type="text" class="input is-large" value=""></div>
+              </div>
+              <div class="columns is-vcentered" id="sample6_detailAddress">
+                <div class="column is-2">전시회 설명</div>
+                <div class="column is-6"><input type="text" class="input is-medium" value=""></div>
+                <div class="column is-4"></div>
+              </div>
+              <div class="columns is-vcentered" id="sample6_detailAddress">
+                <div class="column is-2">기간</div>
+                <div class="column is-6"><input type="text" class="input is-medium" value=""></div>
+                <div class="column is-4"></div>
+              </div>
+
+              <div class="columns is-vcentered" id="imageUpload">
+                <div class="column is-2">이미지 업로드</div>
+                <div class="column is-6"><input type="file" id="uploadInput" accept="image/*"></div>
+                <div class="column is-4"><img id="previewImage" src="#" alt="미리보기 이미지" style="width: 200px;
+                  height: auto;
+                  margin: 20px auto;
+                  cursor: pointer;"></div>
+              </div>
+              
+              <div class="columns is-vcentered" id="sample6_detailAddress">
+                <div class="column is-3"></div>
+                <div class="column is-3 columnhas-text-centered mt-6"> <button class="button is-large">추가</button></div>
+                <div class="column is-3 has-text-centered mt-6"> <button class="button is-large">취소</button></div>
+                </div>
+    
+          </form>
+        </div>
+      </section>
+    </main>
+    <script>
+      document.getElementById('uploadInput').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var preview = document.getElementById('previewImage');
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById('previewImage').addEventListener('click', function() {
+        window.open(this.src, '_blank', 'width=800, height=600');
+      });
+    </script>
+</html>
