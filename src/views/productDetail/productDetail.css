@@ -34,7 +34,7 @@
     justify-content: center;
 }
 
-.author-container {
+.container {
         display: flex;
         align-items: center;
         margin: 0 auto;
@@ -45,28 +45,6 @@
         font-size: 1rem !important;
         line-height: 1.5rem !important;
         float: left;
-}
-
-.author-header {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0px;
-    flex-direction: column;
-    max-width: 100%;
-    font-family: sans-serif !important;
-    font-size: 1rem !important;
-    line-height: 1.5rem !important;
-    float: left;
-    margin-top: 30px;
-}
-
-.author-image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    margin-right: 10px;
 }
 
 .author-description {
@@ -80,11 +58,6 @@
     line-height: 2rem;
     text-align: left;
     width: 100%;
-}
-
-.author-name {
-    float: left;
-    margin-top: 13px;
 }
 
 .content {
@@ -125,4 +98,8 @@ ul, ol {
     display: flex; /* Flexbox 사용 */
     justify-content: space-between; /* 요소들을 가로로 고르게 분배 */
     align-items: center; /* 요소들을 세로로 가운데 정렬 */
+}
+
+.art-description {
+    
 }

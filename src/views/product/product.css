@@ -1,3 +1,8 @@
+.exhibition-list {
+    margin: 0 3rem 0 3rem;
+}
+
+
 .banner{
     height: 8rem;
     display: flex;
@@ -12,6 +17,7 @@
 
 .column {
     text-align: center;
+    padding: 1.5rem;
   }
 
 .columns{
@@ -27,6 +33,7 @@
     color: black;
     font-weight: 700;
     text-overflow: ellipsis;
+    overflow:hidden;
 }
 
 a{
@@ -36,12 +43,10 @@ a{
 .exhibitInfo a{
     padding-top: 0.2rem;
     font-size: 0.7rem;
-    text-align: left;
     color: #717070;
     font-weight: 600;
     text-overflow: ellipsis;
 }
-
 
 .exhibitInfo{
     text-align: left;
