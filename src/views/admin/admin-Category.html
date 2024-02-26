@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Collection</title>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Font - Noto Sans Korean semibold 600 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS & JS -->
+    <link rel="stylesheet" href="./admin-Category.css" />
+    <script src="../public/loadHTML.js"></script>
+    <link rel="stylesheet" href="../public/Header/header.css" />
+    <link rel="stylesheet" href="../public/Footer/footer.css" />
+
+</head>
+<body>
+  <!-- Header -->
+  <script>
+    loadHTML("../public/Header/header.html");
+  </script>
+  
+  <main class="main">
+    <aside>
+      <div class="side-menu" style="
+        float: left;
+        position: fixed;
+        top: 100px;
+        margin-top : 120px;
+        margin-left : 250px;
+        width: 200px; 
+      ">
+        <h3 class="title is-3">Admin</h3>
+        <a class="active has-text-black" href="./admin-Category.html" style="font-weight: bold;">카테고리 관리</a><br />
+        <a class="has-text-black" href="./admin-Product.html">상품 관리</a><br/>
+        <a class="has-text-black" href="./admin-Order.html">주문 관리</a>
+      </div>
+    </aside>
+    <section class="section" style="font-weight: 600 !important;">
+      <div class="container" style="width: 50%;">
+        <h1 class="title has-text-centered">카테고리 관리</h1>
+        <div style="display: flex; justify-content: flex-end;">
+          <div><button onclick="category_Add()" id="category_Add">추가</button></div>
+        </div>
+        <table class='table' style="width: 100%;">
+          <thead>
+            <tr>
+              <th>카테고리명</th>
+              <th>카테고리 개수</th>
+              <th>수정 & 삭제</th>
+            </tr>
+          </thead>
+          <!-- 카테고리 목록이 들어갈 부분 -->
+          <tbody id="category_List">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 카테고리 추가 modal -->
+    <div class="container" id="app">
+      <div id="add_Modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">카테고리 추가</p>
+            </header>
+            <section class="modal-card-body">
+              <div class="control">
+                  <input class="input add_Input" type="text" placeholder="카테고리를 입력하세요">
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button id="submit_Add" onclick="category_Submit(this.id)" class="button is-success">확인</button>
+              <button id="cancel_Add" onclick="category_Cancel(this.id)" class="button">취소</button>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- 카테고리 수정 modal -->
+    <div class="container" id="app">
+      <div id="modify_Modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">카테고리 수정</p>
+            </header>
+            <section class="modal-card-body">
+              <div class="control">
+                  <input class="input modify_Input" type="text" placeholder="카테고리를 입력하세요">
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button id="submit_Modify" onclick="category_Submit(this.id)" class="button is-success">확인</button>
+              <button id="cancel_Modify" onclick="category_Cancel(this.id)" class="button">취소</button>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </main>
+
+  <script>
+    loadCategory();
+    
+    // 페이지 로드 시 카테고리 목록 렌더링
+    function loadCategory() {
+      // 카테고리 데이터 가져오기(카테고리ID, 카테고리명, 카테고리 갯수)
+      let data = [[1, '카테고리1', 64], [2, '카테고리2', 13], [3, '카테고리3', 35], [4, '카테고리4', 51]];
+      let table_Body = document.querySelector("#category_List");
+
+      data.forEach(category => {
+        table_Body.innerHTML += `
+          <tr>
+            <td>${category[1]}</td>
+            <td>${category[2]}</td>
+            <td>
+              <button id="${category[0]}" onclick="category_Modify(this)">수정</button>
+              <button id="${category[0]}" onclick="category_Delete(this)">삭제</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // 카테고리 추가 버튼
+    function category_Add() {
+      // 클릭 시 모달 활성화
+      let modal = document.getElementById('add_Modal');
+      modal.className = "modal is-active";  
+    }
+
+    // 카테고리 수정 버튼
+    function category_Modify(element) {
+      // 모달 활성화
+      let modal = document.getElementById('modify_Modal');
+      modal.className = "modal is-active";  
+
+      // 카테고리 ID
+      let categoryId = element.id;
+      let categoryName = element.parentNode.previousElementSibling.previousElementSibling;
+
+      console.log(categoryId);
+      console.log(categoryName);
+
+      let input_Modify = document.querySelector('.modify_Input');
+      
+      input_Modify.placeholder = categoryName.textContent;
+      input_Modify.id = categoryId;
+    }
+
+    // 카테고리 삭제 버튼
+    function category_Delete(element) {
+      const isConfirmed = confirm('삭제하시겠습니까?');
+
+      if (isConfirmed) {
+        let categoryId = element.id;
+        alert(`삭제 : ${categoryId}`);
+        // 삭제 API
+      }
+    }
+
+    // 모달의 확인 버튼
+    function category_Submit(id) {
+      let input_Data;
+      let modal;
+      if (id === "submit_Add") {
+        input_Data = document.querySelector('.input.add_Input').value;
+        alert("추가할 카테고리 : " + input_Data);
+        document.querySelector('.input.add_Input').value = "";
+        modal = document.getElementById('add_Modal');
+      } else if(id === 'submit_Modify') {
+        // 수정할 내용
+        input_Data = document.querySelector('.input.modify_Input').value;
+        // 카테고리 ID
+        input_Id = document.querySelector('.input.modify_Input').id;
+        // 기존 카테고리명
+        old_Category = document.querySelector('.input.modify_Input').placeholder;
+
+        alert(`${input_Data}, ${input_Id}, ${old_Category}`);
+        document.querySelector('.input.modify_Input').value = "";
+        modal = document.getElementById('modify_Modal');
+      }
+      modal.className = 'modal';
+    }
+
+    // 모달의 취소 버튼
+    function category_Cancel(id) {
+      // 모달 비활성화
+      let modal;
+      if (id === "cancel_Add") {
+        modal = document.getElementById('add_Modal');
+      } else if(id === 'cancel_Modify') {
+        modal = document.getElementById('modify_Modal');
+      }
+      modal.className = 'modal';
+    }
+  </script>
+
+</html>
