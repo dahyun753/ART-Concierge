@@ -10,7 +10,6 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
   <!-- Bulma CSS -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
   <!-- Font Awesome -->
@@ -22,12 +21,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
   <!-- Header, Footer CSS & JS -->
-  <script src="../public/loadHTML.js"></script>
+  <script src="../public/loadHTML.js"></script>\
+  <script src="login.js" defer type="module"></script>
   <link rel="stylesheet" href="../public/Header/header.css" />
   <link rel="stylesheet" href="../public/Footer/footer.css" />
+  <link rel="stylesheet" href="./login.css"
+
+  <!-- axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
+  <div class="modal rounded">
+    <div class="modal-background"></div>
+    <div class="modal-content has-text-centered py-5">
+        <p>로그인 정보를 확인해주세요</p><br/>
+        <button class="button" id="closeModal">확인</button>
+    </div>
+  </div>
+
   <script>
     loadHTML("../public/Header/header.html");
   </script>
@@ -35,7 +47,7 @@
   <main>
     <div class="section">
       <div class="container" style="width: 30%">
-        <form>
+        <form id="loginForm">
           <div class="has-text-centered">
             <img src="./assets/apple.png" width="80px" height="80px" class="has-text-centered ">
           </div>
@@ -43,15 +55,15 @@
 
           <div class="control has-text-weight-semibold">
             <label>
-              id
-              <input class="input mt-1" type="text">
+              email
+              <input id="email" class="input mt-1" type="email">
             </label>
           </div>
 
           <div class="control mt-5 has-text-weight-semibold">
             <label>
               Password
-              <input class="input mt-1" type="password">
+              <input name="password" class="input mt-1" type="password">
             </label>
           </div>
 
@@ -60,20 +72,16 @@
               in</button>
           </div>
           <div class="has-text-centered mt-5">
-            <p>회원이 아니세요? <a class="is-link">회원 가입하기</a></p>
+            <p>회원이 아니세요? <a class="is-link" id="registrationButton">회원 가입하기</a></p>
           </div>
-
-
         </form>
       </div>
     </div>
   </main>
-  
+
   <script>
     loadHTML("../public/Footer/footer.html");
   </script>
 </body>
 
 </html>
-
-
