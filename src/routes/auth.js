@@ -30,8 +30,7 @@ router.get('/logout', (req, res, next) => {
         maxAge: 0,
     })
     console.log('로그아웃 성공!')
-    // req.logout();
-    res.redirect('/');
+    res.status(204).send()
     });
 
 
