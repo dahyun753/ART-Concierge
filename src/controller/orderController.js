@@ -21,7 +21,7 @@ const orderController = {
             console.log(req.body);
             res.json({
                 _id: newOrder._id,
-                userName: newOrder.name
+                name: newOrder.name
             });
         } catch (err) {
             res.json(err);

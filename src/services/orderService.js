@@ -25,7 +25,7 @@ const orderService = {
             const orderList = orders.map((order) => ({
                 _id: order._id,
                 item: order.item,
-                userName: order.name,
+                name: order.name,
                 deliveryStatus: order.deliveryStatus
             }));
             return orderList;
