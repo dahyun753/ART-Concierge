@@ -61,7 +61,6 @@ router.post('/join', async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({
-            message: '빈칸 없이 다 채우세요!',
             error: err.message
         });
     }
