@@ -11,7 +11,11 @@ router.get('/check-email', authController.uniqueEmail);
 // router.post('/', authController.loginUser);
 router.post('/find-password', authController.findPassword);
 
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res, next) => {
+    setUserToken(res, req.user); //토큰 생성
+});
 
 // 로그인 3계층 분리 ... 보류
 router.post('/', passport.authenticate('local', { session: false }), (req, res, next) => {
