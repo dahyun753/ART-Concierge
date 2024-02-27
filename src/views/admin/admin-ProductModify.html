@@ -103,18 +103,13 @@
                 <div class="column is-4"></div>
               </div>
 
-              <div class="columns is-vcentered" id="imageUpload" style="height: 300px;">
+              <div class="columns is-vcentered" id="imageUpload">
                 <div class="column is-2">이미지 업로드</div>
-                <div class="column is-6" id="image-upload" onclick="openFileUploader()" style="border: 2px dashed #ccc;
-                padding: 20px;
-                text-align: center;
-                cursor: pointer;
-                margin-right: 60px;">
-                  이미지를 업로드하세요.
-                  <input id="input_Image" type="file" id="upload" accept="image/*" style="display: none;">
+                <div class="column is-6" id="uploadDiv" style="border: 2px dashed #ccc; padding: 20px; text-align: center;height: 300px;">
+                  <input onchange="uploadImage()" type="file" id="uploadInput" accept="image/*" style="display: none;">
+                  <label for="uploadInput">이미지 업로드</label>
+                  <div id="previewImage" style="margin-top: 20px;"></div>
                 </div>
-                
-                <img id="image-preview" src="#" alt="미리보기" style="margin-top: 20px; max-width: 300px;">
               </div>
               
               <div class="columns is-vcentered">
@@ -140,8 +135,10 @@
           dateFormat: "Y-m-d", // 선택된 날짜의 형식
           onChange: function(selectedDates, dateStr, instance) {
             let startDate = selectedDates[0].toISOString().split('T')[0];
-            let endDate = selectedDates[1].toISOString().split('T')[0];
+            // let endDate = selectedDates[1].toISOString().split('T')[0];
+            let endDate = selectedDates[1] ? selectedDates[1].toISOString().split('T')[0] : "";
             let selectedRange = startDate + " ~ " + endDate;
+            console.log(`${selectedDates} / ${startDate} / ${endDate}`);
 
             let input_DatePicker = document.getElementById('datePicker')
             input_DatePicker.textContent = selectedRange;
@@ -190,12 +187,10 @@
         let price_Value = document.getElementById('input_Price').value;
         let description_Value = document.getElementById('input_Description').value;
         let duration_Value = document.getElementById('datePicker').value;
-        let img_Value = document.getElementById('input_Image');
-
-        let file_Image = img_Value.files[0];
+        let img_Value = document.getElementById('previewImage').querySelector('img').src;
 
         // 상품 수정 API
-        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${file_Image}`);
+        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
 
         // 상품 페이지로 이동
         moveToProduct();
@@ -207,24 +202,23 @@
         window.location.href = product_Page;
       }
 
-      function openFileUploader() {
-        document.getElementById('upload').click();
-      }
+      // 이미지 업로드
+      function uploadImage() {
+        const file = document.getElementById('uploadInput').files[0];
+        console.log(file);
+        const reader = new FileReader();
 
-      document.getElementById('upload').addEventListener('change', function() {
-        previewImage(this);
-      });
+        reader.onload = function(e) {
+            const previewImageDiv = document.getElementById('previewImage');
+            previewImageDiv.innerHTML = ''; // 이미지를 여러 번 업로드할 때 기존 이미지 제거
 
-      function previewImage(input) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
+            const imageElement = document.createElement('img');
+            imageElement.src = e.target.result;
+            imageElement.style.maxWidth = '200px'; // 이미지 사이즈 조절
+            previewImageDiv.appendChild(imageElement);
+        };
 
-          reader.onload = function(e) {
-            document.getElementById('image-preview').setAttribute('src', e.target.result);
-          }
-
-          reader.readAsDataURL(input.files[0]);
-        }
+        reader.readAsDataURL(file);
       }
     </script>
 </html>
