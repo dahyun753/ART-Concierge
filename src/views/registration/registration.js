@@ -1,6 +1,29 @@
 const $searchAddress = document.querySelector('#address')
 const $detailAddress = document.querySelector('#sample6_detailAddress')
 const $research = document.querySelector('#research')
+const $registrationForm = document.querySelector('#registrationForm')
+
+$registrationForm.onsubmit = async function (event){
+  event.preventDefault();
+  const email = this.email.value;
+  const password = this.password.value;
+  const name = this.name.value;
+  const phone = this.phone.value;
+  const userAddress = this.address.value;
+  const detailAddress = this.detailAddress.value;
+
+  console.log(detailAddress);
+
+  try{
+    const request = await axios.post('/auth/join',{email,password,name,phone,userAddress,detailAddress});
+    console.log('Server Response:', request.data);
+    console.log('Status Code:', request.status);
+  }
+
+  catch(error){
+    console.error('로그인 실패:', error.request.data.message);
+  }
+}
 
 function sample6_execDaumPostcode() {
   new daum.Postcode({
@@ -36,7 +59,7 @@ function sample6_execDaumPostcode() {
         }
 
       } 
-      $searchAddress.innerHTML = '<input type="text" id="sample6_address" class="input is-medium" readonly>'
+      $searchAddress.innerHTML = '<input type="text" id="sample6_address" class="input is-medium" name="address" readonly>'
       $detailAddress.style.display = 'flex';
       $research.style.display = 'block';
       document.getElementById("sample6_address").value = addr;
