@@ -28,6 +28,21 @@ async function postUser(req, res, next) {
     }
 }
 
+// 회원 가입 
+async function findPassword(req, res, next) {
+    try {
+        const { email } = req.body;
+
+        await authService.sendMail(email);
+
+        res.status(204).json();
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+
+
 // 로그인
 // async function loginUser(req, res, next) {
 //     try {
@@ -42,4 +57,4 @@ async function postUser(req, res, next) {
 // }
 
 
-module.exports = { postUser, uniqueEmail };
+module.exports = { postUser, uniqueEmail, findPassword };

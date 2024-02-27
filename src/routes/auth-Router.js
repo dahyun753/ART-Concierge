@@ -1,6 +1,7 @@
 const { Router } = require('express');
-const authController = require('../controller/auth-Controller');
 const { setUserToken } = require('../utils/jwt'); // JWT 사용
+
+const authController = require('../controller/auth-Controller');
 const passport = require('passport');
 
 const router = Router();
@@ -8,6 +9,9 @@ const router = Router();
 router.post('/join', authController.postUser);
 router.get('/check-email', authController.uniqueEmail);
 // router.post('/', authController.loginUser);
+router.post('/find-password', authController.findPassword);
+
+
 
 // 로그인 3계층 분리 ... 보류
 router.post('/', passport.authenticate('local', { session: false }), (req, res, next) => {
