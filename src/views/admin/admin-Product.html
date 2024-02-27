@@ -106,14 +106,25 @@
       let add_URL = "http://127.0.0.1:5501/views/admin/admin-ProductAdd.html"
   
       window.location.href = add_URL;
+      // history.pushState(null, null, add_URL);
+      // location.assign(add_URL);
     }
 
     // 상품 수정 버튼 클릭
     function product_Modify(productId) {
       // productID로 특정 상품 1개를 조회하는 API
       let data = [1, '사진', 'Time Lapse : 어느 시간에 탑승하시겠습니까?', './assets/productTestImage-1.png'];
+      let query_Data = [1, '제목', '주소', '엘리스', 50000, '설명']
+      /*
+        let queryString_1 = urlParams.get('productId');
+        let queryString_2 = urlParams.get('productName');
+        let queryString_3 = urlParams.get('productPlace');
+        let queryString_4 = urlParams.get('author');
+        let queryString_5 = urlParams.get('price');
+        let queryString_6 = urlParams.get('description');
+      */
 
-      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${data[0]}&productName=${data[1]}&productPlace=${data[2]}`;
+      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${query_Data[0]}&productName=${query_Data[1]}&productPlace=${query_Data[2]}&author=${query_Data[3]}&price=${query_Data[4]}&description=${query_Data[5]}`;
 
       window.location.href = modify_URL;
     }
