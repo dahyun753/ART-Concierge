@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport'); 
+const viewsRouter = require('./routes/view-Router')
 
 const indexRouter = require('./routes/index'); // 관리자 페이지 for 전시 관리 
 const adminExhibitsRouter = require('./routes/admin-Router'); // 관리자 페이지 for 전시 관리 
@@ -33,6 +34,10 @@ app.set('view engine', 'pug');
 //   resave: false,  //세션 데이터가 변경되지 않았더라도 계속 저장 
 //   saveUninitialized: true  //초기화되지 않은 세션을 저장소에 저장할지 여부 (모든 세션 저장)
 // }));
+
+// html css js 로드 
+app.use(viewsRouter); 
+
 app.use(passport.initialize());  //passport 초기화
 // app.use(passport.session()); //passport 세션 사용
 
