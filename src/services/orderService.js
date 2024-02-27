@@ -1,7 +1,7 @@
 const { Order } = require('../db');
 
 const orderService = {
-    //주문 추가, 주문하기
+    // 주문하기
     async createOrder({
         name,
         phone,
