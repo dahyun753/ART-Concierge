@@ -22,7 +22,6 @@ const adminOrderService = {
                 await Order.deleteOne({ _id});
                 return 1;
             } else {
-                console.log("이미 배송된 상품입니다.");
                 return 2;
             }
         } catch (err) {

@@ -36,9 +36,8 @@ const adminOrderController = {
             }else {
                 res.send("배송 중인 상품입니다.")
             }
-
         } catch (err) {
-            console.log("전체 주문 삭제가 실패되었습니다.")
+            console.log("주문 삭제가 실패되었습니다.")
             res.json(err);
         }
     }
