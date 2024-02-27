@@ -11,7 +11,7 @@ const indexRouter = require("./routes/index"); // 관리자 페이지 for 전시
 const adminRouter = require("./routes/admin-Router"); // 관리자 페이지 for 전시 관리
 const authRouter = require("./routes/auth"); // 로그인/ 회원가입
 var cartsRouter = require("./routes/carts");
-var usersRouter = require("./routes/users");
+const usersRouter = require("./routes/users-routes");
 const exhibitRouter = require("./routes/exhibits");
 const adminOrderRouter = require("./routes/admin/adminOrder"); // 관리자 페이지 for 주문
 
