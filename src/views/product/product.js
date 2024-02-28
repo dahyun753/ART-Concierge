@@ -1,23 +1,23 @@
 let data; // 전역 범위에 선언된 data 변수
 let key;
 let value;
+let searchKeyword;
 
 window.onload = function () {
     //카테고리별 작품(쿼리스트링) 가져오기
     let queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     urlParams.forEach(function (a, b) {
-        key = a;
-        value = b;
-        return key, value
+        value = a;
+        key = b;
     });
 
     //검색시 작품 가져오기
-    let searchKeyword = urlParams.get('word');
-
+    searchKeyword = urlParams.get('word');
+    console.log(key)
     if (key === 'word') {
         searchProductElement(searchKeyword);
-    } else if(key===null){
+    } else if(key===""){
         insertProductElement();
     }else{
         filterProductElement(value)
@@ -27,12 +27,14 @@ window.onload = function () {
 // 검색시 데이터 가져오기
 async function searchProductElement(keyword) {
     // 검색어를 서버에 전송하여 필터링된 데이터를 가져오는 함수
-    const res = await fetch(`http://localhost:5001/api/exhibits?search=${keyword}`);
+    const res = await fetch(`http://localhost:5001/api/exhibits/search?word=${keyword}`);
     const searchdata = await res.json();
+
+
 
     // numRows 변수 계산
     const numColumn = 4;
-    const numRows = Math.ceil(searchdata.exhibits.length / numColumn);
+    const numRows = Math.ceil(searchdata.length / numColumn);
 
     const list = document.querySelector('.exhibition-list');
 
@@ -44,8 +46,8 @@ async function searchProductElement(keyword) {
 
             for (let j = 0; j < numColumn; j++) {
                 let dataIndex = i * numColumn + j;
-                if (dataIndex < searchdata.exhibits.length) {
-                    let data = searchdata.exhibits[dataIndex];
+                if (dataIndex < searchdata.length) {
+                    let data = searchdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
                             <a href="https://www.naver.com/">
@@ -102,7 +104,7 @@ async function insertProductElement() {
 
     // numRows 변수 계산
     const numColumn = 4;
-    const numRows = Math.ceil(serverdata.exhibits.length / numColumn);
+    const numRows = Math.ceil(serverdata.length / numColumn);
 
     const list = document.querySelector('.exhibition-list');
 
@@ -114,8 +116,8 @@ async function insertProductElement() {
 
             for (let j = 0; j < numColumn; j++) {
                 let dataIndex = i * numColumn + j;
-                if (dataIndex < serverdata.exhibits.length) {
-                    let data = serverdata.exhibits[dataIndex];
+                if (dataIndex < serverdata.length) {
+                    let data = serverdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
                             <a href="https://www.naver.com/">
@@ -125,16 +127,6 @@ async function insertProductElement() {
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
-                    // 카테고리에 따라 페이지에 추가
-                    // if (value === '조각전') {
-                    //     columnsContainer.innerHTML += columnContents;
-                    // } else if (data.category.category === '사진전') {
-                    //     columnsContainer.innerHTML += columnContents;
-                    // } else if (data.category.category === '그림전') {
-                    //     columnsContainer.innerHTML += columnContents;
-                    // } else (vlaue==아무것도 없다면){
-                    //     columnsContainer.innerHTML += columnContents;
-                    // }
                 }
             }
             list.appendChild(columnsContainer);
@@ -182,7 +174,7 @@ async function filterProductElement(valuedata) {
 
     // numRows 변수 계산
     const numColumn = 4;
-    const numRows = Math.ceil(serverdata.exhibits.length / numColumn);
+    const numRows = Math.ceil(serverdata.length / numColumn);
 
     const list = document.querySelector('.exhibition-list');
 
@@ -194,8 +186,8 @@ async function filterProductElement(valuedata) {
 
             for (let j = 0; j < numColumn; j++) {
                 let dataIndex = i * numColumn + j;
-                if (dataIndex < serverdata.exhibits.length) {
-                    let data = serverdata.exhibits[dataIndex];
+                if (dataIndex < serverdata.length) {
+                    let data = serverdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
                             <a href="https://www.naver.com/">
