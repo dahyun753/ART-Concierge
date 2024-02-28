@@ -1,29 +1,189 @@
 const $searchAddress = document.querySelector('#address')
 const $detailAddress = document.querySelector('#sample6_detailAddress')
 const $research = document.querySelector('#research')
-const $registrationForm = document.querySelector('#registrationForm')
+const $registrationButton = document.querySelector('#registrationButton')
+const $emailCheck = document.querySelector('#checkEmail')
+let isEmailUnique = false;
 
-$registrationForm.onsubmit = async function (event){
-  event.preventDefault();
-  const email = this.email.value;
-  const password = this.password.value;
-  const name = this.name.value;
-  const phone = this.phone.value;
-  const userAddress = this.address.value;
-  const detailAddress = this.detailAddress.value;
+function resetStyles() {
+  const allFields = ['email', 'password', 'confirmPassword', 'name', 'detailAddress', 'address', 'phone'];
+  allFields.forEach(fieldId => {
+    const field = document.querySelector(`#${fieldId}`);
+    field.style.borderColor = '';
+    field.style.backgroundColor = '';
+  });
+}
 
-  console.log(detailAddress);
+function displayError(fieldId) {
+  const errorContainer = document.querySelector(`#${fieldId}`);
+  errorContainer.style.borderColor = 'red';
+  errorContainer.style.backgroundColor = 'mistyrose';
+  errorContainer.placeholder = '입력필드를 채워주세요';
+}
 
-  try{
-    const request = await axios.post('/auth/join',{email,password,name,phone,userAddress,detailAddress});
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+$emailCheck.addEventListener('click', async (event) => {
+  event.preventDefault()
+  const email = document.querySelector('#email')
+  if (!isValidEmail(email.value)) {
+    displayError('email')
+    return;
+  }
+  try {
+    const response = await axios.post('/api/auth/check-email', { email: email.value });
+    console.log(response.data);
+    isEmailUnique = true;
+    $emailCheck.classList.add('is-primary')
+    $emailCheck.textContent = '확인 완료'
+    $emailCheck.disabled = true
+    const existingEmailCheckElement = document.getElementById('needEmailCheck');
+    if (existingEmailCheckElement ) {
+      existingEmailCheckElement.remove();
+    }
+    const existingMessage = document.getElementById('emailAlreadyRegistered');
+    if (existingMessage) {
+      existingMessage.remove();
+    }
+    email.parentNode.parentNode.classList.remove('is-gapless', 'mb-0')
+    email.style.borderColor = ''
+    email.style.backgroundColor = ''
+
+  } catch (error) {
+    console.log(error)
+    // 오류 메시지가 이미 존재하는지 확인
+    const existingMessage = document.getElementById('emailAlreadyRegistered');
+    if (!existingMessage) {
+      email.parentNode.parentNode.classList.add('is-gapless', 'mb-0');
+      // 오류 메시지 생성 및 구성
+      const message = document.createElement('span');
+      message.textContent = "이미 가입 된 이메일 입니다";
+      message.style.marginLeft = '144px';
+      // span 엘리먼트에 id 추가
+      message.id = 'emailAlreadyRegistered';
+
+      // 이메일 입력 필드의 다음에 메시지 삽입
+      email.parentNode.parentNode.insertAdjacentElement('afterend', message);
+    }
+  }
+})
+
+$registrationButton.addEventListener('click', async function (event) {
+  // Add the rest of the code here, just like in the previous onsubmit handler
+  event.preventDefault()
+  resetStyles();
+  const email = document.querySelector('#email')
+  const password = document.querySelector('#password')
+  const name = document.querySelector('#name')
+  const confirmPassword = document.querySelector('#confirmPassword');
+  const phone = document.querySelector('#phone')
+  const userAddress = document.querySelector('#userAddress')
+  const detailAddress = document.querySelector('#detailAddress')
+
+  if (!isEmailUnique) {
+    // 오류 메시지가 이미 존재하는지 확인
+    const existingMessage = document.getElementById('needEmailCheck');
+
+    if (!existingMessage) {
+      console.log(email.parentNode.parentNode);
+
+      // 시각적 피드백을 위해 클래스 및 스타일 추가
+      email.parentNode.parentNode.classList.add('is-gapless', 'mb-0');
+      email.style.borderColor = 'red';
+      email.style.backgroundColor = 'mistyrose';
+
+      // 오류 메시지 생성 및 구성
+      const message = document.createElement('span');
+      message.textContent = "이메일 중복 확인이 필요합니다";
+      message.style.marginLeft = '144px';
+
+      // span 엘리먼트에 id 추가
+      message.id = 'needEmailCheck';
+
+      // 이메일 입력 필드의 부모 노드 뒤에 메시지 삽입
+      email.parentNode.parentNode.insertAdjacentElement('afterend', message);
+    }
+
+    return;
+  }
+
+  if (!password.value) {
+    displayError('password');
+    return;
+  }
+  if (password.value !== confirmPassword.value) {
+    // 오류 메시지가 이미 존재하는지 확인
+    const existingMessage = document.getElementById('passwordMismatch');
+
+    if (!existingMessage) {
+      confirmPassword.parentNode.parentNode.classList.add('is-gapless', 'mb-0');
+
+      // 시각적 피드백을 위해 스타일 및 클래스 추가
+      confirmPassword.style.borderColor = 'red';
+      confirmPassword.style.backgroundColor = 'mistyrose';
+
+      // 오류 메시지 생성 및 구성
+      const message = document.createElement('span');
+      message.textContent = "비밀번호가 일치하지 않습니다";
+      message.style.marginLeft = '144px';
+
+      // span 엘리먼트에 id 추가
+      message.id = 'passwordMismatch';
+
+      // 확인 비밀번호 입력 필드의 부모 노드 뒤에 메시지 삽입
+      confirmPassword.parentNode.parentNode.insertAdjacentElement('afterend', message);
+    }
+
+    return;
+  }
+  else {
+    if (document.querySelector('#passwordMismatch')) {
+      document.querySelector('#passwordMismatch').remove()
+    }
+    confirmPassword.parentNode.parentNode.classList.remove('is-gapless', 'mb-0')
+    confirmPassword.style.borderColor = ''
+    confirmPassword.style.backgroundColor = ''
+
+  }
+
+  if (!name.value) {
+    displayError('name');
+    return;
+  }
+
+  if (!phone.value) {
+    displayError('phone');
+    return;
+  }
+
+  if (userAddress.value==="🔍︎주소 검색") {
+    userAddress.style.backgroundColor = "mistyrose"
+    userAddress.value = "🔍︎클릭해서 주소를 검색하세요"
+  }
+
+  if (!detailAddress.value) {
+    displayError('detailAddress');
+    return;
+  }
+
+  try {
+    const request = await axios.post('/api/auth/join', {
+      email: email.value,
+      password: password.value,
+      name: name.value,
+      phone: phone.value,
+      userAddress: userAddress.value,
+      detailAddress: detailAddress.value
+    });
     console.log('Server Response:', request.data);
     console.log('Status Code:', request.status);
+  } catch (error) {
+    console.error('가입 실패:', error.response.data.message);
   }
-
-  catch(error){
-    console.error('로그인 실패:', error.request.data.message);
-  }
-}
+});
 
 function sample6_execDaumPostcode() {
   new daum.Postcode({
@@ -58,11 +218,11 @@ function sample6_execDaumPostcode() {
           extraAddr = ' (' + extraAddr + ')';
         }
 
-      } 
-      $searchAddress.innerHTML = '<input type="text" id="sample6_address" class="input is-medium" name="address" readonly>'
+      }
+      $searchAddress.innerHTML = '<input type="text" id="userAddress" class="input is-medium" name="address" readonly>'
       $detailAddress.style.display = 'flex';
       $research.style.display = 'block';
-      document.getElementById("sample6_address").value = addr;
+      document.getElementById("userAddress").value = addr;
       // 커서를 상세주소 필드로 이동한다.
       document.getElementById("sample6_detailAddress").focus();
     }
