@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="../public/Footer/footer.css" />
 
     <link rel="stylesheet" href="./productDetail.css" />
+    <script src="./productDetail.js" type="module" defer></script>
 </head>
 
 <body>
@@ -34,49 +35,132 @@
     <script>
         loadHTML("../public/Header/header.html");
     </script>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">알림</p>
+            </header>
+            <section class="modal-card-body">
+                장바구니에 상품이 담겼습니다
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="modalCheck">확인</button>
+            </footer>
+        </div>
+    </div>
+    <main>
 
-    <main class="container is-centered">
-        <section class="flex-container section columns is-multiline is-vcentered">
-
+        <section class="section">
             <!--이미지-->
-            <div class="column is-full-table is-half-desktop">
-                <figure class="card-image">
-                    <img src="https://prestigecollection.kr/data/item/1692435835/6re466a87.png" alt="" srcset="">
-                </figure>
-            </div>
-            <!-- /이미지-->
+            <div class="container">
+                <div class="columns is-7 is-variable">
+                    <div class="column is-1"></div>
 
-            <!--작품 설명-->
-            <div class="column is-full-table is-half-desktop is" id="productDetail">
-                <ul>
-                    <li class="columns" id="exhibitionInfo">
-                       
-                    </li>                              
-                </ul>       
-            </div>
-            <!-- /작품 설명-->
-
-            <!-- 전시 정보 -->
-            <div class="column is-full-table is-half-desktop">
-                <div class="sit_mat" style="padding-top:1rem; border-top:1px solid #e5e5e5;">
-
-                <div class="notification mb-2 has-text-weight-bold is-size-6">전시 정보
-                </div>
-                <div class="container">
-                    <!-- 전시 상세 설명 -->
-                    <div class="art-descrpiton">트레이시 에민은 런던에 거주하면서 작품 활동을 하고 하며, 그녀의 작품들은 회화, 드로잉, 사진, 설치물, 비디오 등으로 구성되어
-                        있습니다.
+                    <div class="column is-5 img-container">
+                        <figure class="card-image">
+                            <img src="https://prestigecollection.kr/data/item/1692435835/6re466a87.png" alt=""
+                                srcset="">
+                        </figure>
                     </div>
-                    <!-- /전시 상세 설명 -->
-                </div>
-            </div>
-            <!-- /전시 정보 -->
 
-        </section>            
+                    <!--작품 설명-->
+                    <div class="column is-5">
+                        <ul>
+                            <li>
+                                <span class="title subject" style="font-weight: bold;"><strong>제목</strong></span>
+                                <span class="" id="exhibitName">An Insane Desire for You</span>
+                            </li>
+                            <li>
+                                <span class="subject" style="font-weight: bold;"><strong>작가</strong></span>
+                                <span class="" id="author">트레이시 에민</span>
+                            </li>
+                            <li>
+                                <span class="subject" style="font-weight: bold;"><strong>전시
+                                        장소</strong></span>
+                                <span class="" id="location">아모레퍼시픽 용산</span>
+                            </li>
+                            <li>
+                                <span class=" subject" style="font-weight: bold;"><strong>가격</strong></span>
+                                <span class="" id="price">50000</span>원
+                            </li>
+                            <li>
+                                <span class=" subject" style="font-weight: bold;"><strong>전시
+                                        기간</strong></span>
+                                <span class="">10일</span>
+                            </li>
+
+                            <li>
+                                <span class="subject" style="font-weight: bold;"><strong>수량</strong></span>
+                                <div class="columns is-vcentered">
+                                    <div class="column ">
+                                        <button class="minus button is-warning is-light">-</button>
+                                    </div>
+                                    <div class="column is-vcentered">
+                                        <span class="cartCount" id="quantity">1</span>
+                                    </div>
+                                    <div class="column">
+                                        <button class="plus button is-warning is-light">+</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--장바구니 버튼-->
+                        <div class="btn-container mt-6">
+                            <button class="button is-fullwidth has-text-weight-bold" id="addCart">장바구니 추가</button>
+                            <!--/장바구니 버튼-->
+                        </div>
+                    </div>
+                    <!-- /작품 설명-->
+        </section>
+
+        <section class="section">
+            <div class="container item-info-wrap">
+
+                <div class="mb-5">
+                    <!--- 전시 정보 -->
+                    <div class="p-2 tab-pane is-active" id="tab-goods-info">
+                        <div class="sit_mat" style="padding-top:1rem; border-top:1px solid #e5e5e5;">
+                            <div class="info-exhibit has-text-weight-bold">배송 정보</div>
+                            <ul>
+                                <li>1. 주문시 Art Concierge 전문 담당자가 배정 됩니다.</li>
+                                <li>2. 영업일 기준 3일이내 작품컨디션 , 보증서 이미지 전달을 위해 연락을 드립니다.</li>
+                                <li>3. 미술품 전문 업체를 통하여 배송됩니다.</li>
+                            </ul>
+                            <br />
+                            <!-- /전시 상세 설명 -->
+                            <div class="info-exhibit has-text-weight-bold">작가 정보</div>
+                            <br />
+                            <p>
+                                트레이시 에민은 런던에 거주하면서 작품 활동을 하고 하며,
+                                그녀의 작품들은 회화, 드로잉, 사진, 설치물, 비디오 등으로 구성되어 있습니다.
+                                그녀는 아플리케 천, 발견된 오브제, 모노프린트,
+                                네온 등의 다양한 매체를 사용하여 자신의 감정과
+                                삶의 세세한 부분들을 전달했습니다.
+                                켄트 주의 마게이트에서 성장한 에민은 젊은 시절에 상당한 정신적인 충격을 받는 불운과 상실감을 경험했습니다.
+                                그녀의 작품은 그녀가 이러한 고통을 다루는 수단으로 비추어졌으며, 런던 워털루에 트레이시 에민 미술관을 열었고 1998년에 문을 닫을 때까지 많은 관람객들을
+                                맞았습니다. 1999년에 그녀는 설치작품인 <나의 침대>(1998)로 터너 상 후보에 오르게 됩니다. 이후 에민은 미술계와 언론계의 유명인사로 자리
+                                    잡았습니다.
+                                    1982년 메드웨이 디자인학교 패션 전공 학사
+                                    1984년 메이드스톤 미술학교(Maidstone Art College) 미술 전공 학사
+                                    1987년 영국왕립미술학교 회화 전공 석사
+                            </p>
+
+                        </div>
+                    </div>
+                    <!-- 작가 정보 -->
+                </div>
+
+            </div>
+            <!-- </section> -->
+
     </main>
     <!-- Footer -->
+    <script>
+        loadHTML("../public/Footer/footer.html");
+    </script>
 
 </body>
-<script src="./productDetail.js"></script>
+
 
 </html>

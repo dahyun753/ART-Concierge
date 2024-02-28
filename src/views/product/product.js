@@ -197,16 +197,6 @@ async function filterProductElement(valuedata) {
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
-                    // 카테고리에 따라 페이지에 추가
-                    // if (value === '조각전') {
-                    //     columnsContainer.innerHTML += columnContents;
-                    // } else if (data.category.category === '사진전') {
-                    //     columnsContainer.innerHTML += columnContents;
-                    // } else if (data.category.category === '그림전') {
-                    //     columnsContainer.innerHTML += columnContents;
-                    // } else (vlaue==아무것도 없다면){
-                    //     columnsContainer.innerHTML += columnContents;
-                    // }
                 }
             }
             list.appendChild(columnsContainer);
@@ -246,3 +236,5 @@ async function filterProductElement(valuedata) {
     let observer = new IntersectionObserver(onIntersect, options);
     observer.observe(listEnd);
 }
+
+
