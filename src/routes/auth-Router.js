@@ -26,7 +26,7 @@ router.post('/', passport.authenticate('local', { session: false }), (req, res, 
     res.status(204).send()
     });
 
-// 로그아웃 3계층 분리 ... 보류
+// 로그아웃 3계층 분리 ... 보류 (로그아웃은 delete)
 router.get('/logout', (req, res, next) => {
     res.cookie('token', null, {
         maxAge: 0,
