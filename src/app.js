@@ -7,13 +7,13 @@ const session = require("express-session");
 const passport = require("passport");
 const viewsRouter = require("./routes/view-Router");
 
-const indexRouter = require("./routes/index"); // 관리자 페이지 for 전시 관리
-const adminRouter = require("./routes/admin-Router"); // 관리자 페이지 for 전시 관리
-const authRouter = require("./routes/auth"); // 로그인/ 회원가입
-var cartsRouter = require("./routes/carts-routes");
-const usersRouter = require("./routes/users-routes");
-const exhibitRouter = require("./routes/exhibits");
-const adminOrderRouter = require("./routes/admin/adminOrder"); // 관리자 페이지 for 주문
+const indexRouter = require('./routes/index'); // 관리자 페이지 for 전시 관리 
+const adminRouter = require('./routes/admin-Router'); // 관리자 페이지 for 전시 관리 
+const authRouter = require('./routes/auth-Router'); // 로그인/ 회원가입
+var cartsRouter = require("./routes/carts");
+var usersRouter = require("./routes/users");
+const exhibitRouter = require('./routes/exhibits')
+const adminOrderRouter = require('./routes/admin/adminOrder');  // 관리자 페이지 for 주문
 
 const orderRouter = require("./routes/orderRouter"); // 주문
 
@@ -49,13 +49,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(getUserFromJWT); // 로그인을 위한 미들웨어
 
 app.use("/", indexRouter);
-app.use("/admin", adminRouter); //관리자 라우터 (전시 + 카테고리)
-app.use("/auth", authRouter); // 로그인 + 회원가입
-app.use("/carts", cartsRouter);
-app.use("/users", usersRouter);
-app.use("/exhibits", exhibitRouter); // 전시보기
-app.use("/orders", orderRouter); // 주문 라우터
-app.use("/admin/orders", adminOrderRouter); //관리자 라우터 (주문)
+app.use("/api/admin", adminRouter); //관리자 라우터 (전시 + 카테고리)
+app.use("/api/auth", authRouter); // 로그인 + 회원가입
+app.use("/api/carts", cartsRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/exhibits", exhibitRouter); // 전시보기
+app.use("/api/orders", orderRouter); // 주문 라우터
+app.use("/api/admin/orders", adminOrderRouter); //관리자 라우터 (주문)
+
 
 /* 
 // catch 404 and forward to error handler

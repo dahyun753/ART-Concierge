@@ -22,6 +22,10 @@ const userSchema = new Schema({
         type: String,
         required: false,
     },
+    detailAddress: {
+        type: String,
+        required: false,
+    },
     //관리자 여부
     isAdmin: {
         type: Boolean,
