@@ -18,7 +18,7 @@ async function exhibitList () {
 
 // 카테고리별 전시 조회
 async function searchByCategory(category) {
-    return await Exhibit.find( category )
+    return await Exhibit.find({ category: category })
         .select('author image exhibitName startDate endDate category')
         .populate('category', 'category'); // 전시의 카테고리 이름 가져오기
 }
