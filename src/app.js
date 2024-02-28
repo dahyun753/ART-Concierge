@@ -44,16 +44,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(getUserFromJWT); // 로그인을 위한 미들웨어
 
 app.use("/", indexRouter);
-app.use("/admin/exhibits", adminExhibitsRouter); //관리자 라우터 (전시)
-app.use("/admin/categories", adminCategoriesRouter); //관리자 라우터 (카테고리)
+
+app.use("/admin", adminRouter);
 app.use("/auth", authRouter); // 로그인 + 회원가입
 app.use("/carts", cartsRouter);
 app.use("/users", usersRouter);
 app.use("/exhibits", exhibitRouter); // 전시보기
 app.use("/orders", orderRouter); // 주문 라우터
 app.use("/admin/orders", adminOrderRouter); //관리자 라우터 (주문)
-app.use("/images", imagesRouter);
-
 /* 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

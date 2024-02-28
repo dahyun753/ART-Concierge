@@ -58,4 +58,59 @@ router.get("/", async (req, res) => {
   }
 });
 
+// 이미지 수정
+router.put("/", upload.single("image"), async (req, res) => {
+  const { _id } = req.body;
+
+  if (!req.file) {
+    return res.status(400).send("파일이 업로드되지 않았습니다.");
+  }
+
+  try {
+    const updatedExhibit = await Exhibit.findOneAndUpdate(
+      { _id: _id }, // 또는 데이터베이스 스키마에 맞게 { exhibitId: exhibitId } 등으로 조정
+      { image: req.file.location },
+      { new: true } // 업데이트된 문서를 반환
+    );
+
+    if (!updatedExhibit) {
+      return res.status(404).send("해당 exhibitId를 가진 이미지가 없습니다.");
+    }
+
+    res.status(200).send({
+      message: "이미지가 성공적으로 업데이트 되었습니다.",
+      exhibit: updatedExhibit,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("이미지 업데이트 중 에러가 발생했습니다.");
+  }
+});
+
+// 이미지 삭제
+router.delete("/", async (req, res) => {
+  const { _id } = req.body; // exhibitId를 통해 특정 문서를 찾습니다.
+
+  try {
+    // 해당 document의 image 필드만 업데이트하여 빈 문자열이나 null로 설정합니다.
+    const updatedExhibit = await Exhibit.findOneAndUpdate(
+      { _id: _id }, // 또는 데이터베이스 스키마에 맞게 { exhibitId: exhibitId }
+      { $unset: { image: "" } }, // image 필드를 삭제합니다.
+      { new: true } // 업데이트된 문서를 반환합니다.
+    );
+
+    if (!updatedExhibit) {
+      return res.status(404).send("해당 exhibitId를 가진 이미지가 없습니다.");
+    }
+
+    res.status(200).send({
+      message: "이미지 필드가 성공적으로 삭제되었습니다.",
+      exhibit: updatedExhibit,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("이미지 필드 삭제 중 에러가 발생했습니다.");
+  }
+});
+
 module.exports = router;
