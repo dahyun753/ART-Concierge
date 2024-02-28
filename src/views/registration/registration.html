@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
@@ -22,37 +22,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
   <!-- Custom CSS & JS -->
-  <script src="../public/loadHTML.js"></script>
-  <link rel="stylesheet" href="../public/Header/header.css" />
-  <link rel="stylesheet" href="../public/Footer/footer.css" />
+  <script src="/public/loadHTML.js"></script>
+  <link rel="stylesheet" href="/public/Header/header.css" />
+  <link rel="stylesheet" href="/public/Footer/footer.css" />
   <link rel="stylesheet" href="registration.css">
-  <script defer src="registration.js"></script>
+  <script defer src="registration.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
 <body>
   <!-- Header -->
   <script>
-    loadHTML("../public/Header/header.html");
+    loadHTML("/public/Header/header.html");
   </script>
   
   <section class="section">
     <div class="container" style="width: 50%;">
       <h1 class="title has-text-centered">회원 가입</h1>
-      <form>
+      <form id="registrationForm">
         <div style="display: flex; justify-content: flex-end;">
           <div><span class="essential">*</span> 필수 입력 사항</div>
         </div>
         <div class="container mt-1 px-4 py-3" style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;">
           <div class="columns is-vcentered">
             <div class="column is-2 ">이메일<span class="essential">*</span></div>
-            <div class="column is-6"><input type="email" class="input is-medium" placeholder="이메일을 입력해주세요"></div>
+            <div class="column is-6"><input type="email" class="input is-medium" placeholder="이메일을 입력해주세요" name="email"></div>
             <div class="column is-1"></div>
             <div class="column is-3"><button class="button is-fullwidth is-medium">중복확인</button></div>
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">비밀번호<span class="essential">*</span></div>
-            <div class="column is-6"><input type="password" class="input is-medium" placeholder="비밀번호를 입력해주세요"></div>
+            <div class="column is-6"><input type="password" class="input is-medium" placeholder="비밀번호를 입력해주세요" name="password"></div>
             <div class="column is-1"></div>
           </div>
           <div class="columns is-vcentered">
@@ -63,26 +64,25 @@
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">이름<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" placeholder="이름을 입력해주세요"></div>
+            <div class="column is-6"><input type="text" class="input is-medium" placeholder="이름을 입력해주세요" name="name"></div>
             <div class="column is-1"></div>
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">휴대폰<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" placeholder="휴대폰 번호를 입력해주세요"></div>
+            <div class="column is-6"><input type="text" class="input is-medium" placeholder="휴대폰 번호를 입력해주세요" name="phone"></div>
             <div class="column is-1"></div>
-            <div class="column is-3"><button class="button is-fullwidth is-medium">인증번호 받기</button></div>
           </div>
-          <div class="columns is-vcentered" id="test">
+          <div class="columns is-vcentered">
             <div class="column is-2">주소<span class="essential">*</span></div>
             <div class="column is-6" id="address"><input type="button" onclick="sample6_execDaumPostcode()"
-                value="🔍︎주소 검색" class="button is-fullwidth is-medium"></div>
+                value="🔍︎주소 검색" class="button is-fullwidth is-medium" name="address"></div>
             <div class="column is-1"></div>
             <div id="research" class="column is-3" style="display: none;"><input type="button"
                 onclick="sample6_execDaumPostcode()" value="🔍︎재검색" class="button is-fullwidth is-medium"></div>
           </div>
           <div class="columns is-vcentered" style="display: none;" id="sample6_detailAddress">
             <div class="column is-2">상세 주소<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" placeholder="상세 주소를 입력해주세요"></div>
+            <div class="column is-6"><input type="text" class="input is-medium" placeholder="상세 주소를 입력해주세요" name="detailAddress"></div>
             <div class="column is-4"></div>
           </div>
           <div class="has-text-centered mt-6"> <button class="button is-large">가입하기</button></div>
@@ -95,7 +95,7 @@
 
   <!-- Footer -->
   <script>
-    loadHTML("../public/Footer/footer.html");
+    loadHTML("/public/Footer/footer.html");
   </script> 
 </body>
 
