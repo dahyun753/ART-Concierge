@@ -7,7 +7,7 @@ const passport = require('passport');
 const router = Router();
 
 router.post('/join', authController.postUser);
-router.get('/check-email', authController.uniqueEmail);
+router.post('/check-email', authController.uniqueEmail);
 // router.post('/', authController.loginUser);
 router.post('/find-password', authController.findPassword);
 

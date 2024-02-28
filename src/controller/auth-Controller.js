@@ -4,12 +4,12 @@ const authService = require('../services/auth-service');
 async function uniqueEmail(req, res, next) {
     try {
         const email = req.body.email;
-
+        console.log(email)
         await authService.checkEmail(email);;
 
         res.status(200).json({ message: '사용 가능한 이메일입니다' });
     } catch (err) {
-        res.status(400).json({message: '이미 사용 중인 이메일입니다'});
+        res.status(400).json({message: err.message});
     }
 }
 

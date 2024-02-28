@@ -33,7 +33,7 @@ function serveStatic(resource) {
         resourcePath = path.join(__dirname, `../views/${resource}`);
     }
     option = { index: `${resource}.html` };
-
+    console.log(resourcePath)
     return express.static(resourcePath, option);
 }
 
