@@ -19,22 +19,24 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const $exhibitionInfo = document.querySelector('#exhibitionInfo');
-const exhibitId = '65da13c21466236f65c13bb9'; 
+const exhibitId = '65dea2262f8985a75a3382e1'; // 전시의 실제 ID 값
 
 insertExhibitionName();
 
 async function insertExhibitionName() {
-    const res = await fetch(`http://localhost:5001/api/exhibits/:${exhibitId}`);
+    const res = await fetch(`http://localhost:5001/api/exhibits/${exhibitId}`);
     const data = await res.json(); 
 
     const exhibitName = data.exhibitName;
 
-    console.log(data);
+    console.log(exhibitName);
 
     $exhibitionInfo.innerHTML = `
-        <li class="column">
             <span class="column is-one-quarter" style="font-weight: bold;"><strong>제목</strong></span>
             <span class="column">${exhibitName}</span>
+        <li class="columns">
+            <span class="column is-one-quarter" style="font-weight: bold;"><strong>작가</strong></span>
+            <span class="column">트레이시 에민</span>
         </li>
     `;
 }
