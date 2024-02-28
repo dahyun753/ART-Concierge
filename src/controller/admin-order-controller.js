@@ -1,4 +1,4 @@
-const adminOrderService = require('../services/adminOrderService');
+const adminOrderService = require('../services/admin-order-service');
 
 const adminOrderController = {
     async updateState(req, res, next) {
