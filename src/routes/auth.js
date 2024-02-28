@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { setUserToken } = require('../utils/jwt'); // JWT 사용
 
-const authController = require('../controller/auth-Controller');
+const authController = require('../controller/auth-controller');
 const passport = require('passport');
 
 const router = Router();
