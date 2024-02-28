@@ -14,13 +14,13 @@ window.onload = function () {
 
     //검색시 작품 가져오기
     searchKeyword = urlParams.get('word');
-    console.log(key)
+
     if (key === 'word') {
         searchProductElement(searchKeyword);
-    } else if(key===""){
+    } else if(key===null || undefined || ""){
         insertProductElement();
     }else{
-        filterProductElement(value)
+        filterProductElement(value) //카테고리 id
     }
 }
 
@@ -39,6 +39,9 @@ async function searchProductElement(keyword) {
     const list = document.querySelector('.exhibition-list');
 
     const addNewContent = () => {
+
+        list.innerHTML = '';
+
         for (let i = 0; i < numRows; i++) {
             let columnsContainer = document.createElement('div');
             columnsContainer.classList.add('columns');
@@ -109,6 +112,9 @@ async function insertProductElement() {
     const list = document.querySelector('.exhibition-list');
 
     const addNewContent = () => {
+
+        list.innerHTML = '';
+
         for (let i = 0; i < numRows; i++) {
             let columnsContainer = document.createElement('div');
             columnsContainer.classList.add('columns');
@@ -120,10 +126,10 @@ async function insertProductElement() {
                     let data = serverdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
-                            <a href="https://www.naver.com/">
+                            <a href="http://localhost:5001/exhibits/${data._id}">
                                 <img src="${data.image}" alt="">
-                                <div class="exhibitTitle"><a href="https://www.naver.com/"><div>${data.author}: ${data.exhibitName}</div></a></div>
-                                <div class="exhibitInfo" id='listEnd'><a href="https://www.naver.com/" class="date">${data.startDate}~${data.endDate}</a></div>
+                                <div class="exhibitTitle"><a href="http://localhost:5001/api/exhibits/${data._id}"><div>${data.author}: ${data.exhibitName}</div></a></div>
+                                <div class="exhibitInfo" id='listEnd'><a href="http://localhost:5001/api/exhibits/${data._id}" class="date">${data.startDate}~${data.endDate}</a></div>
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
@@ -179,6 +185,9 @@ async function filterProductElement(valuedata) {
     const list = document.querySelector('.exhibition-list');
 
     const addNewContent = () => {
+
+        list.innerHTML = '';
+
         for (let i = 0; i < numRows; i++) {
             let columnsContainer = document.createElement('div');
             columnsContainer.classList.add('columns');
