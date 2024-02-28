@@ -1,9 +1,10 @@
-const orderService = require("../services/orderService");
+const orderService = require("../services/order-service");
 
 const orderController = {
     async postOrder(req, res, next) {
         try {
             const {
+                userId,
                 item: [{ exhibitId, exhibitName, quantity, price, image }],
                 userAddress,
                 phone,
@@ -12,6 +13,7 @@ const orderController = {
             const orderedDate = new Date(); // 주문일을 현재 날짜로 설정
             // 여기에서 주문을 생성하고 데이터베이스에 저장
             const newOrder = await orderService.createOrder({
+                userId,
                 name,
                 phone,
                 userAddress,
@@ -21,7 +23,7 @@ const orderController = {
             console.log(req.body);
             res.json({
                 _id: newOrder._id,
-                name: newOrder.name
+                userId: newOrder.userId
             });
         } catch (err) {
             res.json(err);
