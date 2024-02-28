@@ -37,7 +37,7 @@ async function updateExhibit (exhibitId, content) {
 async function deleteExhibit (exhibitId) {
     const result = await Exhibit.deleteOne({ _id: exhibitId })
 
-    if (!exhibitId) throw new Error("제품을 삭제할 Id 가 미입력 되었습니다.");
+    if (!exhibitId) throw new Error("일치되는 Id가 없습니다.");
     return result;
 }
 

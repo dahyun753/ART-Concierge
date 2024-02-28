@@ -1,0 +1,5 @@
+.modal-content {
+  width: 300px; /* 너비 조절 */
+  height: auto; /* 높이 조절 */
+  background-color: white;
+}
