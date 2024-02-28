@@ -86,7 +86,7 @@ router.delete("/", async (req, res, next) => {
       });
     } else {
       // exhibitsId가 제공되지 않았다면 모든 장바구니 상품 삭제 -> postman에서 모두삭제가 안되고 있는데 원인을 모르겠습니다..ㅠ
-      const deleteAllCart = await Order.deleteMany({});
+      const deleteAllCart = await Order.deleteMany({}); //ex) userId : req._id
     }
     res.json("ok");
   } catch (error) {
