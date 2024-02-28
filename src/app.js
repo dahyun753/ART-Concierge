@@ -56,6 +56,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/exhibits", exhibitRouter); // 전시보기
 app.use("/api/orders", orderRouter); // 주문 라우터
 app.use("/api/admin/orders", adminOrderRouter); //관리자 라우터 (주문)
+app.use("/api/orderComplete",orderRouter);
 
 /* 
 // catch 404 and forward to error handler
