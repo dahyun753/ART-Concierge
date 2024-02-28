@@ -10,11 +10,11 @@ viewsRouter.use("/admin/orders", serveStatic("admin-Order"));
 viewsRouter.use("/admin/exhibits", serveStatic("admin-Product"));
 
 viewsRouter.use("/exhibits", serveStatic("product"));
-// viewsRouter.use("/productDetail", serveStatic("productDetail"));
+viewsRouter.use("/exhibits/productDetail/:exhibitId", serveStatic("productDetail"));
 
 viewsRouter.use("/carts", serveStatic("cart"));
 viewsRouter.use("/orders", serveStatic("order"));
-// viewsRouter.use("/orderComplete", serveStatic("orderComplete"));
+viewsRouter.use("/orderComplete", serveStatic("orderComplete"));
 
 viewsRouter.use("/auth/join", serveStatic("registration"));
 viewsRouter.use("/auth", serveStatic("login"));
