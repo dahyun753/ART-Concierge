@@ -9,8 +9,8 @@ const viewsRouter = require("./routes/view-Router");
 
 const adminRouter = require("./routes/admin"); // 관리자 페이지 (전시, 카테고리, 주문)
 const authRouter = require("./routes/auth"); // 로그인/ 회원가입
-var cartsRouter = require("./routes/carts");
-var usersRouter = require("./routes/users");
+const cartsRouter = require("./routes/carts");
+const usersRouter = require("./routes/users");
 const exhibitRouter = require("./routes/exhibits");
 
 const orderRouter = require("./routes/order"); // 주문
