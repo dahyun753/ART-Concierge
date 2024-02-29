@@ -159,6 +159,7 @@
 
           category_All.forEach(category_One => {
             const optionElement = document.createElement("option");
+            optionElement.value = category_One._id;
             optionElement.textContent = category_One.category;
             element_Select.appendChild(optionElement);
           });
@@ -170,7 +171,10 @@
 
       // 상품 추가
       function addProduct(){
-        let category_Value = document.getElementById('category_Select').value;
+        let category_Select = document.getElementById('category_Select');
+        let selected_Option = category_Select.options[category_Select.selectedIndex];
+
+        let category_Value = selected_Option.value;
         let exhibitName_Value = document.getElementById('input_ExhibitName').value;
         let author_Value = document.getElementById('input_Author').value;
         let place_Value = document.getElementById('input_ExhibitPlace').value;
@@ -179,31 +183,23 @@
         let duration_Value = document.getElementById('datePicker').value;
         let img_Value = document.getElementById('uploadInput').files[0];
         
-        /*
-          let formData = new FormData();
-          formData.append('exhibitName', exhibitName_Value);
-          formData.append('exhibitAddress', place_Value);
-          formData.append('price', price_Value);
-          formData.append('startDate', duration_Value.split(' to ')[0]);
-          formData.append('endDate', duration_Value.split(' to ')[1]);
-          formData.append('category', category_Value);
-          formData.append('author', author_Value);
-          formData.append('information', description_Value);
-          formData.append('image', img_Value);
-        */
+        let formData = new FormData();
+        formData.append('exhibitName', exhibitName_Value);
+        formData.append('exhibitAddress', place_Value);
+        formData.append('price', price_Value);
+        formData.append('startDate', duration_Value.split(' to ')[0]);
+        formData.append('endDate', duration_Value.split(' to ')[1]);
+        formData.append('category', category_Value);
+        formData.append('author', author_Value);
+        formData.append('information', description_Value);
+        formData.append('image', img_Value);
 
         // 상품 추가 API
         alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
-        axios.post('/api/admin/exhibits', { 
-          image: img_Value,
-          exhibitName: exhibitName_Value, 
-          exhibitAddress: place_Value, 
-          price: price_Value,
-          startDate: duration_Value.split(' to ')[0],
-          endDate: duration_Value.split(' to ')[1],
-          category: category_Value,
-          author: author_Value,
-          information: description_Value,
+        axios.post('/api/admin/exhibits', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         })
           .then(response => {
             console.log('Product added successfully:', response.data);
@@ -239,7 +235,7 @@
             previewImageDiv.appendChild(imageElement);
         };
 
-        // reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
       }
     </script>
 </html>

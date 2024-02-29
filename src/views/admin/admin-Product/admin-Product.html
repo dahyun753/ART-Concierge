@@ -90,12 +90,15 @@
         .then(response => {
           let exhibits_All = response.data;
           let table_Body = document.querySelector("#product_List");
+
           table_Body.innerHTML = '';
 
+          // 
           exhibits_All.forEach(exhibit => {
+            console.log(exhibit.category);
             table_Body.innerHTML += `
               <tr>
-                <td>${exhibit.category === null ? '없음' : exhibit.category.category}</td>
+                <td id="td_categoryId">${exhibit.category === null ? '없음' : exhibit.category.category}</td>
                 <td>${exhibit.exhibitName}</td>
                 <td style="max-height: fit-content;"><a href="${exhibit.image}" target="_blank"><img src="${exhibit.image}" alt="" style="max-height: 36px;"></a></td>
                 <td>
