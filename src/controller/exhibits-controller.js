@@ -27,7 +27,7 @@ async function getExhibitList(req, res, next) {
 // 카테고리별 전시 리스트 조회 (작가, 이미지, 전시제목, 날짜, 카테고리만) 
 async function getExhibitByCategory (req, res, next) {
     try {
-        const {categoryId} = req.params;
+        const categoryId = req.params.categoryId;
         const exhibits = await exhibitService.searchByCategory(categoryId);
         res.json(exhibits);
     } catch (err) {

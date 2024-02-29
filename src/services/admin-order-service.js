@@ -1,5 +1,5 @@
 const { Order } = require('../db');
-const { deleteOrder } = require('./orderService');
+const { deleteOrder } = require('./order-service');
 
 const adminOrderService = {
     async updateState(_id, status) {
