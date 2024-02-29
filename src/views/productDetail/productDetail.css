@@ -1,32 +1,15 @@
-.custom-ul{
-    margin-bottom: 50px;
-}
-
-.flex-container {
-    justify-content: center;
-}
-
-.info-list-column{
-    text-align:center;
-}
 
 .info-text {
     text-align: center;
 }
 
-.button{
-    margin-top: 30px;
-}
-
-.btn-container{
-    box-sizing: border-box;
-    position: relative;
-    margin-top: 10%;
-}
-
-.notification{
+.info-exhibit{
+    display: flex;
     background-color: #FE7A2C;
-    float: left;
+    height: 40px;
+    width: 80px;
+    align-items: center;
+    justify-content: center;
 }
 
 .button {
@@ -34,72 +17,38 @@
     justify-content: center;
 }
 
-.container {
-        display: flex;
-        align-items: center;
-        margin: 0 auto;
-        padding: 0px;
-        flex-direction: column;
-        max-width: 100%;
-        font-family: sans-serif !important;
-        font-size: 1rem !important;
-        line-height: 1.5rem !important;
-        float: left;
-}
-
-.author-description {
-    margin-top: 2rem !important;
-    /* font-family: 'Pretendard',serif !important; */
-    font-size: 16px;
-    color: #000;
-    margin: 0;
-    white-space: break-spaces;
-    max-width: 100%;
-    line-height: 2rem;
-    text-align: left;
-    width: 100%;
-}
-
 .content {
     justify-content: center;
 }
 
 li {
-    margin-left: 0;
-    padding-left: 0px;
-}
-
-ul, ol {
-    list-style-type: none;
-    padding-left: 0px;
-}
-
-.info-list ul li {
+    display: flex;
     align-items: center;
-    box-sizing: border-box;
-    color: #000;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.subject{
+    width: 104px;
+    height: 17.77px;
+}
+
+.img-container{
+    padding: 0px;
+    margin-top: 28px;
+}
+
+.getItem{
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
+    position: fixed;
+    top: 550px;
+    left: 1090px;
+    width: 300px;
+    height: 80px;
+    background-color: aqua;
+    justify-content: center;
+    align-items: center;
 }
 
-.column {
-    align-items: flex-start;
-}
 
-.orderInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    flex-grow: 1;
-}
 
-.columns.is-mobile {
-    display: flex; /* Flexbox 사용 */
-    justify-content: space-between; /* 요소들을 가로로 고르게 분배 */
-    align-items: center; /* 요소들을 세로로 가운데 정렬 */
-}
-
-.art-description {
-    
-}
