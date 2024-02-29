@@ -1,3 +1,7 @@
+// const { json } = require("express");
+
+let orderData
+
 // 모달 열고 닫기
 function showModal() {
     document.getElementById('myModal').classList.add('is-active');
@@ -41,7 +45,7 @@ function chk_submit() {
 
     // 기존의 라디오 버튼들을 선택 해제
     var radioBtns = document.querySelectorAll('input[name="delivery_choice"]');
-    radioBtns.forEach(function(radioBtn) {
+    radioBtns.forEach(function (radioBtn) {
         radioBtn.checked = false;
     });
 
@@ -57,11 +61,11 @@ function clearFields() {
 
     // 배송지명 입력 필드 초기화
     document.getElementsByName("title")[0].value = "";
-  }
+}
 
-  function placeOrder() {
+async function placeOrder() {
     // 주문 정보를 수집
-    const orderData = {
+    orderData = {
         // 주문자 정보
         name: document.getElementById('').innerText,
         mobile: document.getElementById('').innerText,
@@ -71,33 +75,46 @@ function clearFields() {
         // 기타 배송 요청사항
         additionalRequest: document.getElementById('').value,
         // 상품 정보
-        product: {
-          
-        }
+        product: {}
     };
 
     // 주문 데이터를 서버로 전송
-    fetch('/order', {
+    const completeUrl = "http://localhost:5000/api/orders"
+
+    const data = {
+        name: orderData.name,
+        mobile: orderData.mobile,
+        address: orderData.address,
+        deliveryRequest: orderData.deliveryRequest,
+        additionalRequest: orderData.additionalRequest,
+        // 상품 정보
+        product: {},
+        order_id:21234,
+    }
+
+    const dataJson = JSON.stringify(data)
+
+    const res = fetch(completeUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': ''
+            'Content-Type': 'application/json' // JSON 데이터를 전송한다고 명시
         },
-        body: JSON.stringify(orderData)
+        body: dataJson
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('주문 실패');
-    })
-    .then(data => {
-        // 주문이 성공적으로 처리되었을 때 실행
-        console.log('주문이 성공적으로 처리되었습니다.', data);
-        // 주문 완료 페이지로 이동 또는 사용자에게 알림을 표시
-    })
-    .catch(error => {
-        // 주문 실패 시 실행
-        console.error('주문을 처리하는 동안 오류가 발생했습니다:', error);
-        // 사용자에게 오류 메시지를 표시
-    });
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('주문 실패');
+        })
+        .then(data => {
+            // 주문이 성공적으로 처리되었을 때 실행
+            console.log('주문이 성공적으로 처리되었습니다.', data);
+            // 주문 완료 페이지로 이동 또는 사용자에게 알림을 표시
+        })
+        .catch(error => {
+            // 주문 실패 시 실행
+            console.error('주문을 처리하는 동안 오류가 발생했습니다:', error);
+            // 사용자에게 오류 메시지를 표시
+        });
 }
