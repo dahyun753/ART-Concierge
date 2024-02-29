@@ -84,8 +84,11 @@
         confirmButtonText: '로그아웃',
         cancelButtonText: '취소'
       }).then((result) => {
-        document.cookie = 'token' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        window.location.href = '/'
+        if (result.value) {
+          document.cookie = 'token' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          window.location.href = '/'
+        }
+
       })
     }
     else {
