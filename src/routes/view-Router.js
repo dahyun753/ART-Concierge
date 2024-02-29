@@ -9,8 +9,7 @@ viewsRouter.use("/admin/categories", serveStatic("admin-Category"));
 viewsRouter.use("/admin/orders", serveStatic("admin-Order"));
 viewsRouter.use("/admin/exhibits", serveStatic("admin-Product"));
 
-viewsRouter.use("/exhibits", serveStatic("product"));
-// viewsRouter.use("/exhibits/productDetail/:exhibitId", serveStatic("productDetail"));
+viewsRouter.use("/exhibits/productDetail/:exhibitId", serveStatic("productDetail"));
 viewsRouter.use("/productDetail", serveStatic("productDetail"));
 
 viewsRouter.use("/carts", serveStatic("cart"));
