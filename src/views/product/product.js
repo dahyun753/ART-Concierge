@@ -15,13 +15,13 @@ window.onload = async function () {
     //변수 생성
     searchKeyword = urlParams.get('word');
     categoryKeyword=urlParams.get('categoryName')
-
+    console.log(value)
     if (key === 'word') {
         await searchProductElement(searchKeyword);
-    } else if(value==='전체'){
+    } else if(value ==='전체' || value === null || value === undefined || value === ""){
         await insertProductElement();
     }else{
-        filterProductElement(categoryKeyword) //카테고리 id
+        await filterProductElement(categoryKeyword) //카테고리 id
     }
 }
 
