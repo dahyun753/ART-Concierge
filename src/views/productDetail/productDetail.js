@@ -1,4 +1,4 @@
-import { getDB } from '../indexedDB.js';
+import { getDB } from '../../../indexedDB.js';
 
 const $minusButton = document.querySelector('.minus');
 const $plusButton = document.querySelector('.plus');
@@ -47,7 +47,7 @@ insertExhibitionName();
 async function insertExhibitionName() {
     const res = await fetch(`http://localhost:5001/api/exhibits/${exhibitId}`);
     const data = await res.json(); 
-
+    console.log(data)
     const exhibitName = data.exhibitName;
 
     console.log(exhibitName);

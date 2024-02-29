@@ -21,19 +21,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS & JS -->
-    <script src="../public/loadHTML.js"></script>
-    <link rel="stylesheet" href="../public/Header/header.css" />
-    <link rel="stylesheet" href="../public/Footer/footer.css" />
+    <script src="/public/loadHTML.js"></script>
+    <link rel="stylesheet" href="/public/Header/header.css" />
+    <link rel="stylesheet" href="/public/Footer/footer.css" />
 
     <link rel="stylesheet" href="./productDetail.css" />
-    <script src="./productDetail.js" type="module" defer></script>
+    <script src="productDetail.js" type="module" defer></script>
+
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
 
     <!-- Header -->
     <script>
-        loadHTML("../public/Header/header.html");
+        loadHTML("/public/Header/header.html");
     </script>
     <div class="modal">
         <div class="modal-background"></div>
@@ -157,7 +160,7 @@
     </main>
     <!-- Footer -->
     <script>
-        loadHTML("../public/Footer/footer.html");
+        loadHTML("/public/Footer/footer.html");
     </script>
 
 </body>
