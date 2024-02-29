@@ -17,10 +17,16 @@ async function exhibitList () {
 }
 
 // 카테고리별 전시 조회
-async function searchByCategory(category) {
-    return await Exhibit.find({ category: category })
+async function searchByCategory(categoryName) {
+    const category = await Category.findOne({ category: categoryName });
+
+    if (!category) {
+        throw new Error('해당 카테고리를 가진 전시는 없습니다!');
+    }
+
+    return await Exhibit.find({ category: category._id })
         .select('author image exhibitName startDate endDate category')
-        .populate('category', 'category'); // 전시의 카테고리 이름 가져오기
+        .populate('category', 'category'); 
 }
 
 // 키워드로 전시조회

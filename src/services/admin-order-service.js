@@ -2,6 +2,13 @@ const { Order } = require('../db');
 const { deleteOrder } = require('./order-service');
 
 const adminOrderService = {
+    async searchOrder() {
+
+        const orderList = await Order.find({})
+
+        return orderList ;
+    },
+
     async updateState(_id, status) {
         const order = await Order.find({ _id });
         const deliveryStatus = order[0].deliveryStatus;
