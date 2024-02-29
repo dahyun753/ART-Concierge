@@ -18,20 +18,8 @@
             <a class="navbar-link">
               Category
             </a>
+            <!-- 카테고리 목록 가져와서 for문으로 생성할 구간 -->
             <div class="navbar-dropdown">
-              <a class="navbar-item">
-                전체
-              </a>
-              <!-- 카테고리 목록 가져와서 for문으로 생성할 구간 -->
-              <a class="navbar-item">
-                사진 전시회
-              </a>
-              <a class="navbar-item">
-                그림 전시회
-              </a>
-              <a class="navbar-item">
-                조각 전시회
-              </a>
             </div>
           </div>
         </li>
@@ -40,7 +28,7 @@
         <li class="column mr-5">
           <form id="header-search-box" class="pl-4">
             <input id="header-search-input" type="text" placeholder="Search Exhibition">
-            <button id="header-search-submit" type="submit">
+            <button id="header-search-submit" type="button" onclick="search_Keyword()">
               <i id="header-search-submit-icon" class="fa-solid fa-magnifying-glass"></i>
             </button>
           </form>
@@ -48,49 +36,147 @@
 
         <!-- Cart -->
         <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
-          <a href="javascript:void(0)">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </a>
-          <span style="font-size: 10px;">Cart</span>
+          <div>
+            <a href="/carts">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <span style="font-size: 10px;">Cart</span>
+          </div>
         </li>
 
         <!-- Mypage -->
         <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
-          <a href="javascript:void(0)">
-            <i class="fa-solid fa-user"></i>
-          </a>
-          <span style="font-size: 10px;">Mypage</span>
+          <div>
+            <a href="javascript:void(0)" onclick="href_Mypage()">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <span style="font-size: 10px;">Mypage</span>
+          </div>
         </li>
 
         <!-- 로그인 X -->
-        <li id="isNotLogined" class="column is-flex is-flex-direction-column is-align-items-center mr-2">
-          <a href="javascript:void(0)">
-            <i class="fa-solid fa-right-to-bracket"></i>
-          </a>
-          <span style="font-size: 10px;">Login</span>
+        <li id="isNotLogined" class="mr-2">
+          <!-- 로그인 페이지로 이동 -->
+          <div>
+            <a id="mypage_Link" href="/auth">
+              <i class="fa-solid fa-right-to-bracket"></i>
+            </a>
+            <span style="font-size: 10px;">Login</span>
+          </div>
         </li>
-
         <!-- 로그인 O -->
-        <li id="isLogined" class="column is-flex is-flex-direction-column is-align-items-center mr-2 is-hidden">
-          <a href="javascript:void(0)">
-            <i class="fa-solid fa-seedling"></i>
-          </a>
-          <span>Welcome! </span>
+        <li id="isLogined" class="mr-2" style="display: none;">
+          <div>
+            <a href="javascript:void(0)" onclick="logout()">
+              <i class="fa-solid fa-seedling"></i>
+            </a>
+            <span>Welcome! </span>
+          </div>
         </li>
 
-        <script>
-          let isLogin = 0;
-
-          // 로그인 X
-          if (isLogin === 0) {
-            document.getElementById('isLogined').className += ' is-hidden';
-          }
-          // 로그인 O 
-          else {
-            document.getElementById('isNotLogined').className += ' is-hidden';
-          }
-        </script>
       </ul>
     </nav>
   </div>
 </header>
+<script>
+  let notLogin_Form = document.getElementById('isNotLogined');
+  let login_Form = document.getElementById('isLogined');
+
+  window.onload = function() {
+    loadCategory();
+    
+    // 로그인이 된 경우에만 사용자 정보를 가져오기
+    if (localStorage.getItem("loggedIn") === true) {
+        showUserInfo();
+
+        notLogin_Form.style.display = 'none';
+        login_Form.style.display = 'block';
+    }
+  };
+
+  // 사용자 정보 가져오기
+  function showUserInfo() {
+
+  }
+
+  // 카테고리 목록을 드롭다운 목록에 렌더링
+  function loadCategory() {
+    axios.get('/api/admin/categories')
+      .then(response => {
+        let category_All = response.data;
+        let category_List = [];
+
+        for (let element of category_All) {
+          category_List.push(element.category)
+        }
+      
+        category_List.unshift('전체');
+
+        let element_Select = document.querySelector('.navbar-dropdown');
+        element_Select.innerHTML = '';
+
+        let for_Count = 1;
+        category_List.forEach(category => {
+          // 카테고리 최대 5개까지만 목록에 출력
+          if (for_Count >= 7) {
+            return;
+          } else {
+            for_Count += 1;
+            const createElement = document.createElement("a");
+            createElement.className = 'navbar-item';
+            createElement.textContent = category;
+            createElement.href = `/exhibits?categoryName=${category}`;
+            element_Select.appendChild(createElement);
+          }
+        });
+      })
+      .catch(error => {
+            console.error('에러 발생:', error);
+      });
+  }
+
+  // 키워드 검색
+  function search_Keyword() {
+    let input_Element = document.getElementById('header-search-input');
+
+    let keyword = input_Element.value;
+    
+    if (keyword.trim() === '') {
+      alert('검색할 키워드를 입력하세요')
+    } else {
+      let search_URL = `/exhibits?word=${input_Element.value}`;
+
+      window.location.href = search_URL;
+    }
+  }
+
+  // 로그아웃
+  function logout() {
+    alert('로그아웃');
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('jwtToken');
+
+    notLogin_Form.style.display = 'block';
+    login_Form.style.display = 'none';
+  }
+
+  // 마이페이지를 클릭 시 비로그인, 유저, 관리자에 따라 다르게 연결
+  function href_Mypage() {
+    let mypage_Element = document.getElementById('mypage_Link');
+    // 로그인 O
+    if (localStorage.getItem("loggedIn") === true) {
+      // 관리자일 경우
+      if (localStorage.getItem("isAdmin") === true) {
+        window.location.href = '/admin/categories';
+        // 유저일 경우
+      } else {
+        window.location.href = '/users';
+      }
+      // 로그인 X
+    } else {
+      alert('로그인이 필요합니다');
+      window.location.href ='/auth';
+    }
+  }
+</script>

@@ -20,16 +20,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS & JS -->
-    <link rel="stylesheet" href="./admin-Category.css" />
-    <script src="../public/loadHTML.js"></script>
-    <link rel="stylesheet" href="../public/Header/header.css" />
-    <link rel="stylesheet" href="../public/Footer/footer.css" />
+    <link rel="stylesheet" href="./admin-Product.css" />
+    <script src="/public/loadHTML.js"></script>
+    <link rel="stylesheet" href="/public/Header/header.css" />
+    <link rel="stylesheet" href="/public/Footer/footer.css" />
 
 </head>
 <body>
   <!-- Header -->
   <script>
-    loadHTML("../public/Header/header.html");
+    loadHTML("/public/Header/header.html");
   </script>
   
   <main class="main">
@@ -41,12 +41,11 @@
         margin-top : 120px;
         margin-left : 250px;
         width: 200px; 
-        margin-right: 50px;
       ">
         <h3 class="title is-3">Admin</h3>
-        <a class="active has-text-black" href="./admin-Category.html" style="font-weight: bold;">카테고리 관리</a><br />
-        <a class="has-text-black" href="./admin-Product.html">상품 관리</a><br/>
-        <a class="has-text-black" href="./admin-Order.html">주문 관리</a>
+        <a class="active has-text-black" href="/admin/categories" style="font-weight: bold;">카테고리 관리</a><br />
+        <a class="has-text-black" href="/admin/exhibits">상품 관리</a><br/>
+        <a class="has-text-black" href="/admin/orders">주문 관리</a>
       </div>
     </aside>
     <section class="section" style="font-weight: 600 !important;">
@@ -72,6 +71,10 @@
     </section>
   </main>
   <!-- Footer -->
+  <script>
+    loadHTML("/public/Footer/footer.html");
+  </script>
+
   <script>
     loadProduct();
 
@@ -106,14 +109,25 @@
       let add_URL = "http://127.0.0.1:5501/views/admin/admin-ProductAdd.html"
   
       window.location.href = add_URL;
+      // history.pushState(null, null, add_URL);
+      // location.assign(add_URL);
     }
 
     // 상품 수정 버튼 클릭
     function product_Modify(productId) {
       // productID로 특정 상품 1개를 조회하는 API
       let data = [1, '사진', 'Time Lapse : 어느 시간에 탑승하시겠습니까?', './assets/productTestImage-1.png'];
+      let query_Data = [1, '제목', '주소', '엘리스', 50000, '설명']
+      /*
+        let queryString_1 = urlParams.get('productId');
+        let queryString_2 = urlParams.get('productName');
+        let queryString_3 = urlParams.get('productPlace');
+        let queryString_4 = urlParams.get('author');
+        let queryString_5 = urlParams.get('price');
+        let queryString_6 = urlParams.get('description');
+      */
 
-      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${data[0]}&productName=${data[1]}&productPlace=${data[2]}`;
+      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${query_Data[0]}&productName=${query_Data[1]}&productPlace=${query_Data[2]}&author=${query_Data[3]}&price=${query_Data[4]}&description=${query_Data[5]}`;
 
       window.location.href = modify_URL;
     }
