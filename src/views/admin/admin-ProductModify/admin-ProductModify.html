@@ -11,6 +11,9 @@
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -24,15 +27,15 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- Custom CSS & JS -->
-    <script src="../public/loadHTML.js"></script>
-    <link rel="stylesheet" href="../public/Header/header.css" />
-    <link rel="stylesheet" href="../public/Footer/footer.css" />
+    <script src="/public/loadHTML.js"></script>
+    <link rel="stylesheet" href="/public/Header/header.css" />
+    <link rel="stylesheet" href="/public/Footer/footer.css" />
 
 </head>
 <body>
     <!-- Header -->
     <script>
-      loadHTML("../public/Header/header.html");
+      loadHTML("/public/Header/header.html");
     </script>
   
     <main class="main">
@@ -46,9 +49,9 @@
           width: 200px; 
         ">
           <h3 class="title is-3">Admin</h3>
-          <a class="active has-text-black" href="#" style="font-weight: bold;">카테고리 관리</a><br />
-          <a class="has-text-black" href="http://127.0.0.1:5501/views/admin/admin-Product.html">상품 관리</a><br/>
-          <a class="has-text-black" href="#">주문 관리</a>
+          <a class="active has-text-black" href="/admin/categories" style="font-weight: bold;">카테고리 관리</a><br />
+          <a class="has-text-black" href="/admin/exhibits">상품 관리</a><br/>
+          <a class="has-text-black" href="/admin/orders">주문 관리</a>
         </div>
       </aside>
       <section class="section">
