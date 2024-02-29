@@ -17,7 +17,7 @@ window.onload = async function () {
     console.log(searchKeyword)
     if (key === 'word') {
         await searchProductElement(searchKeyword);
-    } else if(key===null || undefined || ""){
+    } else if(key===null || key===undefined || key===""){
         await insertProductElement();
     }else{
         filterProductElement(value) //카테고리 id
@@ -29,8 +29,6 @@ async function searchProductElement(keyword) {
     // 검색어를 서버에 전송하여 필터링된 데이터를 가져오는 함수
     const res = await fetch(`http://localhost:5001/api/exhibits/search?word=${keyword}`);
     const searchdata = await res.json();
-
-
 
     // numRows 변수 계산
     const numColumn = 4;
@@ -53,10 +51,10 @@ async function searchProductElement(keyword) {
                     let data = searchdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
-                            <a href="https://www.naver.com/">
+                            <a href="/exhibits/productDetail/${data._id}/">
                                 <img src="${data.image}" alt="">
-                                <div class="exhibitTitle"><a href="https://www.naver.com/"><div>${data.author}: ${data.exhibitName}</div></a></div>
-                                <div class="exhibitInfo" id='listEnd'><a href="https://www.naver.com/" class="date">${data.startDate}~${data.endDate}</a></div>
+                                <div class="exhibitTitle"><a href="/exhibits/productDetail/${data._id}/"><div>${data.author}: ${data.exhibitName}</div></a></div>
+                                <div class="exhibitInfo" id='listEnd'><a href="/exhibits/productDetail/${data._id}/" class="date">${data.startDate}~${data.endDate}</a></div>
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
@@ -124,12 +122,13 @@ async function insertProductElement() {
                 let dataIndex = i * numColumn + j;
                 if (dataIndex < serverdata.length) {
                     let data = serverdata[dataIndex];
+
                     let columnContents = `
                         <div class="column is-one-quarter">
-                            <a href="https://www.naver.com/">
+                            <a href="/exhibits/productDetail/${data._id}/">
                                 <img src="${data.image}" alt="">
-                                <div class="exhibitTitle"><a href="https://www.naver.com/"><div>${data.author}: ${data.exhibitName}</div></a></div>
-                                <div class="exhibitInfo" id='listEnd'><a href="https://www.naver.com/" class="date">${data.startDate}~${data.endDate}</a></div>
+                                <div class="exhibitTitle"><a href="/exhibits/productDetail/${data._id}/"><div>${data.author}: ${data.exhibitName}</div></a></div>
+                                <div class="exhibitInfo" id='listEnd'><a href="/exhibits/productDetail/${data._id}/" class="date">${data.startDate}~${data.endDate}</a></div>
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
@@ -199,10 +198,10 @@ async function filterProductElement(valuedata) {
                     let data = serverdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
-                            <a href="https://www.naver.com/">
+                           <a href="/exhibits/productDetail/${data._id}/">
                                 <img src="${data.image}" alt="">
-                                <div class="exhibitTitle"><a href="https://www.naver.com/"><div>${data.author}: ${data.exhibitName}</div></a></div>
-                                <div class="exhibitInfo" id='listEnd'><a href="https://www.naver.com/" class="date">${data.startDate}~${data.endDate}</a></div>
+                                <div class="exhibitTitle"><a href="/exhibits/productDetail/${data._id}/"><div>${data.author}: ${data.exhibitName}</div></a></div>
+                                <div class="exhibitInfo" id='listEnd'><a href="/exhibits/productDetail/${data._id}/" class="date">${data.startDate}~${data.endDate}</a></div>
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
