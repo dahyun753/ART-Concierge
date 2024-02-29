@@ -14,6 +14,9 @@ const usersRouter = require("./routes/users");
 const exhibitRouter = require("./routes/exhibits");
 
 const orderRouter = require("./routes/order"); // 주문
+const {adminValidate} = require('./middlewares/adminValidator'); // 미들웨어 
+const { verifylogin } = require('./middlewares/loginRequired'); //미들웨어
+
 
 require("./passport")();
 
@@ -36,7 +39,7 @@ app.use(express.urlencoded({ extended: true })); // 배열을 다룰 수 있는
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api/admin", adminRouter); //관리자 라우터 (전시 + 카테고리)
+app.use("/api/admin", verifylogin, adminValidate,  adminRouter); //관리자 라우터 (전시 + 카테고리+ 주문)
 app.use("/api/auth", authRouter); // 로그인 + 회원가입
 app.use("/api/carts", cartsRouter);
 app.use("/api/users", usersRouter);

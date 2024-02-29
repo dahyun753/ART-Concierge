@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const usersController = require("../controller/users-controller");
+const { verifylogin } = require('../middlewares/loginRequired')
 
-router.get("/", usersController.getUser);
-router.put("/", usersController.putUser);
-router.delete("/", usersController.deleteUser);
+router.get("/", verifylogin, usersController.getUser);
+router.put("/", verifylogin, usersController.putUser);
+router.delete("/", verifylogin, usersController.deleteUser);
 
 module.exports = router;
