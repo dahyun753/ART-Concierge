@@ -1,10 +1,29 @@
 const $searchAddress = document.querySelector('#address')
 const $detailAddress = document.querySelector('#sample6_detailAddress')
 const $research = document.querySelector('#research')
+const $email = document.querySelector('#email')
+const $phone = document.querySelector('#phone')
+const $name = document.querySelector('#name')
+const $addressInput = document.querySelector('#addressInput')
+const $detailAddressInput = document.querySelector('#detailAddressInput')
 
+getUserInformation()
 
+async function getUserInformation(){
+  try {
+    const response = await axios.get('/api/users/')
+    $phone.value = response.data.phone;
+    $name.value = response.data.name;
+    $email.value = response.data.email;
+    $addressInput.value = response.data.userAddress
+    $detailAddressInput.value = response.data.detailAddress
+  } catch (error) {
+    console.error('Error fetching user information:', error);
+  }
 
+};
 
+getUserInformation()
 
 
 function sample6_execDaumPostcode() {

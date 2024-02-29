@@ -56,7 +56,7 @@
           style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;">
           <div class="columns is-vcentered">
             <div class="column is-2 ">이메일<span class="essential">*</span></div>
-            <div class="column is-6"><input type="email" class="input is-medium" value="60191645@mju.ac.kr" readonly>
+            <div class="column is-6"><input id="email" type="email" class="input is-medium" value="60191645@mju.ac.kr" readonly>
             </div>
             <div class="column is-1"></div>
 
@@ -74,18 +74,18 @@
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">이름<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" value="김민서"></div>
+            <div class="column is-6"><input id="name" type="text" class="input is-medium" value="김민서"></div>
             <div class="column is-1"></div>
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">휴대폰<span class="essential">*</span></div>
-            <div class="column is-6"><input type="tel" class="input is-medium" value="01066176739"></div>
+            <div class="column is-6"><input id="phone" type="tel" class="input is-medium" value="01066176739"></div>
             <div class="column is-1"></div>
             <div class="column is-3"></div>
           </div>
           <div class="columns is-vcentered" id="test">
             <div class="column is-2">주소<span class="essential">*</span></div>
-            <div class="column is-6" id="address"><input type="text" class="input is-medium" value="전남 여수시 웅천동 지웰3차"
+            <div class="column is-6" id="address"><input id="addressInput" type="text" class="input is-medium" value="전남 여수시 웅천동 지웰3차"
                 readonly></div>
             <div class="column is-1"></div>
             <div id="research" class="column is-3"><input type="button" onclick="sample6_execDaumPostcode()"
@@ -93,7 +93,7 @@
           </div>
           <div class="columns is-vcentered" id="sample6_detailAddress">
             <div class="column is-2">상세 주소<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" value="309동 1404호"></div>
+            <div class="column is-6"><input id="detailAddressInput" type="text" class="input is-medium" value="309동 1404호"></div>
             <div class="column is-4"></div>
           </div>
           <div class="columns is-vcentered" id="sample6_detailAddress">

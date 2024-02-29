@@ -83,9 +83,9 @@
         cancelButtonColor: '#C0C0C0',
         confirmButtonText: '로그아웃',
         cancelButtonText: '취소'
-      }).then((result) => {
+      }).then(async(result) => {
         if (result.value) {
-          document.cookie = 'token' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          await axios.post('/api/auth/logout')
           window.location.href = '/'
         }
 
