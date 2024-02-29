@@ -12,15 +12,16 @@ window.onload = async function () {
         key = b;
     });
 
-    //검색시 작품 가져오기
+    //변수 생성
     searchKeyword = urlParams.get('word');
-    console.log(searchKeyword)
+    categoryKeyword=urlParams.get('categoryName')
+
     if (key === 'word') {
         await searchProductElement(searchKeyword);
-    } else if(key===null || key===undefined || key===""){
+    } else if(value==='전체'){
         await insertProductElement();
     }else{
-        filterProductElement(value) //카테고리 id
+        filterProductElement(categoryKeyword) //카테고리 id
     }
 }
 
