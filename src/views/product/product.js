@@ -175,7 +175,7 @@ async function insertProductElement() {
 
 //카테고리 데이터 가져오기
 async function filterProductElement(valuedata) {
-    const res = await fetch(`http://localhost:5001/api/exhibits/category/${valuedata}`);
+    const res = await fetch(`http://localhost:5001/api/exhibits/categories/${valuedata}`);
     const serverdata = await res.json();
 
     // numRows 변수 계산
