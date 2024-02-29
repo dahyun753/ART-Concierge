@@ -13,7 +13,15 @@ async function getdetailExhibit(req, res, next) {
 }
 
 // 전시 리스트 조회 (작가, 이미지, 전시제목, 날짜, 카테고리만)
-// controllers/exhibitController.js
+async function getCategoryList(req, res, next) {
+  try {
+    const contents = await exhibitService.categoryList();
+    res.status(201).json(contents);
+  } catch (err) {
+    // res.status(err.statusCode || 500).json(message: err.message );
+    res.json(err);
+  }
+}
 
 // 전시 리스트 조회
 async function getExhibitList(req, res, next) {
@@ -69,4 +77,5 @@ module.exports = {
   getExhibitList,
   getExhibitByCategory,
   getExhibitByWord,
+  getCategoryList,
 };
