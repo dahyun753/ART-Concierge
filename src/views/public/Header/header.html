@@ -37,7 +37,7 @@
         <!-- Cart -->
         <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
           <div>
-            <a href="../carts">
+            <a href="/carts">
               <i class="fa-solid fa-cart-shopping"></i>
             </a>
             <span style="font-size: 10px;">Cart</span>
@@ -58,7 +58,7 @@
         <li id="isNotLogined" class="mr-2">
           <!-- 로그인 페이지로 이동 -->
           <div>
-            <a id="mypage_Link" href="../auth">
+            <a id="mypage_Link" href="/auth">
               <i class="fa-solid fa-right-to-bracket"></i>
             </a>
             <span style="font-size: 10px;">Login</span>
@@ -125,7 +125,7 @@
             const createElement = document.createElement("a");
             createElement.className = 'navbar-item';
             createElement.textContent = category;
-            createElement.href = `../exhibits?categoryName=${category}`;
+            createElement.href = `/exhibits?categoryName=${category}`;
             element_Select.appendChild(createElement);
           }
         });
@@ -144,7 +144,7 @@
     if (keyword.trim() === '') {
       alert('검색할 키워드를 입력하세요')
     } else {
-      let search_URL = `../exhibits?word=${input_Element.value}`;
+      let search_URL = `/exhibits?word=${input_Element.value}`;
 
       window.location.href = search_URL;
     }
