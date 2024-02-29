@@ -1,115 +1,126 @@
-<header id="header" class="header columns is-full has-background-white">
-  <div id="header-container" class="columns is-flex" style="margin: 0 auto;">
-    <nav id="header-nav" class="is-flex is-full is-justify-content-space-between is-align-items-center is-flex">
-      <ul id="header-nav-1depth" class="is-flex is-justify-content-space-between is-align-items-center">
-        <!-- Logo -->
-        <li class="column is-150px mr-2">
-          <div id="header-logo" class="is-flex is-flex-direction-column is-align-items-center">
-            <a href="/">
-              <img class="is-full" src="/public/Header/assets/logo.png" alt="logo" />
-            </a>
-            <span>Prestige Collection</span>
-          </div>
-        </li>
+<nav class="navbar" role="navigation" aria-label="main navigation" style="border-bottom: 1px solid f8f9fa;">
+  <div class="navbar-brand">
+    <a class="navbar-item logo" href="/">
+      ART CONCIERGE
+    </a>
 
-        <!-- Category -->
-        <li class="column mr-5">
-          <div id="header-nav" class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              Category
-            </a>
-            <!-- 카테고리 목록 가져와서 for문으로 생성할 구간 -->
-            <div class="navbar-dropdown">
-            </div>
-          </div>
-        </li>
-
-        <!-- Search Box -->
-        <li class="column mr-5">
-          <form id="header-search-box" class="pl-4">
-            <input id="header-search-input" type="text" placeholder="Search Exhibition">
-            <button id="header-search-submit" type="button" onclick="search_Keyword()">
-              <i id="header-search-submit-icon" class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
-        </li>
-
-        <!-- Cart -->
-        <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
-          <div>
-            <a href="/carts">
-              <i class="fa-solid fa-cart-shopping"></i>
-            </a>
-            <span style="font-size: 10px;">Cart</span>
-          </div>
-        </li>
-
-        <!-- Mypage -->
-        <li class="column is-flex is-flex-direction-column is-align-items-center mr-2">
-          <div>
-            <a href="javascript:void(0)" onclick="href_Mypage()">
-              <i class="fa-solid fa-user"></i>
-            </a>
-            <span style="font-size: 10px;">Mypage</span>
-          </div>
-        </li>
-
-        <!-- 로그인 X -->
-        <li id="isNotLogined" class="mr-2">
-          <!-- 로그인 페이지로 이동 -->
-          <div>
-            <a id="mypage_Link" href="/auth">
-              <i class="fa-solid fa-right-to-bracket"></i>
-            </a>
-            <span style="font-size: 10px;">Login</span>
-          </div>
-        </li>
-        <!-- 로그인 O -->
-        <li id="isLogined" class="mr-2" style="display: none;">
-          <div>
-            <a href="javascript:void(0)" onclick="logout()">
-              <i class="fa-solid fa-seedling"></i>
-            </a>
-            <span>Welcome! </span>
-          </div>
-        </li>
-
-      </ul>
-    </nav>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
-</header>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          CATEGORY
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            About
+          </a>
+          <a class="navbar-item">
+            Jobs
+          </a>
+          <a class="navbar-item">
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-item">
+      <form id="header-search-box" class="pl-4">
+        <input id="header-search-input" type="text" placeholder="Search Exhibition">
+        <button id="header-search-submit" type="button" onclick="search_Keyword()">
+          <i id="header-search-submit-icon" class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="navbar-end">
+      <a class="navbar-item" href="/carts">
+        CART
+      </a>
+      <a class="navbar-item" id="mypage">
+        MY PAGE
+      </a>
+      <a class="navbar-item" id="login">
+        LOGIN
+      </a>
+    </div>
+  </div>
+  </div>
+  </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <script>
-  let notLogin_Form = document.getElementById('isNotLogined');
-  let login_Form = document.getElementById('isLogined');
+  const $loginButton = document.querySelector('#login');
+  const $myPage = document.querySelector('#mypage')
+  let token;
 
-  window.onload = function() {
+  window.onload = function () {
     loadCategory();
-    
-    // 로그인이 된 경우에만 사용자 정보를 가져오기
-    if (localStorage.getItem("loggedIn") === true) {
-        showUserInfo();
-
-        notLogin_Form.style.display = 'none';
-        login_Form.style.display = 'block';
+    token = getCookie("token");
+    console.log(token)
+    if (token) {
+      $loginButton.textContent = "LOGOUT";
+    }
+    else {
+      $loginButton.textContent = "LOGIN";
     }
   };
 
-  // 사용자 정보 가져오기
-  function showUserInfo() {
+  $loginButton.addEventListener('click', () => {
+    if (token) {
+      Swal.fire({
+        title: '로그아웃 하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#363636',
+        cancelButtonColor: '#C0C0C0',
+        confirmButtonText: '로그아웃',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.value) {
+          document.cookie = 'token' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          window.location.href = '/'
+        }
 
-  }
+      })
+    }
+    else {
+      window.location.href = '/auth'
+    }
+  })
 
+  $myPage.addEventListener('click', () => {
+    if (token) {
+      window.location.href = '/users'
+    }
+    else {
+      Swal.fire({
+        title: '로그인이 필요합니다!',
+        icon: 'warning',
+        confirmButtonColor: '#363636',
+        confirmButtonText: '확인',
+      });
+    }
+  })
   // 카테고리 목록을 드롭다운 목록에 렌더링
   function loadCategory() {
-    axios.get('/api/admin/categories')
+    axios.get('/api/exhibits/categoryList')
       .then(response => {
         let category_All = response.data;
+        console.log(category_All)
         let category_List = [];
 
         for (let element of category_All) {
           category_List.push(element.category)
         }
-      
+
         category_List.unshift('전체');
 
         let element_Select = document.querySelector('.navbar-dropdown');
@@ -131,7 +142,7 @@
         });
       })
       .catch(error => {
-            console.error('에러 발생:', error);
+        console.error('에러 발생:', error);
       });
   }
 
@@ -140,7 +151,7 @@
     let input_Element = document.getElementById('header-search-input');
 
     let keyword = input_Element.value;
-    
+
     if (keyword.trim() === '') {
       alert('검색할 키워드를 입력하세요')
     } else {
@@ -150,33 +161,12 @@
     }
   }
 
-  // 로그아웃
-  function logout() {
-    alert('로그아웃');
-    localStorage.removeItem('loggedIn');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('jwtToken');
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
 
-    notLogin_Form.style.display = 'block';
-    login_Form.style.display = 'none';
-  }
-
-  // 마이페이지를 클릭 시 비로그인, 유저, 관리자에 따라 다르게 연결
-  function href_Mypage() {
-    let mypage_Element = document.getElementById('mypage_Link');
-    // 로그인 O
-    if (localStorage.getItem("loggedIn") === true) {
-      // 관리자일 경우
-      if (localStorage.getItem("isAdmin") === true) {
-        window.location.href = '/admin/categories';
-        // 유저일 경우
-      } else {
-        window.location.href = '/users';
-      }
-      // 로그인 X
-    } else {
-      alert('로그인이 필요합니다');
-      window.location.href ='/auth';
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
     }
   }
 </script>

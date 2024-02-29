@@ -2,8 +2,16 @@ let data; // 전역 범위에 선언된 data 변수
 let key;
 let value;
 let searchKeyword;
+let page=1;
 
 window.onload = async function () {
+  //카테고리별 작품(쿼리스트링) 가져오기
+  let queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  urlParams.forEach(function (a, b) {
+    value = a;
+    key = b;
+  });
   //카테고리별 작품(쿼리스트링) 가져오기
   let queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -36,10 +44,17 @@ async function searchProductElement(valuedata) {
   const numRows = Math.ceil(serverdata.length / numColumn);
 
   const list = document.querySelector(".exhibition-list");
+  const list = document.querySelector(".exhibition-list");
 
   const addNewContent = () => {
     list.innerHTML = "";
+  const addNewContent = () => {
+    list.innerHTML = "";
 
+    for (let i = 0; i < numRows; i++) {
+      let columnsContainer = document.createElement("div");
+      columnsContainer.classList.add("columns");
+      columnsContainer.classList.add("is-multiline");
     for (let i = 0; i < numRows; i++) {
       let columnsContainer = document.createElement("div");
       columnsContainer.classList.add("columns");

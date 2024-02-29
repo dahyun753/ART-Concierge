@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <!-- Data Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- Custom CSS & JS -->
     <script src="../public/loadHTML.js"></script>
     <link rel="stylesheet" href="../public/Header/header.css" />
@@ -34,6 +38,7 @@
     <script>
       loadHTML("../public/Header/header.html");
     </script>
+  
   
     <main class="main">
       <aside>
@@ -47,6 +52,7 @@
         ">
           <h3 class="title is-3">Admin</h3>
           <a class="active has-text-black" href="#" style="font-weight: bold;">카테고리 관리</a><br />
+          <a class="has-text-black" href="http://127.0.0.1:5501/views/admin/admin-Product.html">상품 관리</a><br/>
           <a class="has-text-black" href="http://127.0.0.1:5501/views/admin/admin-Product.html">상품 관리</a><br/>
           <a class="has-text-black" href="#">주문 관리</a>
         </div>
@@ -62,15 +68,18 @@
                 <div class="column is-6">
                   <div class="select is-hovered">
                     <select id="category_Select">
+                    <select id="category_Select">
                     </select>
                   </div>
                 </div>
                 <div class="column is-1"></div>
               </div>
               
+              
 
               <div class="columns is-vcentered">
                 <div class="column is-2 ">전시회 제목</div>
+                <div class="column is-6"><input id="input_ExhibitName" type="text" class="input is-medium">
                 <div class="column is-6"><input id="input_ExhibitName" type="text" class="input is-medium">
                 </div>
               </div>
@@ -78,25 +87,35 @@
               <div class="columns is-vcentered">
                 <div class="column is-2">작가 이름</div>
                 <div class="column is-6"><input id="input_Author" type="text" class="input is-medium"></div>
+                <div class="column is-6"><input id="input_Author" type="text" class="input is-medium"></div>
                 <div class="column is-1"></div>
               </div>
               <div class="columns is-vcentered">
                 <div class="column is-2">전시 장소</div>
                 <div class="column is-6"><input id="input_ExhibitPlace" type="tel" class="input is-medium"></div>
+                <div class="column is-6"><input id="input_ExhibitPlace" type="tel" class="input is-medium"></div>
                 <div class="column is-1"></div>
                 <div class="column is-3"></div>
               </div>
               <div class="columns is-vcentered">
+              <div class="columns is-vcentered">
                 <div class="column is-2">가격</div>
+                <div class="column is-6"><input id="input_Price" type="text" class="input is-large"></div>
                 <div class="column is-6"><input id="input_Price" type="text" class="input is-large"></div>
               </div>
               <div class="columns is-vcentered">
+              <div class="columns is-vcentered">
                 <div class="column is-2">전시회 설명</div>
+                <div class="column is-6"><input id="input_Description" type="text" class="input is-medium" value=""></div>
                 <div class="column is-6"><input id="input_Description" type="text" class="input is-medium" value=""></div>
                 <div class="column is-4"></div>
               </div>
               <div class="columns is-vcentered">
+              <div class="columns is-vcentered">
                 <div class="column is-2">기간</div>
+                <div class="column is-6">
+                  <input type="text" id="datePicker" placeholder="Select date range" class="input is-medium">
+                </div>
                 <div class="column is-6">
                   <input type="text" id="datePicker" placeholder="Select date range" class="input is-medium">
                 </div>
@@ -113,7 +132,12 @@
               </div>
               
               <div class="columns is-vcentered">
+              
+              <div class="columns is-vcentered">
                 <div class="column is-3"></div>
+                <div class="column is-3 columnhas-text-centered mt-6"> <button type="button" onclick="modifyProduct()" class="button is-large">수정</button></div>
+                <div class="column is-3 has-text-centered mt-6"> <button type="button" onclick="moveToProduct()" class="button is-large">취소</button></div>
+              </div>
                 <div class="column is-3 columnhas-text-centered mt-6"> <button type="button" onclick="modifyProduct()" class="button is-large">수정</button></div>
                 <div class="column is-3 has-text-centered mt-6"> <button type="button" onclick="moveToProduct()" class="button is-large">취소</button></div>
               </div>
@@ -135,10 +159,8 @@
           dateFormat: "Y-m-d", // 선택된 날짜의 형식
           onChange: function(selectedDates, dateStr, instance) {
             let startDate = selectedDates[0].toISOString().split('T')[0];
-            // let endDate = selectedDates[1].toISOString().split('T')[0];
-            let endDate = selectedDates[1] ? selectedDates[1].toISOString().split('T')[0] : "";
+            let endDate = selectedDates[1].toISOString().split('T')[0];
             let selectedRange = startDate + " ~ " + endDate;
-            console.log(`${selectedDates} / ${startDate} / ${endDate}`);
 
             let input_DatePicker = document.getElementById('datePicker')
             input_DatePicker.textContent = selectedRange;
@@ -187,10 +209,12 @@
         let price_Value = document.getElementById('input_Price').value;
         let description_Value = document.getElementById('input_Description').value;
         let duration_Value = document.getElementById('datePicker').value;
-        let img_Value = document.getElementById('previewImage').querySelector('img').src;
+        let img_Value = document.getElementById('input_Image');
+
+        let file_Image = img_Value.files[0];
 
         // 상품 수정 API
-        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
+        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${file_Image}`);
 
         // 상품 페이지로 이동
         moveToProduct();
@@ -202,23 +226,24 @@
         window.location.href = product_Page;
       }
 
-      // 이미지 업로드
-      function uploadImage() {
-        const file = document.getElementById('uploadInput').files[0];
-        console.log(file);
-        const reader = new FileReader();
+      function openFileUploader() {
+        document.getElementById('upload').click();
+      }
 
-        reader.onload = function(e) {
-            const previewImageDiv = document.getElementById('previewImage');
-            previewImageDiv.innerHTML = ''; // 이미지를 여러 번 업로드할 때 기존 이미지 제거
+      document.getElementById('upload').addEventListener('change', function() {
+        previewImage(this);
+      });
 
-            const imageElement = document.createElement('img');
-            imageElement.src = e.target.result;
-            imageElement.style.maxWidth = '200px'; // 이미지 사이즈 조절
-            previewImageDiv.appendChild(imageElement);
-        };
+      function previewImage(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
 
-        reader.readAsDataURL(file);
+          reader.onload = function(e) {
+            document.getElementById('image-preview').setAttribute('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+        }
       }
     </script>
 </html>

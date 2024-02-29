@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="cart.css">
-  
+
 
   <title>장바구니</title>
-
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -28,7 +27,8 @@
   <link rel="stylesheet" href="../public/Header/header.css" />
   <link rel="stylesheet" href="../public/Footer/footer.css" />
   <script defer src="cart.js" type="module"></script>
-  
+  <!-- axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
   <main>
     <section class="section">
       <div class="container">
-        <h1 class="title has-text-weight-bold">Shopping Cart</h1>
+        <h1 class="title has-text-weight-bold " id="shoppingcart">Shopping Cart</h1>
         <div class="columns is-4 is-variable my-6">
           <div class="column is-8">
             <!-- Left Container -->
@@ -126,7 +126,7 @@
       </div>
       </div>
     </section>
-    <button class="button" id="test">담기</button>
+
   </main>
 
   <script>
