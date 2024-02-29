@@ -126,7 +126,7 @@ async function insertProductElement() {
                     let data = serverdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
-                            <a href="https://www.naver.com/">
+                            <a href="http://localhost:5001/productDetail">
                                 <img src="${data.image}" alt="">
                                 <div class="exhibitTitle"><a href="https://www.naver.com/"><div>${data.author}: ${data.exhibitName}</div></a></div>
                                 <div class="exhibitInfo" id='listEnd'><a href="https://www.naver.com/" class="date">${data.startDate}~${data.endDate}</a></div>
@@ -173,7 +173,7 @@ async function insertProductElement() {
     observer.observe(listEnd);
 }
 
-//필터 데이터 가져오기
+//카테고리 데이터 가져오기
 async function filterProductElement(valuedata) {
     const res = await fetch(`http://localhost:5001/api/exhibits?search=${valuedata}`);
     const serverdata = await res.json();
