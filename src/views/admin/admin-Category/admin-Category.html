@@ -132,7 +132,7 @@
     // 페이지 로드 시 카테고리 목록 렌더링
     function loadCategory() {
       // 카테고리 데이터 가져오기(카테고리ID, 카테고리명, 카테고리 갯수)
-      axios.get('/api/exhibits/categoryList')
+      axios.get('/api/admin/categories')
       .then(response => {
         let category_All = response.data;
         let table_Body = document.querySelector("#category_List");

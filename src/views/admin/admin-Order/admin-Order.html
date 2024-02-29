@@ -91,70 +91,60 @@
     // 페이지 로드 시 주문 목록 렌더링
     function loadOrder() {
       // 주문 데이터 가져오기(주문번호(ID), 유저데이터.name(주문자명), 주문일자, 배송상태)
-      let data = [[1, 
-      {
-        email : 'test@abc.com',
-        name : "이름 1",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송시작'], 
-      [2, 
-      {
-        email : 'test@abc.com',
-        name : "이름 2",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송완료'], 
-      [3, 
-      {
-        email : 'test@abc.com',
-        name : "이름 3",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송준비중'], 
-      [4, 
-      {
-        email : 'test@abc.com',
-        name : "이름 4",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송완료'], 
-      ];
-      let order_Area = document.querySelector(".order-container");
+      axios.get(`/api/admin/orders`)
+        .then(response => {
+          let order_Data = response.data;
+          console.log(order_Data);
+          let order_Area = document.querySelector(".order-container");
+          order_Area.innerHTML = '';
 
-      data.forEach(order => {
-        order_Area.innerHTML += `
-          <div class="card" style="margin-bottom: 20px">
-            <header class="card-header">
-              <p class="card-header-title">
-                주문 정보
-              </p>
-            </header>
-            <div class="card-content is-flex">
-              <div class="content" style="flex: 1;">
-                <p id="id${order[0]}" class="p_OrderID"><strong>주문번호 :</strong> ${order[0]}</p>
-                <p><strong>주문자명 :</strong> ${order[1].name}</p>
-                <p><strong>주문일자 :</strong> ${order[2]}</p>
-                <p><strong>주문시간 :</strong> ${order[3]}</p>
-                <p id="id${order[0]}" class="p_DeliveryStatus"><strong>배송상태 :</strong> ${order[4]}</p>
-              </div>
-              <div class="content" style="flex: 1;">
-                <div class="select is-hovered">
-                  <select id="id${order[0]}" class="delivery_Select">
-                    <option>배송준비중</option>
-                    <option>배송시작</option>
-                    <option>배송완료</option>
-                  </select>
+          order_Data.forEach(order => {
+            console.log(`${order._id} / ${order.deliveryStatus} / ${order.name} / ${order.orderedDate.replace("T", " ").replace("Z", "")} / ${order.phone} / ${order.userAddress} / ${order.userId}`);
+            
+            let delivery_Status = (order.deliveryStatus === '1') ? "배송준비중" :
+                                  (order.deliveryStatus === '2') ? "배송시작" :
+                                  (order.deliveryStatus === '3') ? "배송완료" :
+                                  undefined;
+            
+            let order_Date = order.orderedDate.replace("T", " ").replace("Z", "").split(' ')[0];
+            let order_Time = order.orderedDate.replace("T", " ").replace("Z", "").split(' ')[1].split('.')[0];
+
+            order_Area.innerHTML += `
+            <div class="card" style="margin-bottom: 20px">
+              <header class="card-header">
+                <p class="card-header-title">
+                  주문번호 ${order._id}
+                </p>
+              </header>
+              <div class="card-content is-flex">
+                <div class="content" style="flex: 1;">
+                  <p><strong>주문자명 :</strong> ${order.name}</p>
+                  <p><strong>전화번호 :</strong> ${order.phone}</p>
+                  <p><strong>주문일자 :</strong> ${order_Date}</p>
+                  <p><strong>주문시간 :</strong> ${order_Time}</p>
+                  <p id="id${order._id}" class="p_DeliveryStatus"><strong>배송상태 :</strong> ${delivery_Status}</p>
                 </div>
-                <div>
-                  <button id=${order[0]} onclick="order_Modify(this.id)">수정</button>
-                  <button id=${order[0]} onclick="order_Delete(this.id)">삭제</button>
+                <div class="content" style="flex: 1;">
+                  <div class="select is-hovered">
+                    <select id="id${order._id}" class="delivery_Select">
+                      <option>배송준비중</option>
+                      <option>배송시작</option>
+                      <option>배송완료</option>
+                    </select>
+                  </div>
+                  <div>
+                    <button id=${order._id} onclick="order_Modify(this.id)">수정</button>
+                    <button id=${order._id} onclick="order_Delete(this.id)">삭제</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
-      });
+          `;
+        });
+        })
+        .catch(error => {
+              console.error('에러 발생:', error);
+        });
     }
 
     // 주문 수정

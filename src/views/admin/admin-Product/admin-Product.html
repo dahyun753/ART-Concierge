@@ -86,16 +86,14 @@
     // 상품 데이터 load
     function loadProduct() {
       // 상품 전체 조회 API(상품ID, 카테고리명, 전시회명, 이미지)
-      axios.get('/api/exhibits')
+      axios.get('/api/admin/exhibits')
         .then(response => {
-          let exhibits_All = response.data;
+          let exhibits_All = response.data.exhibits;
           let table_Body = document.querySelector("#product_List");
 
           table_Body.innerHTML = '';
 
-          // 
           exhibits_All.forEach(exhibit => {
-            console.log(exhibit.category);
             table_Body.innerHTML += `
               <tr>
                 <td id="td_categoryId">${exhibit.category === null ? '없음' : exhibit.category.category}</td>
