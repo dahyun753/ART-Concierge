@@ -1,42 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-// // 로그인 여부 확인 미들웨어
-// exports.isLogined = (req, res, next) => {
-//     const userToken = req.headers.cookie.split("=")[1];
-
-//     if (!userToken || userToken === "null") {
-//         console.log(`서비스 사용 요청이 있습니다. 하지만, Authorization 토큰: ${userToken}`);
-//         return res.json({
-//             result: "forbidden-approach",
-//             reason: "로그인한 유저만 사용할 수 있는 서비스입니다.",
-//         });
-//     }
-//     next();
-// };
-
-
-// // 토큰 검증 미들웨어
-// exports.verifyToken = (req, res, next) => {
-//     const userToken = req.headers.cookie.split("=")[1];
-
-//     try {
-//         const jwtDecoded = jwt.verify(userToken, process.env.JWT_SECRET_KEY);
-//         console.log(jwtDecoded);
-//         const user_Id = jwtDecoded._Id;
-
-//         next();
-//     } catch (error) {
-//         return res.json({
-//             result: "forbidden-approach",
-//             reason: "정상적인 토큰이 아닙니다.",
-//         });
-//     }
-// };
-
 // 토큰 검증 및 로그인 여부 확인 미들웨어
 exports.verifylogin = (req, res, next) => {
     const userToken = req.headers.cookie.split("=")[1];
-
     if (!userToken || userToken === "null") {
         console.log(`서비스 사용 요청이 있습니다. 하지만, Authorization 토큰: ${userToken}`);
         return res.json({
@@ -46,15 +12,29 @@ exports.verifylogin = (req, res, next) => {
     }
 
     try {
-        const jwtDecoded = jwt.verify(userToken, process.env.JWT_SECRET_KEY);
-        console.log(jwtDecoded);
-        const user_Id = jwtDecoded._Id;
+        jwt.verify(userToken, process.env.JWT_SECRET_KEY, function(err, decoded) {
+            if (err) {
+                console.error('JWT 검증 오류:', err.message);
+                return res.json({
+                    result: "forbidden-approach",
+                    reason: "토큰 검증에 실패했습니다.",
+                });
+            }
 
-        next();
+            console.log(decoded);
+
+            const user_Id = decoded._id; 
+            console.log(user_Id);
+
+            req.user = user_Id;
+            //req.user.id 라고 하니 id값을 찾을 수 없다고 오류 그래서 => req.user
+            next();
+        });
     } catch (error) {
         return res.json({
             result: "forbidden-approach",
             reason: "정상적인 토큰이 아닙니다.",
+            message: error.message
         });
     }
 };
