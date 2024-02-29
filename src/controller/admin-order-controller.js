@@ -16,22 +16,23 @@ const adminOrderController = {
     async updateState(req, res, next) {
         try {
             //배송전 주문정보 수정 -> 배송 상태 변경
-            const _id = req.params._id; // orderId
+            const orderId = req.params.orderId; // orderId
             const { status } = req.body;
             console.log(status);
             // 배송 중
-            const orderUpdate = await adminOrderService.updateState(_id, status);
+            const orderUpdate = await adminOrderService.updateState(orderId, status);
 
-            if (orderUpdate.modifiedCount === 1) {
+            // 수정 되었는지 여부 체크
+            if (orderUpdate.modifiedCount >= 1) {
                 if (status === "2") {
-                    res.send("주문 상태가 배송중으로 수정되었습니다.");
+                    res.json("주문 상태가 배송중으로 수정되었습니다.");
                 } else if (status === "3") {
-                    res.send("주문 상태가 배송완료로 수정되었습니다.");
+                    res.json("주문 상태가 배송완료로 수정되었습니다.");
                 } else {
-                    res.send("허용된 주문이 아닙니다");
+                    res.json("주문 상태는 2(배송중)과 3(배송완료)로만 입력해주세요.");
                 }
             } else {
-                res.send("주문 수정에 실패했습니다.");
+                res.json("배송상태를 이전과 동일하게 선택할 수 없습니다.");
             }
         } catch (err) {
             res.json(err);
@@ -40,13 +41,13 @@ const adminOrderController = {
 
     async deleteOrder(req, res, next){
         try {
-            const _id = req.params._id;
-            const isDelivered = await adminOrderService.deleteOrder(_id);
+            const orderId = req.params.orderId;
+            const isDelivered = await adminOrderService.deleteOrder(orderId);
 
-            if (isDelivered == 1) {
-                res.status(200).send("유저의 주문이 취소되었습니다");
-            }else {
-                res.send("배송 중인 상품입니다.")
+            if (isDelivered === "배송전") {
+                res.status(200).json("유저의 주문이 취소되었습니다");
+            } else {
+                res.json("배송 중이거나 완료한 상품은 주문삭제가 불가합니다!")
             }
         } catch (err) {
             console.log("주문 삭제가 실패되었습니다.")
