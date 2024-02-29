@@ -3,7 +3,7 @@ let key;
 let value;
 let searchKeyword;
 
-window.onload = function () {
+window.onload = async function () {
     //카테고리별 작품(쿼리스트링) 가져오기
     let queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -14,13 +14,13 @@ window.onload = function () {
 
     //검색시 작품 가져오기
     searchKeyword = urlParams.get('word');
-    console.log(key)
+    console.log(searchKeyword)
     if (key === 'word') {
-        searchProductElement(searchKeyword);
-    } else if(key===""){
-        insertProductElement();
+        await searchProductElement(searchKeyword);
+    } else if(key===null || undefined || ""){
+        await insertProductElement();
     }else{
-        filterProductElement(value)
+        filterProductElement(value) //카테고리 id
     }
 }
 
@@ -39,6 +39,9 @@ async function searchProductElement(keyword) {
     const list = document.querySelector('.exhibition-list');
 
     const addNewContent = () => {
+
+        list.innerHTML = '';
+
         for (let i = 0; i < numRows; i++) {
             let columnsContainer = document.createElement('div');
             columnsContainer.classList.add('columns');
@@ -109,6 +112,9 @@ async function insertProductElement() {
     const list = document.querySelector('.exhibition-list');
 
     const addNewContent = () => {
+
+        list.innerHTML = '';
+
         for (let i = 0; i < numRows; i++) {
             let columnsContainer = document.createElement('div');
             columnsContainer.classList.add('columns');
@@ -179,6 +185,9 @@ async function filterProductElement(valuedata) {
     const list = document.querySelector('.exhibition-list');
 
     const addNewContent = () => {
+
+        list.innerHTML = '';
+
         for (let i = 0; i < numRows; i++) {
             let columnsContainer = document.createElement('div');
             columnsContainer.classList.add('columns');
