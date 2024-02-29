@@ -2,7 +2,8 @@ const jwt = require('jsonwebtoken');
 
 // 토큰 검증 및 로그인 여부 확인 미들웨어
 exports.verifylogin = (req, res, next) => {
-    const userToken = req.headers.cookie.split("=")[1];
+    const userToken = req.headers.cookie ? req.headers.cookie.split("=")[1] : "null";
+
     if (!userToken || userToken === "null") {
         console.log(`서비스 사용 요청이 있습니다. 하지만, Authorization 토큰: ${userToken}`);
         return res.json({
@@ -27,7 +28,6 @@ exports.verifylogin = (req, res, next) => {
             console.log(user_Id);
 
             req.user = user_Id;
-            //req.user.id 라고 하니 id값을 찾을 수 없다고 오류 그래서 => req.user
             next();
         });
     } catch (error) {
