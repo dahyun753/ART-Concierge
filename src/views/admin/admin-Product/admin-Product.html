@@ -11,6 +11,9 @@
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -76,32 +79,36 @@
   </script>
 
   <script>
-    loadProduct();
+    window.onload = function() {
+      loadProduct();
+    };
 
     // 상품 데이터 load
     function loadProduct() {
       // 상품 전체 조회 API(상품ID, 카테고리명, 전시회명, 이미지)
-      let data = [
-        [1, '사진', 'Time Lapse : 어느 시간에 탑승하시겠습니까?', './assets/productTestImage-1.png'], 
-        [2, '체험형', 'Ursula Palla: The MOON In My Pocket', './assets/productTestImage-2.png'], 
-        [3, '그림', '미셸 들라크루아, 파리의 벨 에포크', './assets/productTestImage-3.png'], 
-        [4, '조각', '권여현《춤추는 사유: IN A TRANCE》', './assets/productTestImage-4.png'], 
-      ]
-      let table_Body = document.querySelector("#product_List");
+      axios.get('/api/exhibits')
+        .then(response => {
+          let exhibits_All = response.data;
+          let table_Body = document.querySelector("#product_List");
+          table_Body.innerHTML = '';
 
-      data.forEach(product => {
-        table_Body.innerHTML += `
-          <tr>
-            <td>${product[1]}</td>
-            <td>${product[2]}</td>
-            <td style="max-height: fit-content;"><a href="${product[3]}" target="_blank"><img src="${product[3]}" alt="" style="max-height: 36px;"></a></td>
-            <td>
-              <button id="${product[0]}" onclick="product_Modify(this.id)">수정</button>
-              <button id="${product[0]}" onclick="product_Delete(this.id)">삭제</button>
-            </td>
-          </tr>
-        `;
-      });
+          exhibits_All.forEach(exhibit => {
+            table_Body.innerHTML += `
+              <tr>
+                <td>${exhibit.category === null ? '없음' : exhibit.category.category}</td>
+                <td>${exhibit.exhibitName}</td>
+                <td style="max-height: fit-content;"><a href="${exhibit.image}" target="_blank"><img src="${exhibit.image}" alt="" style="max-height: 36px;"></a></td>
+                <td>
+                  <button id="${exhibit._id}" onclick="product_Modify(this.id)">수정</button>
+                  <button id="${exhibit._id}" onclick="product_Delete(this.id)">삭제</button>
+                </td>
+              </tr>
+            `;
+          });
+        })
+        .catch(error => {
+              console.error('에러 발생:', error);
+        });
     }
 
     // 상품 추가 버튼 클릭
@@ -109,36 +116,31 @@
       let add_URL = "http://127.0.0.1:5501/views/admin/admin-ProductAdd.html"
   
       window.location.href = add_URL;
-      // history.pushState(null, null, add_URL);
-      // location.assign(add_URL);
     }
 
     // 상품 수정 버튼 클릭
     function product_Modify(productId) {
-      // productID로 특정 상품 1개를 조회하는 API
-      let data = [1, '사진', 'Time Lapse : 어느 시간에 탑승하시겠습니까?', './assets/productTestImage-1.png'];
-      let query_Data = [1, '제목', '주소', '엘리스', 50000, '설명']
-      /*
-        let queryString_1 = urlParams.get('productId');
-        let queryString_2 = urlParams.get('productName');
-        let queryString_3 = urlParams.get('productPlace');
-        let queryString_4 = urlParams.get('author');
-        let queryString_5 = urlParams.get('price');
-        let queryString_6 = urlParams.get('description');
-      */
-
-      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${query_Data[0]}&productName=${query_Data[1]}&productPlace=${query_Data[2]}&author=${query_Data[3]}&price=${query_Data[4]}&description=${query_Data[5]}`;
+      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${productId}`;
 
       window.location.href = modify_URL;
     }
 
     // 상품 삭제 버튼 클릭
     function product_Delete(productId) {
+      console.log(productId);
       let isConfirmed = confirm('삭제하시겠습니까?');
 
       if (isConfirmed) {
         alert(`삭제할 상품ID : ${productId}`);
         // 상품 삭제 API
+        axios.delete(`/api/admin/exhibits/${productId}`)
+          .then(response => {
+            console.log('Exhibit deleted successfully:', response.data);
+            loadProduct();
+          })
+          .catch(error => {
+            console.error('Error deleting Exhibit:', error);
+          });
       }
     }
   </script>
