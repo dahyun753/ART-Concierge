@@ -2,7 +2,7 @@ const { Exhibit, Category } = require("../db");
 const pagination = require("../utils/pagination");
 
 // 전시 상세
-async function detailhExhibit(exhibitId) {
+async function detailExhibit(exhibitId) {
   const exhibits = await Exhibit.findOne({ _id: exhibitId });
 
   return exhibits;
@@ -67,8 +67,9 @@ async function searchByWord(keyword, page = 1, perPage = 10) {
 }
 
 module.exports = {
-  detailhExhibit,
+  detailExhibit,
   exhibitList,
   searchByCategory,
   searchByWord,
+  categoryList,
 };
