@@ -3,7 +3,7 @@ let key;
 let value;
 let searchKeyword;
 
-window.onload = function () {
+window.onload = async function () {
     //카테고리별 작품(쿼리스트링) 가져오기
     let queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -14,11 +14,11 @@ window.onload = function () {
 
     //검색시 작품 가져오기
     searchKeyword = urlParams.get('word');
-
+    console.log(searchKeyword)
     if (key === 'word') {
-        searchProductElement(searchKeyword);
+        await searchProductElement(searchKeyword);
     } else if(key===null || undefined || ""){
-        insertProductElement();
+        await insertProductElement();
     }else{
         filterProductElement(value) //카테고리 id
     }
@@ -126,10 +126,10 @@ async function insertProductElement() {
                     let data = serverdata[dataIndex];
                     let columnContents = `
                         <div class="column is-one-quarter">
-                            <a href="http://localhost:5001/exhibits/${data._id}">
+                            <a href="https://www.naver.com/">
                                 <img src="${data.image}" alt="">
-                                <div class="exhibitTitle"><a href="http://localhost:5001/api/exhibits/${data._id}"><div>${data.author}: ${data.exhibitName}</div></a></div>
-                                <div class="exhibitInfo" id='listEnd'><a href="http://localhost:5001/api/exhibits/${data._id}" class="date">${data.startDate}~${data.endDate}</a></div>
+                                <div class="exhibitTitle"><a href="https://www.naver.com/"><div>${data.author}: ${data.exhibitName}</div></a></div>
+                                <div class="exhibitInfo" id='listEnd'><a href="https://www.naver.com/" class="date">${data.startDate}~${data.endDate}</a></div>
                             </a>
                         </div>`;
                     columnsContainer.innerHTML += columnContents;
@@ -175,7 +175,7 @@ async function insertProductElement() {
 
 //필터 데이터 가져오기
 async function filterProductElement(valuedata) {
-    const res = await fetch(`http://localhost:5001/api/exhibits/category/${valuedata}`);
+    const res = await fetch(`http://localhost:5001/api/exhibits?search=${valuedata}`);
     const serverdata = await res.json();
 
     // numRows 변수 계산
