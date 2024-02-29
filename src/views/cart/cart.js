@@ -6,15 +6,15 @@ const $buy = document.querySelector('.buy')
 const $totalItemPrice = document.querySelector('.totalItemPrice')
 const db = await getDB();
 
-
-async function loadCartData(){
-  try{
-    const response = axios.get('/api/carts');
-  }
-  catch{
-    updateProductListFromIndexedDB()
-  }
-}
+updateProductListFromIndexedDB()
+// async function loadCartData(){
+//   try{
+//     const response = axios.get('/api/carts');
+//   }
+//   catch{
+//     updateProductListFromIndexedDB()
+//   }
+// }
 
 
 reloadAmount()
