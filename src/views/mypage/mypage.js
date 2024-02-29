@@ -6,10 +6,12 @@ const $phone = document.querySelector('#phone')
 const $name = document.querySelector('#name')
 const $addressInput = document.querySelector('#addressInput')
 const $detailAddressInput = document.querySelector('#detailAddressInput')
+const $quitButton = document.querySelector('#quit')
+const $changeInfoButton = document.querySelector('#changeInfo')
 
 getUserInformation()
 
-async function getUserInformation(){
+async function getUserInformation() {
   try {
     const response = await axios.get('/api/users/')
     $phone.value = response.data.phone;
@@ -20,10 +22,7 @@ async function getUserInformation(){
   } catch (error) {
     console.error('Error fetching user information:', error);
   }
-
 };
-
-getUserInformation()
 
 
 function sample6_execDaumPostcode() {
@@ -69,5 +68,60 @@ function sample6_execDaumPostcode() {
     }
   }).open();
 }
+
+$quitButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  Swal.fire({
+    title: '회원 탈퇴 하시겠습니까?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#363636',
+    cancelButtonColor: '#C0C0C0',
+    confirmButtonText: '탈퇴',
+    cancelButtonText: '취소'
+  }).then(async (result) => {
+    if (result.value) {
+      await axios.post('/api/auth/logout')
+      await axios.delete('/api/users')
+      Swal.fire({
+        title: '탈퇴 완료',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#363636',
+        confirmButtonText: '확인'
+      }).then(() => {
+        window.location.href = "/"
+      })
+    }
+  })
+}
+)
+
+$changeInfoButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  Swal.fire({
+    title: `회원 정보를 
+    수정 하시겠습니까?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#363636',
+    cancelButtonColor: '#C0C0C0',
+    confirmButtonText: '수정',
+    cancelButtonText: '취소'
+  }).then(async (result) => {
+    if (result.value) {
+      await axios.put('/api/auth/')
+      Swal.fire({
+        title: '수정 완료',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#363636',
+        confirmButtonText: '확인'
+      })
+    }
+  })
+})
+
+
 
 

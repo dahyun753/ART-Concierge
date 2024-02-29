@@ -37,15 +37,13 @@
   <script>
     loadHTML("../public/Header/header.html");
   </script>
-  <aside>
+
+  <section class="section">
     <div class="side-menu">
       <h3 class="title is-3">My Page</h3>
-      <a class="active has-text-black" href="#">회원 정보 수정</a><br />
-      <a class="has-text-black" href="#">주문 / 배송</a><br />
-      <a class="has-text-black" href="#">장바구니</a>
+      <a class="active has-text-black" href="/users">회원 정보 수정</a><br />
+      <a class="has-text-black" href="/orders">주문 / 배송</a><br />
     </div>
-  </aside>
-  <section class="section">
     <div class="container" style="width: 50%;">
       <h1 class="title has-text-centered">회원 정보</h1>
       <form>
@@ -98,8 +96,8 @@
           </div>
           <div class="columns is-vcentered" id="sample6_detailAddress">
             <div class="column is-3"></div>
-            <div class="column is-3 columnhas-text-centered mt-6"> <button class="button is-large">탈퇴 하기</button></div>
-            <div class="column is-3 has-text-centered mt-6"> <button class="button is-large">정보 수정</button></div>
+            <div class="column is-3 columnhas-text-centered mt-6"> <button id="quit" class="button is-large">탈퇴 하기</button></div>
+            <div class="column is-3 has-text-centered mt-6"> <button id="changeInfo" class="button is-large">정보 수정</button></div>
             <div class="column is-3" </div>
 
 
