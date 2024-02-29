@@ -82,7 +82,7 @@
 
   // 카테고리 목록을 드롭다운 목록에 렌더링
   function loadCategory() {
-    axios.get('/api/admin/categories')
+    axios.get('/api/exhibits/categoryList')
       .then(response => {
         let category_All = response.data;
         let category_List = [];
