@@ -1,37 +1,65 @@
 const { User } = require("../db/index.js");
+const hashed = require('../utils/hash-password');
 
 //회원정보 조회
-async function getOneUSer() {
-  const users = await User.find({});
-  const userList = users.map((user) => ({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    userAddress: user.userAddress,
-    phone: user.phone,
-  }));
-  return userList;
+async function searchOne(user_Id) {
+  try {
+      const user = await User.findOne({ _id: user_Id });
+
+      if (!user) {
+          return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+      }
+
+      const userInfo = {
+          name: user.name,
+          email: user.email,
+          userAddress: user.userAddress,
+          phone: user.phone,
+      };
+      return userInfo;
+  } catch (err) {
+      console.error(err);
+      throw new Error('회원 정보 조회 중 에러가 발생했습니다.');
+  }
 }
 
-//회원정보 수정
-async function putOneUser(_id, email, password, phone, userAddress) {
-  const updatedUser = await User.updateOne(
-    { _id: _id },
-    {
-      $set: {
-        email: email,
-        password: password,
-        phone: phone,
-        userAddress: userAddress,
-      },
-    }
-  );
-  return updatedUser;
+//회원 정보 수정
+async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress) {
+  try {
+      const updatedUser = await User.findOneAndUpdate(
+          { _id: user_Id },
+          {
+              $set: {
+                  email: Nemail,
+                  password: hashed(Npassword),
+                  phone: Nphone,
+                  userAddress: NuserAddress,
+              },
+          },
+          { new: true } // 업데이트 표시
+      );
+
+      if (!updatedUser) {
+          throw new Error('사용자를 찾을 수 없습니다.');
+      }
+
+      const userInfo = {
+          name: updatedUser.name,
+          email: updatedUser.email,
+          userAddress: updatedUser.userAddress,
+          phone: updatedUser.phone,
+      };
+
+      return userInfo;
+  } catch (err) {
+      console.error(err);
+      throw new Error('회원 정보 수정 중 에러가 발생했습니다.');
+  }
 }
 
 //회원 탈퇴
-async function deleteOneUser(_id) {
-  const deleteUser = await User.deleteMany({ _id: { $in: _id } });
+async function deleteOneUser(user_Id) {
+  const deleteUser = await User.deleteMany({ _id: { $in: user_Id } });
   return deleteUser;
 }
-module.exports = { getOneUSer, putOneUser, deleteOneUser };
+module.exports = { searchOne, putOneUser, deleteOneUser };
