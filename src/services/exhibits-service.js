@@ -7,6 +7,13 @@ async function detailhExhibit (exhibitId) {
     return exhibits;
 }
 
+// 카테고리 리스트 
+async function categoryList () {
+    const exhibits = await Category.find({ })
+
+    return exhibits;
+}
+
 // 전시 리스트
 async function exhibitList () {
     const exhibits = await Exhibit.find({})
@@ -35,4 +42,4 @@ async function searchByWord (keyword) {
 };
 
 
-module.exports = { detailhExhibit, exhibitList, searchByCategory, searchByWord };
+module.exports = { detailhExhibit, exhibitList, searchByCategory, searchByWord, categoryList };
