@@ -41,7 +41,7 @@ $emailCheck.addEventListener('click', async (event) => {
     $emailCheck.textContent = '확인 완료'
     $emailCheck.disabled = true
     const existingEmailCheckElement = document.getElementById('needEmailCheck');
-    if (existingEmailCheckElement ) {
+    if (existingEmailCheckElement) {
       existingEmailCheckElement.remove();
     }
     const existingMessage = document.getElementById('emailAlreadyRegistered');
@@ -51,7 +51,7 @@ $emailCheck.addEventListener('click', async (event) => {
     email.parentNode.parentNode.classList.remove('is-gapless', 'mb-0')
     email.style.borderColor = ''
     email.style.backgroundColor = ''
-
+    email.setAttribute('readonly', 'true');
   } catch (error) {
     console.log(error)
     // 오류 메시지가 이미 존재하는지 확인
@@ -159,7 +159,7 @@ $registrationButton.addEventListener('click', async function (event) {
     return;
   }
 
-  if (userAddress.value==="🔍︎주소 검색") {
+  if (userAddress.value === "🔍︎주소 검색") {
     userAddress.style.backgroundColor = "mistyrose"
     userAddress.value = "🔍︎클릭해서 주소를 검색하세요"
   }
@@ -170,7 +170,7 @@ $registrationButton.addEventListener('click', async function (event) {
   }
 
   try {
-    const request = await axios.post('/api/auth/join', {
+    await axios.post('/api/auth/join', {
       email: email.value,
       password: password.value,
       name: name.value,
@@ -178,8 +178,18 @@ $registrationButton.addEventListener('click', async function (event) {
       userAddress: userAddress.value,
       detailAddress: detailAddress.value
     });
-    console.log('Server Response:', request.data);
-    console.log('Status Code:', request.status);
+    Swal.fire({
+      title: '회원 가입이 완료되었습니다',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonColor: '#363636',
+      confirmButtonText: '확인',
+    }).then((result) => {
+      if (result.value) {
+        window.location.href = '/'
+      }
+    })
+
   } catch (error) {
     console.error('가입 실패:', error.response.data.message);
   }
