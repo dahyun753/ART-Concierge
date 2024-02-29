@@ -1,6 +1,18 @@
 const adminOrderService = require('../services/admin-order-service');
 
 const adminOrderController = {
+    async getOrder(req, res, next) {
+        try {
+            const orderList = await adminOrderService.searchOrder();
+
+            if(!orderList) {
+                res.json('주문 목록이 비었습니다.');
+            }
+            res.json(orderList);
+        } catch (err) {
+            res.json(err);
+        }
+    },
     async updateState(req, res, next) {
         try {
             //배송전 주문정보 수정 -> 배송 상태 변경
