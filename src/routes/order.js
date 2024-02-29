@@ -1,19 +1,20 @@
 const { Router } = require('express');
 const orderController = require('../controller/order-controller');
+const { verifylogin } = require('../middlewares/loginRequired')
 
 const router = Router();
 
 //주문추가, 주문하기
-router.post('/', orderController.postOrder);
+router.post('/', verifylogin ,orderController.postOrder);
 
 // 주문조회
-router.get('/',orderController.getOrder);
+router.get('/', verifylogin, orderController.getOrder);
 
 //배송전 주문정보 수정
-router.put('/:_id', orderController.updateOrder);
+router.put('/', verifylogin,  orderController.updateOrder);
 
 //유저 주문 취소 - 배송 전까지
-router.delete('/:_id', orderController.deleteOrder);
+router.delete('/', verifylogin, orderController.deleteOrder);
 
 
 module.exports = router;

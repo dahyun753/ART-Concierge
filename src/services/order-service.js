@@ -3,12 +3,14 @@ const { Order } = require('../db');
 const orderService = {
     // 주문하기
     async createOrder({
+        userId: user_Id,
         name,
         phone,
         userAddress,
         item: [{ exhibitId, exhibitName, quantity, price, image }],
         orderedDate }) {
         const createOrder = await Order.create({
+            userId: user_Id,
             name,
             phone,
             userAddress,
@@ -19,9 +21,9 @@ const orderService = {
     },
 
     // 사용자의 주문 조회
-    async getOrder(_id) {
+    async getOrder(user_Id) {
         try {
-            const orders = await Order.find({ _id: _id }).lean().exec();
+            const orders = await Order.find({ userId: user_Id }).lean().exec();
             const orderList = orders.map((order) => ({
                 _id: order._id,
                 item: order.item,
@@ -35,19 +37,19 @@ const orderService = {
     },
 
     // 주문 수정
-    async updateOrder(_id, userAddress, phone, name) {
+    async updateOrder(user_Id, userAddress, phone, name) {
         try {
-            const order = await Order.find({ _id }).lean().exec();
+            const order = await Order.find({ userId: user_Id });
             console.log(order);
             const deliveryStatus = order[0].deliveryStatus;
             if (deliveryStatus == 1) {
                 await Order.updateMany(
-                    { _id: _id },
-                    { userAddress, phone, name }).lean();
+                    { userId: user_Id },
+                    { userAddress, phone, name });
                 console.log(name + "유저의 주문정보가 수정되었습니다");
-                return 1;
+                return '배송전';
             } else {
-                return 2;
+                return '배송중';
             }
         } catch (err) {
             console.log("유저의 주문정보 수정에 실패했습니다." + err);
@@ -55,12 +57,12 @@ const orderService = {
     },
 
     //사용자의 주문 수정 (주문 전 주문 취소)
-    async deleteOrder(_id) {
+    async deleteOrder(user_Id ) {
         try {
-            const order = await Order.find({_id}).lean();
+            const order = await Order.find({userId: user_Id }).lean();
             const deliveryStatus = order[0].deliveryStatus;
             if (deliveryStatus == 1) {
-                await Order.deleteOne({ _id});
+                await Order.deleteOne({ userId: user_Id });
                 console.log("유저 주문이 취소되었습니다.");
                 return 1;
             } else {
