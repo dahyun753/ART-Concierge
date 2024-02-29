@@ -40,6 +40,7 @@ $addCart.addEventListener('click', () => {
         exhibitName: document.querySelector('#exhibitName').textContent,
         quantity: document.querySelector('#quantity').textContent,
         price: document.querySelector('#price').textContent,
+        exhibitImg : document.querySelector('#exhibitImg').src,
     });
     addReq.addEventListener('success', function (event) {
         console.log(event);
