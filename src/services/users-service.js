@@ -14,6 +14,7 @@ async function searchOne(user_Id) {
             name: user.name,
             email: user.email,
             userAddress: user.userAddress,
+            detailAddress: user.detailAddress,
             phone: user.phone,
         };
         return userInfo;
@@ -24,7 +25,7 @@ async function searchOne(user_Id) {
 }
 
 //회원 정보 수정
-async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress) {
+async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress, NdetailAddress) {
     try {
         const updatedUser = await User.findOneAndUpdate(
             { _id: user_Id },
@@ -34,6 +35,7 @@ async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress) {
                     password: hashed(Npassword),
                     phone: Nphone,
                     userAddress: NuserAddress,
+                    detailAddress: NdetailAddress,
                 },
             },
             { new: true } // 업데이트 표시
@@ -47,6 +49,7 @@ async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress) {
             name: updatedUser.name,
             email: updatedUser.email,
             userAddress: updatedUser.userAddress,
+            detailAddress: updatedUser.detailAddress,
             phone: updatedUser.phone,
         };
 
