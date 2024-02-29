@@ -36,8 +36,8 @@ async function exhibitList(page = 1, perPage = 10) {
 }
 
 // 카테고리별 전시 조회
-async function searchByCategory(category, page = 1, perPage = 10) {
-  const filter = { category };
+async function searchByCategory(categoryId, page = 1, perPage = 10) {
+  const filter = { category: categoryId };
   const select = "author image exhibitName startDate endDate category";
   const populate = { path: "category", select: "category" };
 
