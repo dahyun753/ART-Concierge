@@ -3,3 +3,7 @@
   height: auto; /* 높이 조절 */
   background-color: white;
 }
+
+#googleLogin{
+  cursor: pointer;
+}
