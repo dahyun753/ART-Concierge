@@ -94,13 +94,11 @@
       axios.get(`/api/admin/orders`)
         .then(response => {
           let order_Data = response.data;
-          console.log(order_Data);
           let order_Area = document.querySelector(".order-container");
           order_Area.innerHTML = '';
 
           order_Data.forEach(order => {
-            console.log(`${order._id} / ${order.deliveryStatus} / ${order.name} / ${order.orderedDate.replace("T", " ").replace("Z", "")} / ${order.phone} / ${order.userAddress} / ${order.userId}`);
-            
+            // console.log(`${order._id} / ${order.deliveryStatus} / ${order.name} / ${order.orderedDate.replace("T", " ").replace("Z", "")} / ${order.phone} / ${order.userAddress} / ${order.userId}`);
             let delivery_Status = (order.deliveryStatus === '1') ? "배송준비중" :
                                   (order.deliveryStatus === '2') ? "배송시작" :
                                   (order.deliveryStatus === '3') ? "배송완료" :
@@ -113,7 +111,7 @@
             <div class="card" style="margin-bottom: 20px">
               <header class="card-header">
                 <p class="card-header-title">
-                  주문번호 ${order._id}
+                  주문정보
                 </p>
               </header>
               <div class="card-content is-flex">
@@ -156,8 +154,26 @@
       // 기존의 값과 새로 입력한 값이 다를 경우 Update
       if (old_DeliveryValue !== deliverySelect.value) {
         alert(`변경할 주문 데이터의 ID : ${id} / 변경할 배송상태 : ${deliverySelect.value}`);
+        let delivery_Number = "";
+        
+        if (deliverySelect.value === '배송준비중') {
+          delivery_Number = "1";
+        } else if (deliverySelect.value === '배송시작') {
+          delivery_Number = "2";
+        } else if (deliverySelect.value === '배송완료') {
+          delivery_Number = "3";
+        }
+
         // 주문 데이터 Update
-        // 주문 데이터 Load
+        axios.put(`/api/admin/orders/${id}`, { status: delivery_Number })
+          .then(response => {
+            console.log('Product updated successfully:', response.data);
+            // 주문 데이터 Load
+            loadOrder();
+          })
+          .catch(error => {
+            console.error('Error updating product:', error);
+          });
       } else {
         alert(`선택한 배송상태가 이전 값과 같습니다.`);
       }
@@ -171,6 +187,14 @@
         let orderId = id;
         alert(`삭제할 주문ID : ${orderId}`);
         // 주문 데이터 삭제 API
+        axios.delete(`/api/admin/orders/${orderId}`)
+          .then(response => {
+            console.log('Order deleted successfully:', response.data);
+            loadOrder();
+          })
+          .catch(error => {
+            console.error('Error deleting order:', error);
+          });
       }
     }
   </script>

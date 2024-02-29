@@ -203,14 +203,12 @@
         })
           .then(response => {
             console.log('Product added successfully:', response.data);
-            loadCategory();
+            // 상품 페이지로 이동
+            moveToProduct();
           })
           .catch(error => {
             console.error('Error adding product:', error);
           });
-          
-        // 상품 페이지로 이동
-        moveToProduct();
       }
 
       // 상품 페이지로 이동
