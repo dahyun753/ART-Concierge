@@ -113,14 +113,14 @@
 
     // 상품 추가 버튼 클릭
     function product_Add(){
-      let add_URL = "http://127.0.0.1:5501/views/admin/admin-ProductAdd.html"
+      let add_URL = "/admin/exhibitsAdd"
   
       window.location.href = add_URL;
     }
 
     // 상품 수정 버튼 클릭
     function product_Modify(productId) {
-      let modify_URL = `http://127.0.0.1:5501/views/admin/admin-ProductModify.html?productId=${productId}`;
+      let modify_URL = `/admin/exhibitsModify?productId=${productId}`;
 
       window.location.href = modify_URL;
     }

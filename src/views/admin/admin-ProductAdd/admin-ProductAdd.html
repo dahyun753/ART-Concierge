@@ -150,15 +150,21 @@
       // 카테고리 전체 조회
       function loadData() {
         // 카테고리 데이터 조회 API
-        let data = [[1, '카테고리1', 64], [2, '카테고리2', 13], [3, '카테고리3', 35], [4, '카테고리4', 51]];
+        axios.get('/api/admin/categories')
+          .then(response => {
+          let category_All = response.data;
 
-        let element_Select = document.getElementById('category_Select');
-        element_Select.innerHTML = "";
+          let element_Select = document.getElementById('category_Select');
+          element_Select.innerHTML = "";
 
-        data.forEach(category => {
-          const optionElement = document.createElement("option");
-          optionElement.textContent = category[1];
-          element_Select.appendChild(optionElement);
+          category_All.forEach(category_One => {
+            const optionElement = document.createElement("option");
+            optionElement.textContent = category_One.category;
+            element_Select.appendChild(optionElement);
+          });
+        })
+        .catch(error => {
+              console.error('에러 발생:', error);
         });
       }
 
@@ -171,18 +177,49 @@
         let price_Value = document.getElementById('input_Price').value;
         let description_Value = document.getElementById('input_Description').value;
         let duration_Value = document.getElementById('datePicker').value;
-        let img_Value = document.getElementById('previewImage').querySelector('img').src;
+        let img_Value = document.getElementById('uploadInput').files[0];
+        
+        /*
+          let formData = new FormData();
+          formData.append('exhibitName', exhibitName_Value);
+          formData.append('exhibitAddress', place_Value);
+          formData.append('price', price_Value);
+          formData.append('startDate', duration_Value.split(' to ')[0]);
+          formData.append('endDate', duration_Value.split(' to ')[1]);
+          formData.append('category', category_Value);
+          formData.append('author', author_Value);
+          formData.append('information', description_Value);
+          formData.append('image', img_Value);
+        */
 
         // 상품 추가 API
         alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
-
+        axios.post('/api/admin/exhibits', { 
+          image: img_Value,
+          exhibitName: exhibitName_Value, 
+          exhibitAddress: place_Value, 
+          price: price_Value,
+          startDate: duration_Value.split(' to ')[0],
+          endDate: duration_Value.split(' to ')[1],
+          category: category_Value,
+          author: author_Value,
+          information: description_Value,
+        })
+          .then(response => {
+            console.log('Product added successfully:', response.data);
+            loadCategory();
+          })
+          .catch(error => {
+            console.error('Error adding product:', error);
+          });
+          
         // 상품 페이지로 이동
         moveToProduct();
       }
 
       // 상품 페이지로 이동
       function moveToProduct() {
-        let product_Page = 'http://127.0.0.1:5501/views/admin/admin-Product.html';
+        let product_Page = '/admin/exhibits';
         window.location.href = product_Page;
       }
 
@@ -202,7 +239,7 @@
             previewImageDiv.appendChild(imageElement);
         };
 
-        reader.readAsDataURL(file);
+        // reader.readAsDataURL(file);
       }
     </script>
 </html>
