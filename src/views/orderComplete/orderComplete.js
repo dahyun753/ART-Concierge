@@ -58,3 +58,46 @@ function clearFields() {
     // 배송지명 입력 필드 초기화
     document.getElementsByName("title")[0].value = "";
   }
+
+  function placeOrder() {
+    // 주문 정보를 수집
+    const orderData = {
+        // 주문자 정보
+        name: document.getElementById('').innerText,
+        mobile: document.getElementById('').innerText,
+        address: document.getElementById('').innerText,
+        // 배송 요청사항
+        deliveryRequest: document.getElementById('').value,
+        // 기타 배송 요청사항
+        additionalRequest: document.getElementById('').value,
+        // 상품 정보
+        product: {
+          
+        }
+    };
+
+    // 주문 데이터를 서버로 전송
+    fetch('/order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': ''
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('주문 실패');
+    })
+    .then(data => {
+        // 주문이 성공적으로 처리되었을 때 실행
+        console.log('주문이 성공적으로 처리되었습니다.', data);
+        // 주문 완료 페이지로 이동 또는 사용자에게 알림을 표시
+    })
+    .catch(error => {
+        // 주문 실패 시 실행
+        console.error('주문을 처리하는 동안 오류가 발생했습니다:', error);
+        // 사용자에게 오류 메시지를 표시
+    });
+}

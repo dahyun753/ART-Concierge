@@ -1,21 +1,23 @@
-const hashed = require('../utils/hash-password');
 const { Router } = require('express');
-const { User } = require('../db');
-const passport = require('passport');
 const { setUserToken } = require('../utils/jwt'); // JWT 사용
+
+const authController = require('../controller/auth-controller');
+const passport = require('passport');
 
 const router = Router();
 
-// 로그인 -> passport 인증 함수 사용해서 유저 정보 세션에 저장 & 가져옴 
-// router.post('/', passport.authenticate('local', {
-//     successRedirect: '/',  // 로그인 성공 시 리다이렉트
-//     failureRedirect: '/login',  // 로그인 실패 시 리다이렉트
-// }), (req, res) => {
-//     // Passport 인증이 성공하면 이 부분이 실행됨
-//     console.log('로그인 성공!')
-// });
+router.post('/join', authController.postUser);
+router.post('/check-email', authController.uniqueEmail);
+// router.post('/', authController.loginUser);
+router.post('/find-password', authController.findPassword);
 
-//로그인 (JWT)
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res, next) => {
+    setUserToken(res, req.user); //토큰 생성
+});
+
+// 로그인 3계층 분리 ... 보류
 router.post('/', passport.authenticate('local', { session: false }), (req, res, next) => {
     // 유저 토큰 생성 및 쿠키 전달
     setUserToken(res, req.user);
@@ -24,47 +26,13 @@ router.post('/', passport.authenticate('local', { session: false }), (req, res, 
     res.status(204).send()
     });
 
-// 로그아웃 
+// 로그아웃 3계층 분리 ... 보류 (로그아웃은 delete)
 router.get('/logout', (req, res, next) => {
     res.cookie('token', null, {
         maxAge: 0,
     })
     console.log('로그아웃 성공!')
-    // req.logout();
-    res.redirect('/');
+    res.status(204).send()
     });
-
-
-// 회원가입
-router.post('/join', async (req, res) => {
-    try {
-        const { name, password, email, phone, address, isAdmin } = req.body;
-        const hashedPassword = await hashed(password);
-        const exist = await User.findOne({ email });
-
-        if (exist) {
-            throw new Error('이미 가입된 이메일입니다');
-        }
-
-        const newUser = await User.create({
-            name,
-            password: hashedPassword,
-            email,
-            phone,
-            address,
-            isAdmin
-        });
-
-        res.status(201).json({
-            message: '회원가입 성공!',
-            user: newUser
-        });
-    } catch (err) {
-        res.status(500).json({
-            message: '빈칸 없이 다 채우세요!',
-            error: err.message
-        });
-    }
-});
 
 module.exports = router;
