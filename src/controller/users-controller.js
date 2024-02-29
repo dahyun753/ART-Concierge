@@ -13,7 +13,7 @@ async function getUser(req, res, next) {
 
 //회원정보 수정
 async function putUser(req, res, next) {
-  const { email, password, phone, userAddress } = req.body;
+  const { email, password, phone, userAddress, detailAddress } = req.body;
 
   try {
       const user_Id = req.user;
@@ -22,7 +22,8 @@ async function putUser(req, res, next) {
           email,  // 올바른 email 값으로 수정
           password,
           phone,
-          userAddress
+          userAddress,
+          detailAddress
       );
 
       res.json('수정완료');
