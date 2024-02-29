@@ -11,6 +11,9 @@
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -21,15 +24,15 @@
 
     <!-- Custom CSS & JS -->
     <link rel="stylesheet" href="./admin-Category.css" />
-    <script src="../public/loadHTML.js"></script>
-    <link rel="stylesheet" href="../public/Header/header.css" />
-    <link rel="stylesheet" href="../public/Footer/footer.css" />
+    <script src="/public/loadHTML.js"></script>
+    <link rel="stylesheet" href="/public/Header/header.css" />
+    <link rel="stylesheet" href="/public/Footer/footer.css" />
 
 </head>
 <body>
   <!-- Header -->
   <script>
-    loadHTML("../public/Header/header.html");
+    loadHTML("/public/Header/header.html");
   </script>
   
   <main class="main">
@@ -43,9 +46,9 @@
         width: 200px; 
       ">
         <h3 class="title is-3">Admin</h3>
-        <a class="active has-text-black" href="./admin-Category.html" style="font-weight: bold;">카테고리 관리</a><br />
-        <a class="has-text-black" href="./admin-Product.html">상품 관리</a><br/>
-        <a class="has-text-black" href="./admin-Order.html">주문 관리</a>
+        <a class="active has-text-black" href="/admin/categories" style="font-weight: bold;">카테고리 관리</a><br />
+        <a class="has-text-black" href="/admin/exhibits">상품 관리</a><br/>
+        <a class="has-text-black" href="/admin/orders">주문 관리</a>
       </div>
     </aside>
     <section class="section" style="font-weight: 600 !important;">
@@ -54,11 +57,10 @@
         <div style="display: flex; justify-content: flex-end;">
           <div><button onclick="category_Add()" id="category_Add">추가</button></div>
         </div>
-        <table class='table' style="width: 100%;">
+        <table class='table' style="width: 60%;">
           <thead>
             <tr>
               <th>카테고리명</th>
-              <th>카테고리 개수</th>
               <th>수정 & 삭제</th>
             </tr>
           </thead>
@@ -117,21 +119,50 @@
       <br>
     </div>
   </main>
+  <!-- Footer -->
+  <script>
+    loadHTML("/public/Footer/footer.html");
+  </script>
 
   <script>
-    loadCategory();
+    window.onload = function() {
+      loadCategory();
+    };
     
     // 페이지 로드 시 카테고리 목록 렌더링
     function loadCategory() {
       // 카테고리 데이터 가져오기(카테고리ID, 카테고리명, 카테고리 갯수)
-      let data = [[1, '카테고리1', 64], [2, '카테고리2', 13], [3, '카테고리3', 35], [4, '카테고리4', 51]];
+      // axios.get('/api/admin/categories')
+      // .then(response => {
+      //   let category_All = response.data;
+      //   let category_List = [];
+
+      //   for (let element of category_All) {
+      //     category_List.push(element.category)
+      //   }
+
+      //   let element_Select = document.querySelector('.navbar-dropdown');
+      //   element_Select.innerHTML = '';
+
+      //   category_List.forEach(category => {
+      //     const createElement = document.createElement("a");
+      //     createElement.className = 'navbar-item';
+      //     createElement.textContent = category;
+      //     createElement.href = `/exhibits?categoryName=${category}`;
+      //     element_Select.appendChild(createElement);
+      //   });
+      // })
+      // .catch(error => {
+      //       console.error('에러 발생:', error);
+      // });
+
+      let data = [[1, '카테고리1'], [2, '카테고리2'], [3, '카테고리3'], [4, '카테고리4']];
       let table_Body = document.querySelector("#category_List");
 
       data.forEach(category => {
         table_Body.innerHTML += `
           <tr>
             <td>${category[1]}</td>
-            <td>${category[2]}</td>
             <td>
               <button id="${category[0]}" onclick="category_Modify(this)">수정</button>
               <button id="${category[0]}" onclick="category_Delete(this)">삭제</button>
@@ -156,14 +187,12 @@
 
       // 카테고리 ID
       let categoryId = element.id;
-      let categoryName = element.parentNode.previousElementSibling.previousElementSibling;
-
-      console.log(categoryId);
-      console.log(categoryName);
+      let categoryName = element.parentNode.previousElementSibling.textContent;
 
       let input_Modify = document.querySelector('.modify_Input');
       
-      input_Modify.placeholder = categoryName.textContent;
+      input_Modify.placeholder = categoryName;
+      input_Modify.value = categoryName;
       input_Modify.id = categoryId;
     }
 
@@ -195,6 +224,7 @@
         // 기존 카테고리명
         old_Category = document.querySelector('.input.modify_Input').placeholder;
 
+        // 카테고리 Update API
         alert(`${input_Data}, ${input_Id}, ${old_Category}`);
         document.querySelector('.input.modify_Input').value = "";
         modal = document.getElementById('modify_Modal');

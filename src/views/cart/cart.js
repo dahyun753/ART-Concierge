@@ -178,24 +178,6 @@ $selectionDelete.addEventListener('click', () => {
   });
 });
 
-
-
-const $test = document.querySelector('#test')
-$test.addEventListener('click', () => {
-  let store = db.transaction('shoppingCart', 'readwrite').objectStore('shoppingCart');
-  let addReq = store.add({
-    itemName: prompt('name?'),
-    count: prompt('count?'),
-    price: prompt('price?'),
-  });
-  addReq.addEventListener('success', function (event) {
-    console.log(event);
-  });
-  updateProductListFromDB()
-})
-
-
-
 async function updateProductListFromDB() {
   const $productList = document.querySelector('.productList');
   // 목록에 있는 기존 항목을 지웁니다.

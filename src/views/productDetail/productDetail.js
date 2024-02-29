@@ -36,6 +36,7 @@ $addCart.addEventListener('click', () => {
     addReq.addEventListener('success', function (event) {
         console.log(event);
     });
+    $modal.classList.add('is-active')
 
 });
 
