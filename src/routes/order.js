@@ -7,7 +7,7 @@ const router = Router();
 router.post('/', orderController.postOrder);
 
 // 주문조회
-router.get('/', orderController.getOrder);
+router.get('/',orderController.getOrder);
 
 //배송전 주문정보 수정
 router.put('/:_id', orderController.updateOrder);
