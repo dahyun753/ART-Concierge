@@ -3,7 +3,8 @@ const userService = require("../services/users-service");
 //회원정보 조회
 async function getUser(req, res, next) {
   try {
-    const user = await userService.getOneUSer();
+    const user_Id  = req.user;
+    const user = await userService.searchOne(user_Id);
     res.json(user);
   } catch (error) {
     res.json(error);
@@ -12,29 +13,31 @@ async function getUser(req, res, next) {
 
 //회원정보 수정
 async function putUser(req, res, next) {
-  const { _id, email, password, phone, userAddress } = req.body;
+  const { email, password, phone, userAddress } = req.body;
 
   try {
-    const modifyUser = await cartService.putOneUser(
-      _id,
-      email,
-      password,
-      phone,
-      userAddress
-    );
+      const user_Id = req.user;
+      await userService.putOneUser(
+          user_Id,
+          email,  // 올바른 email 값으로 수정
+          password,
+          phone,
+          userAddress
+      );
 
-    res.json(modifyUser);
+      res.json('수정완료');
   } catch (error) {
-    res.json(error);
+      console.error(error);
+      res.status(500).json({ error: '회원 정보 수정 중 에러가 발생했습니다.' });
   }
 }
 
 //회원 탈퇴
 async function deleteUser(req, res, next) {
-  const { _id } = req.body;
+  const user_Id = req.user;
 
   try {
-    const removeUser = await cartService.deleteOneUser(_id);
+    const removeUser = await userService.deleteOneUser(user_Id );
     res.json(removeUser);
   } catch (error) {
     res.json(error);
