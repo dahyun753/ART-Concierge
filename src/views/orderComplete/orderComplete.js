@@ -53,6 +53,21 @@ function chk_submit() {
     newDeliveryOption.querySelector('input[name="delivery_choice"]').checked = true;
 }
 
+//모달창 내용 출력
+function getAddressFromModal() {
+    var address = document.getElementById("address").value;
+    var detailAddress = document.getElementById("detailA_address").value;
+    var postcode = document.getElementById("postcode").value;
+    var deliveryAddrElement = document.getElementById("delivery-addr");
+    deliveryAddrElement.innerHTML = `(${postcode}) ${address} ${detailAddress}`;
+}
+
+function closeModal() {
+    document.getElementById('myModal').classList.remove('is-active');
+    getAddressFromModal(); // 모달을 닫을 때 주소를 가져와서 출력
+}
+
+
 // 주소 입력 필드 초기화
 function clearFields() {
     document.getElementById("postcode").value = "";
