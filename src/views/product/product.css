@@ -4,7 +4,8 @@
 
 
 .banner{
-    height: 8rem;
+    height:12rem;
+    font-size: larger;
     display: flex;
     align-items: center;
     justify-content: center;
