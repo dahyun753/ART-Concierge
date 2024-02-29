@@ -1,44 +1,40 @@
 const jwt = require('jsonwebtoken');
 
-const loginRequired = (req, res, next) => {
-    // request 헤더로부터 authorization bearer 토큰을 받음.
-    const userToken = req.headers["Authorization"]?.split(" ")[1];
-
-    // 이 토큰은 jwt 토큰 문자열 || "null" 문자열 || undefined
-    // 토큰이 "null" 일 경우, loginRequired 가 필요한 서비스 사용을 제한
+// 토큰 검증 및 로그인 여부 확인 미들웨어
+exports.verifylogin = (req, res, next) => {
+    const userToken = req.headers.cookie.split("=")[1];
     if (!userToken || userToken === "null") {
-        console.log(`서비스 사용 요청이 있습니다.하지만, Authorization 토큰: ${userToken}`);
-        res.json({
+        console.log(`서비스 사용 요청이 있습니다. 하지만, Authorization 토큰: ${userToken}`);
+        return res.json({
             result: "forbidden-approach",
             reason: "로그인한 유저만 사용할 수 있는 서비스입니다.",
         });
-        return;
     }
 
-    // 해당 token 이 정상적인 token인지 확인
     try {
-        const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
-        const jwtDecoded = jwt.verify(userToken, secretKey);
+        jwt.verify(userToken, process.env.JWT_SECRET_KEY, function(err, decoded) {
+            if (err) {
+                console.error('JWT 검증 오류:', err.message);
+                return res.json({
+                    result: "forbidden-approach",
+                    reason: "토큰 검증에 실패했습니다.",
+                });
+            }
 
-        const userId = jwtDecoded.userId;
+            console.log(decoded);
 
-        // JWT 토큰을 쿠키에 저장
-        const maxAge = 60 * 60 * 24 * 7; // 1주일
-        res.cookie('jwt', userToken, { maxAge: maxAge * 1000, httpOnly: true });
+            const user_Id = decoded._id; 
+            console.log(user_Id);
 
-        // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
-        req.currentUserId = userId;
-
-        next();
+            req.user = user_Id;
+            //req.user.id 라고 하니 id값을 찾을 수 없다고 오류 그래서 => req.user
+            next();
+        });
     } catch (error) {
-        // jwt.verify 함수가 에러를 발생시키는 경우는 토큰이 정상적으로 decode 안되었을 경우임.
-        // 403 코드로 JSON 형태로 프론트에 전달함.
-        res.json({
+        return res.json({
             result: "forbidden-approach",
             reason: "정상적인 토큰이 아닙니다.",
+            message: error.message
         });
-        return;
     }
-}
-
-module.exports = loginRequired;
+};
