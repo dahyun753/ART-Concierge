@@ -19,6 +19,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
+    <!-- Data Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- Custom CSS & JS -->
     <script src="../public/loadHTML.js"></script>
     <link rel="stylesheet" href="../public/Header/header.css" />
@@ -30,7 +34,7 @@
     <script>
       loadHTML("../public/Header/header.html");
     </script>
-    
+  
     <main class="main">
       <aside>
         <div class="side-menu" style="
@@ -43,7 +47,7 @@
         ">
           <h3 class="title is-3">Admin</h3>
           <a class="active has-text-black" href="#" style="font-weight: bold;">카테고리 관리</a><br />
-          <a class="has-text-black" href="#">상품 관리</a><br/>
+          <a class="has-text-black" href="http://127.0.0.1:5501/views/admin/admin-Product.html">상품 관리</a><br/>
           <a class="has-text-black" href="#">주문 관리</a>
         </div>
       </aside>
@@ -57,102 +61,164 @@
                 <div class="column is-2">카테고리</div>
                 <div class="column is-6">
                   <div class="select is-hovered">
-                    <select>
-                      <option>사진</option>
-                      <option>그림</option>
-                      <option>조각</option>
-                      <option>체험형</option>
+                    <select id="category_Select">
                     </select>
                   </div>
-                    <!-- <div class="dropdown is-hoverable">
-                        <div class="dropdown-trigger">
-                          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-                            <span>종류</span>
-                            <span class="icon is-small">
-                              <i class="fas fa-angle-down" aria-hidden="true"></i>
-                            </span>
-                          </button>
-                        </div>
-                        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                          <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">
-                              사진
-                            </a>
-                            <a href="#" class="dropdown-item">
-                              그림
-                            </a>
-                            <a href="#" class="dropdown-item">
-                              체험형
-                            </a>
-                            <a href="#" class="dropdown-item">
-                              조각
-                            </a>
-                          </div>
-                        </div>
-                      </div> -->
                 </div>
                 <div class="column is-1"></div>
               </div>
+              
 
               <div class="columns is-vcentered">
                 <div class="column is-2 ">전시회 제목</div>
-                <div class="column is-6"><input type="email" class="input is-medium" value="">
+                <div class="column is-6"><input id="input_ExhibitName" type="text" class="input is-medium">
                 </div>
               </div>
               
               <div class="columns is-vcentered">
                 <div class="column is-2">작가 이름</div>
-                <div class="column is-6"><input type="text" class="input is-medium" value=""></div>
+                <div class="column is-6"><input id="input_Author" type="text" class="input is-medium"></div>
                 <div class="column is-1"></div>
               </div>
               <div class="columns is-vcentered">
                 <div class="column is-2">전시 장소</div>
-                <div class="column is-6"><input type="tel" class="input is-medium" value=""></div>
+                <div class="column is-6"><input id="input_ExhibitPlace" type="tel" class="input is-medium"></div>
                 <div class="column is-1"></div>
                 <div class="column is-3"></div>
               </div>
-              <div class="columns is-vcentered" id="test">
+              <div class="columns is-vcentered">
                 <div class="column is-2">가격</div>
-                <div class="column is-6" id="address"><input type="text" class="input is-large" value=""></div>
+                <div class="column is-6"><input id="input_Price" type="text" class="input is-large"></div>
               </div>
-              <div class="columns is-vcentered" id="sample6_detailAddress">
+              <div class="columns is-vcentered">
                 <div class="column is-2">전시회 설명</div>
-                <div class="column is-6"><input type="text" class="input is-medium" value=""></div>
+                <div class="column is-6"><input id="input_Description" type="text" class="input is-medium" value=""></div>
                 <div class="column is-4"></div>
               </div>
-              <div class="columns is-vcentered" id="sample6_detailAddress">
+              <div class="columns is-vcentered">
                 <div class="column is-2">기간</div>
-                <div class="column is-6"><input type="text" class="input is-medium" value=""></div>
+                <div class="column is-6">
+                  <input type="text" id="datePicker" placeholder="Select date range" class="input is-medium">
+                </div>
                 <div class="column is-4"></div>
               </div>
+
               <div class="columns is-vcentered" id="imageUpload">
                 <div class="column is-2">이미지 업로드</div>
-                <div class="column is-6"><input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)"></div>
-                <div class="column is-4"><img id="preview" src="#" alt="이미지 미리보기" style="width: 20%; height: 20%;"></div>
-              </div>
-              <div class="columns is-vcentered" id="sample6_detailAddress">
-                <div class="column is-3"></div>
-                <div class="column is-3 columnhas-text-centered mt-6"> <button class="button is-large">수정</button></div>
-                <div class="column is-3 has-text-centered mt-6"> <button class="button is-large">취소</button></div>
+                <div class="column is-6" id="uploadDiv" style="border: 2px dashed #ccc; padding: 20px; text-align: center;height: 300px;">
+                  <input onchange="uploadImage()" type="file" id="uploadInput" accept="image/*" style="display: none;">
+                  <label for="uploadInput">이미지 업로드</label>
+                  <div id="previewImage" style="margin-top: 20px;"></div>
                 </div>
+              </div>
+              
+              <div class="columns is-vcentered">
+                <div class="column is-3"></div>
+                <div class="column is-3 columnhas-text-centered mt-6"> <button type="button" onclick="modifyProduct()" class="button is-large">수정</button></div>
+                <div class="column is-3 has-text-centered mt-6"> <button type="button" onclick="moveToProduct()" class="button is-large">취소</button></div>
+              </div>
     
           </form>
         </div>
       </section>
-      <script>
-        function previewImage(event) {
-          var input = event.target;
-          var preview = document.getElementById('preview');
-
-          var reader = new FileReader();
-          reader.onload = function() {
-              preview.src = reader.result;
-          }
-          reader.readAsDataURL(input.files[0]);
-        }
-      </script>
-
-      
-
     </main>
+    <script>
+      window.onload = function() {
+        loadData();
+        initDatePicker();        
+      };
+
+      // 달력 초기화
+      function initDatePicker() {
+        flatpickr("#datePicker", {
+          mode: "range", // 날짜 범위 선택 모드
+          dateFormat: "Y-m-d", // 선택된 날짜의 형식
+          onChange: function(selectedDates, dateStr, instance) {
+            let startDate = selectedDates[0].toISOString().split('T')[0];
+            // let endDate = selectedDates[1].toISOString().split('T')[0];
+            let endDate = selectedDates[1] ? selectedDates[1].toISOString().split('T')[0] : "";
+            let selectedRange = startDate + " ~ " + endDate;
+            console.log(`${selectedDates} / ${startDate} / ${endDate}`);
+
+            let input_DatePicker = document.getElementById('datePicker')
+            input_DatePicker.textContent = selectedRange;
+          }
+        });
+      }
+
+      // 카테고리 전체 조회
+      function loadData() {
+        // 카테고리 데이터 조회 API
+        let data = [[1, '카테고리1', 64], [2, '카테고리2', 13], [3, '카테고리3', 35], [4, '카테고리4', 51]];
+
+        let element_Select = document.getElementById('category_Select');
+        element_Select.innerHTML = "";
+
+        data.forEach(category => {
+          let optionElement = document.createElement("option");
+          optionElement.textContent = category[1];
+          element_Select.appendChild(optionElement);
+        });
+
+        // 쿼리 스트링
+        let queryString = window.location.search;
+        let urlParams = new URLSearchParams(queryString);
+        
+        let queryString_1 = urlParams.get('productId');
+        let queryString_2 = urlParams.get('productName');
+        let queryString_3 = urlParams.get('productPlace');
+        let queryString_4 = urlParams.get('author');
+        let queryString_5 = urlParams.get('price');
+        let queryString_6 = urlParams.get('description');
+
+        document.getElementById('input_ExhibitName').value = queryString_2;
+        document.getElementById('input_Author').value = queryString_4;
+        document.getElementById('input_ExhibitPlace').value = queryString_3;
+        document.getElementById('input_Price').value = queryString_5;
+        document.getElementById('input_Description').value = queryString_6;
+      }
+
+      // 상품 수정
+      function modifyProduct(){
+        let category_Value = document.getElementById('category_Select').value;
+        let exhibitName_Value = document.getElementById('input_ExhibitName').value;
+        let author_Value = document.getElementById('input_Author').value;
+        let place_Value = document.getElementById('input_ExhibitPlace').value;
+        let price_Value = document.getElementById('input_Price').value;
+        let description_Value = document.getElementById('input_Description').value;
+        let duration_Value = document.getElementById('datePicker').value;
+        let img_Value = document.getElementById('previewImage').querySelector('img').src;
+
+        // 상품 수정 API
+        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
+
+        // 상품 페이지로 이동
+        moveToProduct();
+      }
+
+      // 상품 페이지로 이동
+      function moveToProduct() {
+        let product_Page = 'http://127.0.0.1:5501/views/admin/admin-Product.html';
+        window.location.href = product_Page;
+      }
+
+      // 이미지 업로드
+      function uploadImage() {
+        const file = document.getElementById('uploadInput').files[0];
+        console.log(file);
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const previewImageDiv = document.getElementById('previewImage');
+            previewImageDiv.innerHTML = ''; // 이미지를 여러 번 업로드할 때 기존 이미지 제거
+
+            const imageElement = document.createElement('img');
+            imageElement.src = e.target.result;
+            imageElement.style.maxWidth = '200px'; // 이미지 사이즈 조절
+            previewImageDiv.appendChild(imageElement);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    </script>
 </html>
