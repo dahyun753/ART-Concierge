@@ -4,7 +4,7 @@ const exhibitService = require("../services/exhibits-service");
 async function getdetailExhibit(req, res, next) {
   try {
     const { exhibitId } = req.params;
-    const exhibits = await exhibitService.detailhExhibit(exhibitId);
+    const exhibits = await exhibitService.detailExhibit(exhibitId);
     res.json(exhibits);
   } catch (err) {
     // res.status(err.statusCode || 500).json(message: err.message );
