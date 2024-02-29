@@ -21,7 +21,7 @@ $loginForm.onsubmit = async function (event) {
 
   try {
     // 서버로 로그인 요청을 보냄
-    const response = await axios.post('/auth', { email, password });
+    const response = await axios.post('/api/auth', { email, password });
 
     // 로그인 성공 시 처리
     console.log('로그인 성공!');

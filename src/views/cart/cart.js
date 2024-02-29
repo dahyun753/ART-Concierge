@@ -1,4 +1,4 @@
-import { getDB } from '../../indexedDB.js';
+import { getDB } from '../indexedDB.js';
 
 const $selectAll = document.querySelector('.selectAll')
 const $selectionDelete = document.querySelector('.deleteSelection')
