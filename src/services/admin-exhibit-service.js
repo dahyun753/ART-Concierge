@@ -8,23 +8,13 @@ async function addExhibit(newExhibit) {
   return exhibit;
 }
 
-async function searchExhibit(page = 1, perPage = 10) {
-  const filter = {};
-  const select = "author image exhibitName startDate endDate category";
-  const sort = { startDate: -1 };
-  const populate = "category";
+async function searchExhibit() {
+  const exhibits = await Exhibit.find({})
+    .select("author image exhibitName startDate endDate category")
+    .populate("category", "category"); // 전시의 카테고리 이름 가져오기
+  const categories = await Category.find({}); // 모든 카테고리 이름 가져오기
 
-  const result = await pagination(
-    page,
-    perPage,
-    Exhibit,
-    filter,
-    select,
-    sort,
-    populate
-  );
-
-  return result;
+  return { exhibits };
 }
 
 async function searchById(exhibitId) {
