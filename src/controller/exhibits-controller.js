@@ -24,11 +24,22 @@ async function getExhibitList(req, res, next) {
     }
 }
 
+// 카테고리 리스트 (일반 유저도 다 사용 가능)
+async function getCategoryList(req, res, next) {
+    try{
+        const contents = await exhibitService.categoryList();
+        res.status(201).json( contents );
+    } catch (err) {
+        // res.status(err.statusCode || 500).json(message: err.message );
+        res.json(err);
+    }
+}
+
 // 카테고리별 전시 리스트 조회 (작가, 이미지, 전시제목, 날짜, 카테고리만) 
 async function getExhibitByCategory (req, res, next) {
     try {
-        const categoryId = req.params.categoryId;
-        const exhibits = await exhibitService.searchByCategory(categoryId);
+        const categoryname = req.params.categoryName
+        const exhibits = await exhibitService.searchByCategory(categoryname);
         res.json(exhibits);
     } catch (err) {
         res.json(err); // 에러 핸들링을 위해 next 사용
@@ -45,4 +56,4 @@ async function getExhibitByWord (req, res, next) {
     }
 };
 
-module.exports = { getdetailExhibit, getExhibitList, getExhibitByCategory, getExhibitByWord };
+module.exports = { getdetailExhibit, getExhibitList, getExhibitByCategory, getExhibitByWord, getCategoryList };
