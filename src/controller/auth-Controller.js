@@ -10,7 +10,7 @@ async function uniqueEmail(req, res, next) {
 
     res.status(200).json({ message: "사용 가능한 이메일입니다" });
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }

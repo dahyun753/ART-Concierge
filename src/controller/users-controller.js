@@ -8,7 +8,7 @@ async function getUser(req, res, next) {
     const user = await userService.searchOne(user_Id);
     res.json(user);
   } catch (error) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
@@ -31,7 +31,7 @@ async function putUser(req, res, next) {
     res.json("수정완료");
   } catch (error) {
     console.error(error);
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }

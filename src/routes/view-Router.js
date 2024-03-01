@@ -8,6 +8,8 @@ viewsRouter.use("/", serveStatic("main"));
 viewsRouter.use("/admin/categories", serveStatic("admin-Category"));
 viewsRouter.use("/admin/orders", serveStatic("admin-Order"));
 viewsRouter.use("/admin/exhibits", serveStatic("admin-Product"));
+viewsRouter.use("/admin/exhibitsAdd", serveStatic("admin-ProductAdd"));
+viewsRouter.use("/admin/exhibitsModify", serveStatic("admin-ProductModify"));
 
 viewsRouter.use("/exhibits", serveStatic("product"));
 viewsRouter.use(
