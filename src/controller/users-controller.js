@@ -21,7 +21,7 @@ async function putUser(req, res, next) {
     const user_Id = req.user;
     await userService.putOneUser(
       user_Id,
-      email, // 올바른 email 값으로 수정
+      email,
       password,
       phone,
       userAddress,
