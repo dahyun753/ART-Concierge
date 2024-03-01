@@ -13,8 +13,9 @@
 }
 
 .button {
-    background-color: #808080;
+    background-color: #4a4a4a;
     justify-content: center;
+    color: white;
 }
 
 .content {

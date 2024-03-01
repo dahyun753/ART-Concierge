@@ -33,11 +33,12 @@ async function clearIndexedDB() {
 async function getUserInformation() {
     try {
         const response = await axios.get('/api/users/')
-        document.querySelector('#delivery-mobile').textContent = response.data.phone;
+        console.log(response)
+        document.querySelector('#delivery-mobile').textContent= response.data.phone;
         document.querySelector('#delivery-name').textContent = response.data.name;
         document.querySelector('#delivery-addr').textContent = response.data.userAddress
         document.querySelector('#detail-addr').textContent = response.data.detailAddress
-        document.querySelector('#nameForDelivery').textContent = response.data.name;
+        document.querySelector('.radio').textContent= response.data.name+"님 배송지"
     } catch (error) {
         console.error('Error fetching user information:', error);
     }

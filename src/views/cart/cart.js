@@ -4,6 +4,7 @@ const $selectAll = document.querySelector('.selectAll')
 const $selectionDelete = document.querySelector('.deleteSelection')
 const $buy = document.querySelector('.buy')
 const $totalItemPrice = document.querySelector('.totalItemPrice')
+const $totalPrice = document.querySelector('.totalPrice')
 const db = await getDB();
 let flag = false;
 token = getCookie('token');
@@ -52,6 +53,7 @@ function reloadAmount() {
     totalPrice += Number(e.textContent)
   })
   $totalItemPrice.textContent = totalPrice
+  $totalPrice.textContent = totalPrice
 }
 
 $buy.addEventListener('click', async (event) => {
