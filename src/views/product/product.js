@@ -193,7 +193,7 @@ async function filterProductElement(categoryKeyword) {
                     <img src="${data.image}" alt="">
                 </a>
                 <div class="exhibitTitle">
-                    <a href="/exhibits/productDetail/${data._id}/">${data.author}: ${data.exhibitName}</a>
+                    <a href="/exhibits/productDetail/${data._id}/"><div>${data.author}: ${data.exhibitName}</div></a>
                 </div>
                 <div class="exhibitInfo">
                     <a href="/exhibits/productDetail/${data._id}/" class="date">${data.startDate}~${data.endDate}</a>

@@ -1,7 +1,7 @@
 const a_categoryService = require("../services/admin-category-service");
 const ERRORS = require("../utils/errors");
 
-// 카테고리 추가 (관리자 페이지)
+//카테고리 추가 (관리자 페이지)
 async function postCategory(req, res, next) {
   try {
     const { category } = req.body;
@@ -14,7 +14,7 @@ async function postCategory(req, res, next) {
   }
 }
 
-// 카테고리 리스트 (관리자 페이지)
+//카테고리 리스트 조회 (관리자 페이지)
 async function getCategory(req, res, next) {
   try {
     const newcategory = await a_categoryService.searchCategory();
@@ -27,7 +27,7 @@ async function getCategory(req, res, next) {
   }
 }
 
-// 카테고리 수정 (관리자 페이지)
+//카테고리 수정 (관리자 페이지)
 async function putCategory(req, res, next) {
   try {
     const { categoryId } = req.params;
@@ -43,7 +43,7 @@ async function putCategory(req, res, next) {
   }
 }
 
-// 카테고리 삭제 (관리자 페이지)
+//카테고리 삭제 (관리자 페이지)
 async function deleteCategory(req, res, next) {
   try {
     const { categoryId } = req.params;

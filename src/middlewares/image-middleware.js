@@ -17,7 +17,7 @@ const upload = multer({
     bucket: "artconcierge",
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (req, file, cb) {
-      // 파일 확장자 추출
+      //파일 확장자 추출
       const ext = path.extname(file.originalname);
       const filename = Date.now().toString() + ext;
       cb(null, filename);
