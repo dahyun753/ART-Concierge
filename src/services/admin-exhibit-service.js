@@ -1,6 +1,7 @@
 const { Exhibit, Category } = require("../db");
 const pagination = require("../utils/pagination");
 
+//전시 추가
 async function addExhibit(newExhibit) {
   if (!newExhibit) throw new Error("상품 추가를 위한 데이터가 필요합니다!");
 
@@ -8,6 +9,7 @@ async function addExhibit(newExhibit) {
   return exhibit;
 }
 
+//전시 리스트 조회
 async function searchExhibit() {
   const exhibits = await Exhibit.find({})
     .select("author image exhibitName startDate endDate category")
@@ -17,6 +19,7 @@ async function searchExhibit() {
   return { exhibits };
 }
 
+//전시 조회
 async function searchById(exhibitId) {
   const exhibit = await Exhibit.findOne({ _id: exhibitId })
     .select("author image exhibitName startDate endDate category")
@@ -25,6 +28,7 @@ async function searchById(exhibitId) {
   return exhibit;
 }
 
+//전시 수정
 async function updateExhibit(exhibitId, content) {
   if (!exhibitId) throw Error("업데이트에 필요한 PRODUCT ID가 없습니다");
 
@@ -35,6 +39,7 @@ async function updateExhibit(exhibitId, content) {
   return result;
 }
 
+//전시 삭제
 async function deleteExhibit(exhibitId) {
   const result = await Exhibit.deleteOne({ _id: exhibitId });
 
