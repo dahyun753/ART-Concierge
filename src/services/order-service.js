@@ -26,12 +26,13 @@ const orderService = {
   //사용자의 주문 조회
   async getOrder(user_Id) {
     try {
-      const orders = await Order.find({ userId: user_Id }).lean().exec();
+      const orders = await Order.find({ userId: user_Id });
       const orderList = orders.map((order) => ({
         _id: order._id,
         item: order.item,
         name: order.name,
         deliveryStatus: order.deliveryStatus,
+        orderedDate: order.orderedDate
       }));
       return orderList;
     } catch (err) {
