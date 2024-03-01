@@ -15,10 +15,10 @@ window.onload = async function () {
   //변수 생성
   searchKeyword = urlParams.get("word");
   categoryKeyword = urlParams.get("categoryName");
-  console.log(value);
+
   if (key === "word") {
     await searchProductElement(searchKeyword);
-  } else if (value === "전체" || value === null || value === undefined || value === "") {
+  } else if (value === "전체 ID" || value === null || value === undefined || value === "") {
     await insertProductElement();
   } else {
     await filterProductElement(categoryKeyword); //카테고리 id
@@ -106,7 +106,7 @@ async function insertProductElement() {
   const fetchAndUpdateData = async () => {
     const res = await fetch(`http://localhost:5001/api/exhibits?page=${page}&perPage=12`);
     const serverdata = await res.json();
-
+    
     const numColumn = 4;
     const numRows = Math.ceil(serverdata.datas.length / numColumn);
 
@@ -169,7 +169,8 @@ async function filterProductElement(categoryKeyword) {
   let page = 1;
 
   const fetchAndUpdateData = async () => {
-    const res = await fetch(`http://localhost:5001/api/admin/categories/${categoryKeyword}`);
+    const res = await fetch(`http://localhost:5001/api/exhibits/categories/${categoryKeyword}?page=1&perpage=2`);
+    
     const serverdata = await res.json();
 
     const numColumn = 4;
