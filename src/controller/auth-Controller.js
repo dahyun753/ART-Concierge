@@ -44,10 +44,8 @@ async function postUser(req, res, next) {
   try {
     const userInfo = req.body;
 
-    await authService.checkEmail(userInfo.email);  // 이메일 중복체크
-
-    const user = await ValidPsw.findOne(userInfo.email);
-    if (user.isTokenMatch== 1) {
+    const user = await ValidPsw.findOne({email: userInfo.email});
+    if (user.isTokenMatch === 1) {
       const newUser =  await authService.addUser(userInfo);
       res.status(201).json(newUser); 
     }
