@@ -174,6 +174,7 @@
         let urlParams = new URLSearchParams(queryString);
         
         let product_Id = urlParams.get('productId');
+        console.log(product_Id);
         axios.get(`/api/exhibits/${product_Id}`)
           .then(response => {
             let product_One = response.data;

@@ -43,10 +43,10 @@
       <a class="navbar-item" href="/carts">
         CART
       </a>
-      <a class="navbar-item" href="/">
+      <a class="navbar-item" id="mypage">
         MY PAGE
       </a>
-      <a class="navbar-item " href="/auth">
+      <a class="navbar-item" id="login">
         LOGIN
       </a>
     </div>
@@ -54,28 +54,61 @@
   </div>
   </div>
 </nav>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script>
-  let notLogin_Form = document.getElementById('isNotLogined');
-  let login_Form = document.getElementById('isLogined');
+  const $loginButton = document.querySelector('#login');
+  const $myPage = document.querySelector('#mypage')
+  let token;
 
-  window.onload = function() {
+  window.onload = function () {
     loadCategory();
-    
-    // 로그인이 된 경우에만 사용자 정보를 가져오기
-    if (localStorage.getItem("loggedIn") === true) {
-        showUserInfo();
-
-        notLogin_Form.style.display = 'none';
-        login_Form.style.display = 'block';
+    token = getCookie("token");
+    console.log(token)
+    if (token) {
+      $loginButton.textContent = "LOGOUT";
+    }
+    else {
+      $loginButton.textContent = "LOGIN";
     }
   };
 
-  // 사용자 정보 가져오기
-  function showUserInfo() {
+  $loginButton.addEventListener('click', () => {
+    if (token) {
+      Swal.fire({
+        title: '로그아웃 하시겠습니까?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#363636',
+        cancelButtonColor: '#C0C0C0',
+        confirmButtonText: '로그아웃',
+        cancelButtonText: '취소'
+      }).then(async(result) => {
+        if (result.value) {
+          await axios.post('/api/auth/logout')
+          window.location.href = '/'
+        }
 
-  }
+      })
+    }
+    else {
+      window.location.href = '/auth'
+    }
+  })
 
+  $myPage.addEventListener('click', () => {
+    if (token) {
+      window.location.href = '/users'
+    }
+    else {
+      Swal.fire({
+        title: '로그인이 필요합니다!',
+        icon: 'warning',
+        confirmButtonColor: '#363636',
+        confirmButtonText: '확인',
+      });
+    }
+  })
   // 카테고리 목록을 드롭다운 목록에 렌더링
   function loadCategory() {
     axios.get('/api/exhibits/categoryList')
@@ -87,7 +120,7 @@
         for (let element of category_All) {
           category_List.push(element.category)
         }
-      
+
         category_List.unshift('전체');
 
         let element_Select = document.querySelector('.navbar-dropdown');
@@ -109,7 +142,7 @@
         });
       })
       .catch(error => {
-            console.error('에러 발생:', error);
+        console.error('에러 발생:', error);
       });
   }
 
@@ -118,7 +151,7 @@
     let input_Element = document.getElementById('header-search-input');
 
     let keyword = input_Element.value;
-    
+
     if (keyword.trim() === '') {
       alert('검색할 키워드를 입력하세요')
     } else {
@@ -128,33 +161,12 @@
     }
   }
 
-  // 로그아웃
-  function logout() {
-    alert('로그아웃');
-    localStorage.removeItem('loggedIn');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('jwtToken');
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
 
-    notLogin_Form.style.display = 'block';
-    login_Form.style.display = 'none';
-  }
-
-  // 마이페이지를 클릭 시 비로그인, 유저, 관리자에 따라 다르게 연결
-  function href_Mypage() {
-    let mypage_Element = document.getElementById('mypage_Link');
-    // 로그인 O
-    if (localStorage.getItem("loggedIn") === true) {
-      // 관리자일 경우
-      if (localStorage.getItem("isAdmin") === true) {
-        window.location.href = '/admin/categories';
-        // 유저일 경우
-      } else {
-        window.location.href = '/users';
-      }
-      // 로그인 X
-    } else {
-      alert('로그인이 필요합니다');
-      window.location.href ='/auth';
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
     }
   }
 </script>

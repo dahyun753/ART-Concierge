@@ -2,6 +2,7 @@ let data; // 전역 범위에 선언된 data 변수
 let key;
 let value;
 let searchKeyword;
+let page=1;
 
 window.onload = async function () {
   //카테고리별 작품(쿼리스트링) 가져오기
@@ -82,11 +83,12 @@ async function searchProductElement(keyword) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         // 관찰대상은 새로운 데이터를 가져올 때마다 변해야함
+        page++; 
         addNewContent();
         // 기존 Observer 해제
         observer.disconnect();
         // 새로운 listEnd 요소 가져오기
-        listEnd = list.lastElementChild;
+        listEnd = list.lastElementChild
         // 다시 Intersection Observer로 관찰 대상을 설정
         observer.observe(listEnd);
       }
@@ -107,13 +109,13 @@ async function searchProductElement(keyword) {
 
 //전체 데이터 가져오기
 async function insertProductElement() {
-  const res = await fetch("http://localhost:5001/api/exhibits");
+  const res = await fetch("http://localhost:5001/api/exhibits?page=1&perPage=10");
   const serverdata = await res.json();
-
+  
   // numRows 변수 계산
   const numColumn = 4;
-  const numRows = Math.ceil(serverdata.length / numColumn);
-
+  const numRows = Math.ceil(serverdata.datas.length / numColumn);
+  
   const list = document.querySelector(".exhibition-list");
 
   const addNewContent = () => {
@@ -126,9 +128,9 @@ async function insertProductElement() {
 
       for (let j = 0; j < numColumn; j++) {
         let dataIndex = i * numColumn + j;
-        if (dataIndex < serverdata.length) {
-          let data = serverdata[dataIndex];
-
+        if (dataIndex < serverdata.datas.length) {
+          let data = serverdata.datas[dataIndex];
+          
           let columnContents = `
                         <div class="column is-one-quarter">
                             <a href="/exhibits/productDetail/${data._id}/">
@@ -149,6 +151,7 @@ async function insertProductElement() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         //관찰대상은 새로운 데이터를 가져올 때마다 변해야함
+        page++
         addNewContent();
         // 기존 Observer 해제
         observer.disconnect();
@@ -223,6 +226,7 @@ async function filterProductElement(valuedata) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         //관찰대상은 새로운 데이터를 가져올 때마다 변해야함
+        page++
         addNewContent();
         // 기존 Observer 해제
         observer.disconnect();

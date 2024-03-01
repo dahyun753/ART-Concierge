@@ -27,9 +27,8 @@ $loginForm.onsubmit = async function (event) {
     console.log('로그인 성공!');
     console.log('사용자 정보:', response.data.user);
 
-    // 예를 들어, 토큰을 얻어와 로컬 스토리지에 저장하고 다른 페이지로 이동할 수 있음
-    // localStorage.setItem('token', response.data.token);
-    // window.location.href = '/dashboard'; // 로그인 후 이동할 페이지
+  
+    window.location.href = '/'; // 로그인 후 이동할 페이지
 
   } catch (error) {
     // 로그인 실패 시 처리 
