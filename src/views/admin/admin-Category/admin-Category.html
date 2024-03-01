@@ -185,7 +185,8 @@
 
       if (isConfirmed) {
         let categoryId = element.id;
-        alert(`삭제 : ${categoryId}`);
+        // alert(`삭제 : ${categoryId}`);
+        
         // 삭제 API
         axios.delete(`/api/admin/categories/${categoryId}`)
           .then(response => {
@@ -204,7 +205,7 @@
       let modal;
       if (id === "submit_Add") {
         input_Data = document.querySelector('.input.add_Input').value;
-        alert("추가할 카테고리 : " + input_Data);
+        // alert("추가할 카테고리 : " + input_Data);
         document.querySelector('.input.add_Input').value = "";
         modal = document.getElementById('add_Modal');
 
@@ -226,7 +227,8 @@
         // 기존 카테고리명
         old_Category = document.querySelector('.input.modify_Input').placeholder;
 
-        alert(`${input_Data}, ${input_Id}, ${old_Category}`);
+        // alert(`${input_Data}, ${input_Id}, ${old_Category}`);
+        
         // 카테고리 수정 API
         axios.put(`/api/admin/categories/${input_Id}`, { categoryId:input_Id, category: input_Data })
           .then(response => {

@@ -195,7 +195,7 @@
         formData.append('image', img_Value);
 
         // 상품 추가 API
-        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
+        // alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
         axios.post('/api/admin/exhibits', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -220,7 +220,6 @@
       // 이미지 업로드
       function uploadImage() {
         const file = document.getElementById('uploadInput').files[0];
-        console.log(file);
         const reader = new FileReader();
 
         reader.onload = function(e) {

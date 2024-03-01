@@ -174,8 +174,7 @@
         let urlParams = new URLSearchParams(queryString);
         
         let product_Id = urlParams.get('productId');
-        console.log(product_Id);
-        axios.get(`/api/exhibits/${product_Id}`)
+        axios.get(`/api/exhibits/detail/${product_Id}`)
           .then(response => {
             let product_One = response.data;
             document.getElementById('input_ExhibitName').value = product_One.exhibitName;
@@ -204,9 +203,9 @@
         let duration_Value = document.getElementById('datePicker').value;
         let img_Value = document.getElementById('uploadInput').files[0];
 
-        // 상품 수정 API
-        alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
+        // alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
 
+        // 상품 수정 API
         let formData = new FormData();
         formData.append('exhibitName', exhibitName_Value);
         formData.append('exhibitAddress', place_Value);

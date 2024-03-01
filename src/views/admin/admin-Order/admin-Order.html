@@ -153,7 +153,7 @@
 
       // 기존의 값과 새로 입력한 값이 다를 경우 Update
       if (old_DeliveryValue !== deliverySelect.value) {
-        alert(`변경할 주문 데이터의 ID : ${id} / 변경할 배송상태 : ${deliverySelect.value}`);
+        // alert(`변경할 주문 데이터의 ID : ${id} / 변경할 배송상태 : ${deliverySelect.value}`);
         let delivery_Number = "";
         
         if (deliverySelect.value === '배송준비중') {
@@ -185,7 +185,8 @@
 
       if (isConfirmed) {
         let orderId = id;
-        alert(`삭제할 주문ID : ${orderId}`);
+        // alert(`삭제할 주문ID : ${orderId}`);
+
         // 주문 데이터 삭제 API
         axios.delete(`/api/admin/orders/${orderId}`)
           .then(response => {
