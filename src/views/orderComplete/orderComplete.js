@@ -6,7 +6,11 @@ const orderItems = [];
 cartLoad()
 getUserInformation()
 
-$order.addEventListener('click', placeOrder(orderItems))
+$order.addEventListener('click', async () => {
+    await getUserInformation();
+    placeOrder(orderItems);
+}
+)
 
 async function clearIndexedDB() {
     try {
@@ -102,12 +106,13 @@ function clearFields() {
 
 async function placeOrder(items) {
     const orderInfo = {
-        name: document.querySelector('#delivery-name'),
+        name: document.querySelector('#delivery-name').textContent,
         phone: document.querySelector('#delivery-mobile').textContent,
         userAddress: document.querySelector('#delivery-addr').textContent,
         detailAddress: document.querySelector('#detail-addr').textContent,
         item: items,
     };
+    console.log(orderInfo)
     try {
         const response = await axios.post('/api/orders', orderInfo);
         // 성공적으로 처리된 경우
@@ -171,7 +176,7 @@ async function cartLoad() {
                     exhibitName: cursor.value.exhibitName,
                     quantity: cursor.value.quantity,
                     price: cursor.value.price,
-                    image: cursor.value.image
+                    image: cursor.value.exhibitImg
                 };
 
                 orderItems.push(item);
