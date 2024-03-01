@@ -60,9 +60,9 @@
   const $loginButton = document.querySelector('#login');
   const $myPage = document.querySelector('#mypage')
   let token;
-
+  loadCategory();
   window.onload = function () {
-    loadCategory();
+    // loadCategory();
     token = getCookie("token");
     console.log(token)
     if (token) {
@@ -118,10 +118,10 @@
         let category_List = [];
 
         for (let element of category_All) {
-          category_List.push(element.category)
+          category_List.push([element.category, element._id]);
         }
 
-        category_List.unshift('전체');
+        category_List.unshift(['전체', '전체 ID']);
 
         let element_Select = document.querySelector('.navbar-dropdown');
         element_Select.innerHTML = '';
@@ -135,8 +135,8 @@
             for_Count += 1;
             const createElement = document.createElement("a");
             createElement.className = 'navbar-item';
-            createElement.textContent = category;
-            createElement.href = `/exhibits?categoryName=${category}`;
+            createElement.textContent = category[0];
+            createElement.href = `/exhibits?categoryName=${category[1]}`;
             element_Select.appendChild(createElement);
           }
         });
@@ -145,7 +145,7 @@
         console.error('에러 발생:', error);
       });
   }
-
+  
   // 키워드 검색
   function search_Keyword() {
     let input_Element = document.getElementById('header-search-input');
