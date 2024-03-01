@@ -107,8 +107,38 @@
         
       </div>
       
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">배송 요청사항</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <div class="select">
+                <select name="dlv_selectbox" id="dlv_selectbox" onchange="showEtc(this.value);">
+                  <option value="" selected disabled>배송 시 요청사항을 선택해주세요</option>
+                  <option value="fragile">부재 시 경비실에 맡겨주세요</option>
+                  <option value="fragile">부재 시 집 앞에 놓고 가주세요</option>
+                  <option value="contact">배송 전 연락 바랍니다</option>
+                  <!-- <option value="etc">직접 입력</option> -->
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <textarea class="textarea" name="etc_textarea" id="etc_textarea" style="display:none" maxlength="50"
+                onkeyup="return textarea_maxlength(this)" placeholder="최대 50자까지 입력 가능합니다."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
 
-      
+
+    <button type="button" class="button is-info field control" onclick="showModal()">배송지 변경</button>
+  
 
       <!-- 모달 창 -->
       <div id="myModal" class="modal">
@@ -183,7 +213,7 @@
       </div>
     </div>
 
-    <div class="field is-horizontal">
+    <!-- <div class="field is-horizontal">
       <div class="field-label is-normal">
         <label class="label">배송 요청사항</label>
       </div>
@@ -195,9 +225,9 @@
                 <option value="" selected disabled>배송 시 요청사항을 선택해주세요</option>
                 <option value="fragile">부재 시 경비실에 맡겨주세요</option>
                 <option value="fragile">부재 시 집 앞에 놓고 가주세요</option>
-                <option value="contact">배송 전 연락 바랍니다</option>
+                <option value="contact">배송 전 연락 바랍니다</option> -->
                 <!-- <option value="etc">직접 입력</option> -->
-              </select>
+              <!-- </select>
             </div>
           </div>
         </div>
@@ -210,7 +240,7 @@
       </div>
     </div>
   </div>
-  </div>
+  </div> -->
 
   <!-- 전시 정보 -->
   <div class="container">
