@@ -26,26 +26,42 @@ $plusButton.addEventListener('click', function () {
     var count = parseInt($countElement.innerText);
     $countElement.innerText = count + 1;
 });
-
 $addCart.addEventListener('click', () => {
     let store = db.transaction('shoppingCart', 'readwrite').objectStore('shoppingCart');
-    let addReq = store.add({
-        exhibitId: exhibitId,
-        exhibitName: document.querySelector('#exhibitName').textContent,
-        quantity: document.querySelector('#quantity').textContent,
-        price: document.querySelector('#price').textContent,
-        exhibitImg: document.querySelector('#exhibitImg').src,
-    });
-    addReq.addEventListener('success', function (event) {
-        Swal.fire({
-            title: '장바구니에 상품을 담았습니다',
-            icon: 'success',
-            confirmButtonColor: '#363636',
-            confirmButtonText: '확인',
-        })
-    });
+    let checkReq = store.getAll();
+    
+    checkReq.onsuccess = function() {
+        let found = checkReq.result.some(item => item.exhibitId === exhibitId);
 
+        if (found) {
+            Swal.fire({g
+                title: '이미 장바구니에 있는 상품입니다',
+                icon: 'warning',
+                confirmButtonColor: '#363636',
+                confirmButtonText: '확인',
+            })
+        } else {
+            let addReq = store.add({
+                exhibitId: exhibitId,
+                exhibitName: document.querySelector('#exhibitName').textContent,
+                quantity: document.querySelector('#quantity').textContent,
+                price: document.querySelector('#price').textContent,
+                exhibitImg: document.querySelector('#exhibitImg').src,
+            });
+            addReq.addEventListener('success', function (event) {
+                Swal.fire({
+                    title: '장바구니에 상품을 담았습니다',
+                    icon: 'success',
+                    confirmButtonColor: '#363636',
+                    confirmButtonText: '확인',
+                })
+            });
+        }
+    };
 });
+
+
+
 
 async function insertExhibitionName() {
     const $exhibitName = document.querySelector('#exhibitName')
