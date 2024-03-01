@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap');
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+main.main {
+    min-height: 100vh;
+}
+
+div#productModify_Container {
+    width: 50%;
+}
+
+div#form_Container {
+    border-top: solid #17171B 2px ; 
+    border-bottom: solid #17171B 2px ;
+}
+
+div#uploadDiv {
+    border: 2px dashed #ccc; 
+    padding: 20px; 
+    text-align: center;
+    height: 300px;
+}
+
+input#uploadInput {
+    display: none;
+}

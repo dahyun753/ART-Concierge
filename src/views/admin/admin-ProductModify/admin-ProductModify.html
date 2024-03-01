@@ -30,7 +30,8 @@
     <script src="/public/loadHTML.js"></script>
     <link rel="stylesheet" href="/public/Header/header.css" />
     <link rel="stylesheet" href="/public/Footer/footer.css" />
-
+    <link rel="stylesheet" href="admin-ProductModify.css" />
+    <script defer src="admin-ProductModify.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -39,27 +40,11 @@
     </script>
   
     <main class="main">
-      <aside>
-        <div class="side-menu" style="
-          float: left;
-          position: fixed;
-          top: 100px;
-          margin-top : 120px;
-          margin-left : 250px;
-          width: 200px; 
-        ">
-          <h3 class="title is-3">Admin</h3>
-          <a class="active has-text-black" href="/admin/categories" style="font-weight: bold;">카테고리 관리</a><br />
-          <a class="has-text-black" href="/admin/exhibits">상품 관리</a><br/>
-          <a class="has-text-black" href="/admin/orders">주문 관리</a>
-        </div>
-      </aside>
       <section class="section">
-        <div class="container" style="width: 50%;">
+        <div id="productModify_Container" class="container">
           <h1 class="title has-text-centered">상품 수정</h1>
           <form>
-            <div class="container mt-1 px-4 py-3"
-              style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;"> 
+            <div class="container mt-1 px-4 py-3"> 
               <div class="columns is-vcentered">
                 <div class="column is-2">카테고리</div>
                 <div class="column is-6">
@@ -70,14 +55,11 @@
                 </div>
                 <div class="column is-1"></div>
               </div>
-              
-
               <div class="columns is-vcentered">
                 <div class="column is-2 ">전시회 제목</div>
                 <div class="column is-6"><input id="input_ExhibitName" type="text" class="input is-medium">
                 </div>
               </div>
-              
               <div class="columns is-vcentered">
                 <div class="column is-2">작가 이름</div>
                 <div class="column is-6"><input id="input_Author" type="text" class="input is-medium"></div>
@@ -105,160 +87,39 @@
                 </div>
                 <div class="column is-4"></div>
               </div>
-
               <div class="columns is-vcentered" id="imageUpload">
                 <div class="column is-2">이미지 업로드</div>
-                <div class="column is-6" id="uploadDiv" style="border: 2px dashed #ccc; padding: 20px; text-align: center;height: 300px;">
-                  <input onchange="uploadImage()" type="file" id="uploadInput" accept="image/*" style="display: none;">
-                  <label for="uploadInput">이미지 업로드</label>
-                  <div id="previewImage" style="margin-top: 20px;"></div>
+                <div id="uploadDiv" class="column is-6">
+                  <input id="uploadInput" onchange="uploadImage()" type="file" accept="image/*">
+                  <label for="uploadInput">이미지 등록</label>
+                  <div id="previewImage" class="mt-5"></div>
                 </div>
               </div>
-              
-              <div class="columns is-vcentered">
-                <div class="column is-3"></div>
-                <div class="column is-3 columnhas-text-centered mt-6"> <button type="button" onclick="modifyProduct()" class="button is-large">수정</button></div>
-                <div class="column is-3 has-text-centered mt-6"> <button type="button" onclick="moveToProduct()" class="button is-large">취소</button></div>
-              </div>
-    
           </form>
+          <div class="columns is-vcentered">
+            <div class="column is-3"></div>
+            <div class="column is-3 columnhas-text-centered mt-6">
+              <button type="button" onclick="modifyProduct()" class="button is-large is-success">
+                <span class="icon is-small">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span>수정</span>
+              </button>
+            </div>
+            <div class="column is-3 has-text-centered mt-6">
+              <button type="button" onclick="moveToProduct()" class="button is-large is-danger is-outlined">
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+                <span>취소</span>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </main>
+    <!-- Footer -->
     <script>
-      window.onload = function() {
-        loadData();
-        initDatePicker();        
-      };
-
-      // 달력 초기화
-      function initDatePicker() {
-        flatpickr("#datePicker", {
-          mode: "range", // 날짜 범위 선택 모드
-          dateFormat: "Y-m-d", // 선택된 날짜의 형식
-          onChange: function(selectedDates, dateStr, instance) {
-            let startDate = selectedDates[0].toISOString().split('T')[0];
-            // let endDate = selectedDates[1].toISOString().split('T')[0];
-            let endDate = selectedDates[1] ? selectedDates[1].toISOString().split('T')[0] : "";
-            let selectedRange = startDate + " ~ " + endDate;
-
-            let input_DatePicker = document.getElementById('datePicker')
-            input_DatePicker.textContent = selectedRange;
-          }
-        });
-      }
-
-      // 카테고리 전체 조회
-      function loadData() {
-        // 카테고리 데이터 조회 API
-        axios.get('/api/admin/categories')
-          .then(response => {
-          let category_All = response.data;
-
-          let element_Select = document.getElementById('category_Select');
-          element_Select.innerHTML = "";
-
-          category_All.forEach(category_One => {
-            const optionElement = document.createElement("option");
-            optionElement.value = category_One._id;
-            optionElement.textContent = category_One.category;
-            element_Select.appendChild(optionElement);
-          });
-        })
-        .catch(error => {
-              console.error('에러 발생:', error);
-        });
-
-        // 쿼리 스트링으로 productId 가져오기
-        let queryString = window.location.search;
-        let urlParams = new URLSearchParams(queryString);
-        
-        let product_Id = urlParams.get('productId');
-        axios.get(`/api/exhibits/detail/${product_Id}`)
-          .then(response => {
-            let product_One = response.data;
-            document.getElementById('input_ExhibitName').value = product_One.exhibitName;
-            document.getElementById('input_Author').value = product_One.author;
-            document.getElementById('input_ExhibitPlace').value = product_One.exhibitAddress;
-            document.getElementById('input_Price').value = product_One.price;
-            document.getElementById('input_Description').value = product_One.information;
-            document.getElementById('datePicker').value = product_One.startDate + ' to ' + product_One.endDate;
-          })
-          .catch(error => {
-                console.error('에러 발생:', error);
-          });
-      }
-
-      // 상품 수정
-      function modifyProduct(){
-        let category_Select = document.getElementById('category_Select');
-        let selected_Option = category_Select.options[category_Select.selectedIndex];
-
-        let category_Value = selected_Option.value;
-        let exhibitName_Value = document.getElementById('input_ExhibitName').value;
-        let author_Value = document.getElementById('input_Author').value;
-        let place_Value = document.getElementById('input_ExhibitPlace').value;
-        let price_Value = document.getElementById('input_Price').value;
-        let description_Value = document.getElementById('input_Description').value;
-        let duration_Value = document.getElementById('datePicker').value;
-        let img_Value = document.getElementById('uploadInput').files[0];
-
-        // alert(`${category_Value}, ${exhibitName_Value}, ${author_Value}, ${place_Value}, ${price_Value}, ${description_Value}, ${duration_Value}, ${img_Value}`);
-
-        // 상품 수정 API
-        let formData = new FormData();
-        formData.append('exhibitName', exhibitName_Value);
-        formData.append('exhibitAddress', place_Value);
-        formData.append('price', price_Value);
-        formData.append('startDate', duration_Value.split(' to ')[0]);
-        formData.append('endDate', duration_Value.split(' to ')[1]);
-        formData.append('category', category_Value);
-        formData.append('author', author_Value);
-        formData.append('information', description_Value);
-        formData.append('image', img_Value);
-
-        // 쿼리 스트링으로 productId 가져오기
-        let queryString = window.location.search;
-        let urlParams = new URLSearchParams(queryString);
-        
-        let product_Id = urlParams.get('productId');
-        axios.put(`/api/admin/exhibits/${product_Id}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }})
-          .then(response => {
-            console.log('Product updated successfully:', response.data);
-            loadData();
-            // 상품 페이지로 이동
-            moveToProduct();
-          })
-          .catch(error => {
-            console.error('Error updating product:', error);
-          });
-      }
-
-      // 상품 페이지로 이동
-      function moveToProduct() {
-        let product_Page = '/admin/exhibits';
-        window.location.href = product_Page;
-      }
-
-      // 이미지 업로드
-      function uploadImage() {
-        const file = document.getElementById('uploadInput').files[0];
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            const previewImageDiv = document.getElementById('previewImage');
-            previewImageDiv.innerHTML = ''; // 이미지를 여러 번 업로드할 때 기존 이미지 제거
-
-            const imageElement = document.createElement('img');
-            imageElement.src = e.target.result;
-            imageElement.style.maxWidth = '200px'; // 이미지 사이즈 조절
-            previewImageDiv.appendChild(imageElement);
-        };
-
-        reader.readAsDataURL(file);
-      }
+      loadHTML("/public/Footer/footer.html");
     </script>
 </html>

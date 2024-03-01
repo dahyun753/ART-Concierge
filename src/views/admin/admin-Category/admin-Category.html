@@ -23,10 +23,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS & JS -->
-    <link rel="stylesheet" href="./admin-Category.css" />
     <script src="/public/loadHTML.js"></script>
     <link rel="stylesheet" href="/public/Header/header.css" />
     <link rel="stylesheet" href="/public/Footer/footer.css" />
+    <link rel="stylesheet" href="admin-Category.css">
+    <script defer src="admin-Category.js"></script>
 
 </head>
 <body>
@@ -37,31 +38,26 @@
   
   <main class="main">
     <aside>
-      <div class="side-menu" style="
-        float: left;
-        position: fixed;
-        top: 100px;
-        margin-top : 120px;
-        margin-left : 250px;
-        width: 200px; 
-      ">
-        <h3 class="title is-3">Admin</h3>
-        <a class="active has-text-black" href="/admin/categories" style="font-weight: bold;">카테고리 관리</a><br />
-        <a class="has-text-black" href="/admin/exhibits">상품 관리</a><br/>
-        <a class="has-text-black" href="/admin/orders">주문 관리</a>
+      <div class="side-menu box">
+        <h3 class="title is-3 has-text-centered">Admin</h3>
+        <a class="has-text-black" href="/admin/categories"><p class="has-text-centered">카테고리 관리</p></a><br />
+        <a class="has-text-black" href="/admin/exhibits"><p class="has-text-centered">상품 관리</p></a><br/>
+        <a class="has-text-black" href="/admin/orders"><p class="has-text-centered">주문 관리</p></a>
       </div>
     </aside>
-    <section class="section" style="font-weight: 600 !important;">
-      <div class="container" style="width: 50%;">
+    <section class="section">
+      <div id="category_Container" class="container is-flex is-flex-direction-column">
         <h1 class="title has-text-centered">카테고리 관리</h1>
-        <div style="display: flex; justify-content: flex-end;">
-          <div><button onclick="category_Add()" id="category_Add">추가</button></div>
+        <div class="is-flex is-justify-content-end">
+          <div><button id="category_Add" class="button is-rounded is-small" onclick="category_Add()">
+            <p class="has-text-weight-bold">추가</P>
+          </button></div>
         </div>
-        <table class='table' style="width: 60%;">
+        <table class='table is-fullwidth'>
           <thead>
             <tr>
-              <th>카테고리명</th>
-              <th>수정 & 삭제</th>
+              <th class="has-text-centered">카테고리명</th>
+              <th class="has-text-centered">수정 & 삭제</th>
             </tr>
           </thead>
           <!-- 카테고리 목록이 들어갈 부분 -->
@@ -86,8 +82,18 @@
               </div>
             </section>
             <footer class="modal-card-foot">
-              <button id="submit_Add" onclick="category_Submit(this.id)" class="button is-success">확인</button>
-              <button id="cancel_Add" onclick="category_Cancel(this.id)" class="button">취소</button>
+              <button id="submit_Add" onclick="category_Submit(this.id)" class="button is-success">
+                <span class="icon is-small">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span>확인</span>
+              </button>
+              <button id="cancel_Add" onclick="category_Cancel(this.id)" class="button is-danger is-outlined">
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+                <span>취소</span>
+              </button>
             </footer>
           </div>
         </div>
@@ -110,8 +116,18 @@
               </div>
             </section>
             <footer class="modal-card-foot">
-              <button id="submit_Modify" onclick="category_Submit(this.id)" class="button is-success">확인</button>
-              <button id="cancel_Modify" onclick="category_Cancel(this.id)" class="button">취소</button>
+              <button id="submit_Modify" onclick="category_Submit(this.id)" class="button is-success">
+                <span class="icon is-small">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span>확인</span>
+              </button>
+              <button id="cancel_Modify" onclick="category_Cancel(this.id)" class="button is-danger is-outlined">
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+                <span>취소</span>
+              </button>
             </footer>
           </div>
         </div>
@@ -123,139 +139,4 @@
   <script>
     loadHTML("/public/Footer/footer.html");
   </script>
-
-  <script>
-    window.onload = function() {
-      loadCategory();
-    };
-    
-    // 페이지 로드 시 카테고리 목록 렌더링
-    function loadCategory() {
-      // 카테고리 데이터 가져오기(카테고리ID, 카테고리명, 카테고리 갯수)
-      axios.get('/api/admin/categories')
-      .then(response => {
-        let category_All = response.data;
-        let table_Body = document.querySelector("#category_List");
-        table_Body.innerHTML = '';
-
-        for (let category_One of category_All) {
-          table_Body.innerHTML += `
-            <tr>
-              <td>${category_One.category}</td>
-              <td>
-                <button id="${category_One._id}" onclick="category_Modify(this)">수정</button>
-                <button id="${category_One._id}" onclick="category_Delete(this)">삭제</button>
-              </td>
-            </tr>
-          `;
-        }
-      })
-      .catch(error => {
-            console.error('에러 발생:', error);
-      });
-    }
-
-    // 카테고리 추가 버튼
-    function category_Add() {
-      // 클릭 시 모달 활성화
-      let modal = document.getElementById('add_Modal');
-      modal.className = "modal is-active";  
-    }
-
-    // 카테고리 수정 버튼
-    function category_Modify(element) {
-      // 모달 활성화
-      let modal = document.getElementById('modify_Modal');
-      modal.className = "modal is-active";  
-
-      // 카테고리 ID
-      let categoryId = element.id;
-      let categoryName = element.parentNode.previousElementSibling.textContent;
-
-      let input_Modify = document.querySelector('.modify_Input');
-      
-      input_Modify.placeholder = categoryName;
-      input_Modify.value = categoryName;
-      input_Modify.id = categoryId;
-    }
-
-    // 카테고리 삭제 버튼
-    function category_Delete(element) {
-      const isConfirmed = confirm('삭제하시겠습니까?');
-
-      if (isConfirmed) {
-        let categoryId = element.id;
-        // alert(`삭제 : ${categoryId}`);
-        
-        // 삭제 API
-        axios.delete(`/api/admin/categories/${categoryId}`)
-          .then(response => {
-            console.log('Category deleted successfully:', response.data);
-            loadCategory();
-          })
-          .catch(error => {
-            console.error('Error deleting category:', error);
-          });
-      }
-    }
-
-    // 모달의 확인 버튼
-    function category_Submit(id) {
-      let input_Data;
-      let modal;
-      if (id === "submit_Add") {
-        input_Data = document.querySelector('.input.add_Input').value;
-        // alert("추가할 카테고리 : " + input_Data);
-        document.querySelector('.input.add_Input').value = "";
-        modal = document.getElementById('add_Modal');
-
-        // 카테고리 추가 API
-        axios.post('/api/admin/categories', { category_name: input_Data, category: input_Data })
-          .then(response => {
-            console.log('Product added successfully:', response.data);
-            loadCategory();
-          })
-          .catch(error => {
-            console.error('Error adding product:', error);
-          });
-
-      } else if(id === 'submit_Modify') {
-        // 수정할 내용
-        input_Data = document.querySelector('.input.modify_Input').value;
-        // 카테고리 ID
-        input_Id = document.querySelector('.input.modify_Input').id;
-        // 기존 카테고리명
-        old_Category = document.querySelector('.input.modify_Input').placeholder;
-
-        // alert(`${input_Data}, ${input_Id}, ${old_Category}`);
-        
-        // 카테고리 수정 API
-        axios.put(`/api/admin/categories/${input_Id}`, { categoryId:input_Id, category: input_Data })
-          .then(response => {
-            console.log('Product updated successfully:', response.data);
-            loadCategory();
-          })
-          .catch(error => {
-            console.error('Error updating product:', error);
-          });
-
-        document.querySelector('.input.modify_Input').value = "";
-        modal = document.getElementById('modify_Modal');
-      }
-      modal.className = 'modal';
-    }
-
-    // 모달의 취소 버튼
-    function category_Cancel(id) {
-      // 모달 비활성화
-      let modal;
-      if (id === "cancel_Add") {
-        modal = document.getElementById('add_Modal');
-      } else if(id === 'cancel_Modify') {
-        modal = document.getElementById('modify_Modal');
-      }
-      modal.className = 'modal';
-    }
-  </script>
-
 </html>
