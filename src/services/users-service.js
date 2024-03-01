@@ -16,6 +16,7 @@ async function searchOne(user_Id) {
             userAddress: user.userAddress,
             detailAddress: user.detailAddress,
             phone: user.phone,
+            isAdmin: user.isAdmin,
         };
         return userInfo;
     } catch (err) {
