@@ -1,47 +1,53 @@
-const authService = require('../services/auth-service');
+const authService = require("../services/auth-service");
+const ERRORS = require("../utils/errors");
 
 // 이메일 중복 체크
 async function uniqueEmail(req, res, next) {
-    try {
-        const email = req.body.email;
-        console.log(email)
-        await authService.checkEmail(email);;
+  try {
+    const email = req.body.email;
+    console.log(email);
+    await authService.checkEmail(email);
 
-        res.status(200).json({ message: '사용 가능한 이메일입니다' });
-    } catch (err) {
-        res.status(400).json({message: err.message});
-    }
+    res.status(200).json({ message: "사용 가능한 이메일입니다" });
+  } catch (err) {
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
+    res.status(statusCode).json({ message });
+  }
 }
 
-// 회원 가입 
+// 회원 가입
 async function postUser(req, res, next) {
-    try {
-        const userInfo = req.body;
+  try {
+    const userInfo = req.body;
 
-        // 이메일 중복체크 
-        await authService.checkEmail(userInfo.email);
-        const newUser = await authService.addUser(userInfo);
+    // 이메일 중복체크
+    await authService.checkEmail(userInfo.email);
+    const newUser = await authService.addUser(userInfo);
 
-        res.status(201).json(newUser);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+    res.status(201).json(newUser);
+  } catch (err) {
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
+  }
 }
 
-// 회원 가입 
+// 회원 가입
 async function findPassword(req, res, next) {
-    try {
-        const { email } = req.body;
+  try {
+    const { email } = req.body;
 
-        await authService.sendMail(email);
+    await authService.sendMail(email);
 
-        res.status(204).json();
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
+    res.status(204).json();
+  } catch (err) {
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
+  }
 }
-
-
 
 // 로그인
 // async function loginUser(req, res, next) {
@@ -55,6 +61,5 @@ async function findPassword(req, res, next) {
 //         res.status(401).json({ error: error.message });
 //     }
 // }
-
 
 module.exports = { postUser, uniqueEmail, findPassword };

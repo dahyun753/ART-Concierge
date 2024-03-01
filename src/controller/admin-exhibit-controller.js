@@ -1,4 +1,5 @@
 const a_exhibitService = require("../services/admin-exhibit-service");
+const ERRORS = require("../utils/errors");
 
 // 전시 추가 (관리자 페이지)
 async function postExhibit(req, res, next) {
@@ -30,19 +31,21 @@ async function postExhibit(req, res, next) {
 
     res.status(201).json(exhibit);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
+    res.status(statusCode).json({ message });
   }
 }
 
 // 전시 리스트 조회 (작가, 이미지, 전시제목, 날짜, 카테고리만) + 카테고리도 함께
 async function getExhibitList(req, res, next) {
   try {
-    const contents = await adminService.searchExhibit();
+    const contents = await a_exhibitService.searchExhibit();
     res.status(201).json(contents);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
   }
 }
 
@@ -53,8 +56,8 @@ async function getExhibitById(req, res, next) {
     const content = await a_exhibitService.searchById(exhibitId);
     res.status(201).json(content);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
+    res.status(statusCode).json({ message });
   }
 }
 
@@ -76,7 +79,7 @@ async function putExhibit(req, res, next) {
 
     const image = req.file.location;
 
-    const content = await adminService.updateExhibit(exhibitId, {
+    const content = await a_exhibitService.updateExhibit(exhibitId, {
       exhibitName,
       exhibitAddress,
       price,
@@ -90,8 +93,8 @@ async function putExhibit(req, res, next) {
 
     res.status(201).json(content);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
+    res.status(statusCode).json({ message });
   }
 }
 

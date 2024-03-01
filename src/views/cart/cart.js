@@ -4,10 +4,19 @@ const $selectAll = document.querySelector('.selectAll')
 const $selectionDelete = document.querySelector('.deleteSelection')
 const $buy = document.querySelector('.buy')
 const $totalItemPrice = document.querySelector('.totalItemPrice')
-
 const db = await getDB();
 
-updateProductListFromDB();
+updateProductListFromIndexedDB()
+// async function loadCartData(){
+//   try{
+//     const response = axios.get('/api/carts');
+//   }
+//   catch{
+//     updateProductListFromIndexedDB()
+//   }
+// }
+
+
 reloadAmount()
 
 function reloadAmount() {
@@ -122,7 +131,10 @@ function makeEventListener($itemPlusButton, $itemMinusButton, $itemDeleteButton)
     let quantity = parseInt(quantityInput.value);
 
     const oneItemPrice = itemPrice / quantity
-    quantity--;
+    if(quantity>1){
+      quantity--;
+    }
+    
     quantityInput.value = quantity;
 
     $itemPrice.textContent = oneItemPrice * quantity
@@ -178,25 +190,7 @@ $selectionDelete.addEventListener('click', () => {
   });
 });
 
-
-
-const $test = document.querySelector('#test')
-$test.addEventListener('click', () => {
-  let store = db.transaction('shoppingCart', 'readwrite').objectStore('shoppingCart');
-  let addReq = store.add({
-    itemName: prompt('name?'),
-    count: prompt('count?'),
-    price: prompt('price?'),
-  });
-  addReq.addEventListener('success', function (event) {
-    console.log(event);
-  });
-  updateProductListFromDB()
-})
-
-
-
-async function updateProductListFromDB() {
+async function updateProductListFromIndexedDB() {
   const $productList = document.querySelector('.productList');
   // 목록에 있는 기존 항목을 지웁니다.
   $productList.innerHTML = '';
@@ -231,10 +225,10 @@ async function updateProductListFromDB() {
           </label>
         </div>
       
-        <div class="column is-3"><img src="#" alt="상품이미지"></div>
+        <div class="column is-3"><img src=${cursor.value.exhibitImg} alt="상품이미지"></div>
       
         <div class="column is-3 is-flex is-flex-direction-column">
-          <span class="itemName">${cursor.value.itemName}</span>
+          <span class="itemName">${cursor.value.exhibitName}</span>
           <div>
           <span class="price">${cursor.value.price}</span> ￦
           </div>
@@ -243,7 +237,7 @@ async function updateProductListFromDB() {
         <div class="column is-4">
           <div class="count-wrap">
             <button type="button" class="minus">-</button>
-            <input type="text" class="inp" value=${cursor.value.count} />
+            <input type="text" class="inp" value=${cursor.value.quantity} />
             <button type="button" class="plus">+</button>
           </div>
         </div>
@@ -262,6 +256,7 @@ async function updateProductListFromDB() {
         // 커서를 다음 아이템으로 이동합니다.
         cursor.continue();
       }
+      reloadAmount()
     };
 
     // 에러가 발생한 경우 처리합니다.
