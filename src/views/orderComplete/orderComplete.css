@@ -176,4 +176,15 @@
   .box:not(:last-child) {
     margin-bottom: 1rem;
   }
+ 
   
+.addressbtn{
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+}
+
+
+  .completebtn{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  }

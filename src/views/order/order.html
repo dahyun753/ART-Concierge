@@ -23,9 +23,11 @@
 
   <!-- Custom CSS & JS -->
   <script src="../public/loadHTML.js"></script>
+  <script src="order.js" defer type="module"></script>
   <link rel="stylesheet" href="/public/Header/header.css" />
   <link rel="stylesheet" href="/public/Footer/footer.css" />
   <link rel="stylesheet" href="order.css">
+
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -39,10 +41,11 @@
     <section class="section">
       <div class="side-menu">
         <h3 class="title is-3">My Page</h3>
-        <a class="has-text-black" href="/users">회원 정보 수정</a><br />
         <a class="active has-text-black" href="/orders">주문 / 배송</a><br />
+        <a class="has-text-black" href="/users">회원 정보 수정</a><br />
+      
       </div>
-      <div class="container">
+      <div class="container" style="padding-top:130px; padding-bottom:170px">
         <h1 class="title has-text-centered">Your order summary</h1>
         <div class="columns is-centered my-6">
           <div class="tabs is-toggle is-toggle-rounded">
@@ -72,84 +75,7 @@
                   <th  style="text-align:center">주문 상태</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr style="height:130px;">
-                  <td >
-                    <a>
-                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
-                    </a>
-                  </td>
-                  <td >상품 이름</td>
-                  <td >주문 일자</td>
-                  <td >
-                    주문 금액<br>
-                    수량 : 5개
-                  </td>
-                  <td>
-                    <div class="container has-text-centered">
-                      배송 준비중<br>
-                      <button class="button">주문 취소</button>
-                    </div>
-                  </td>
-                </tr>
-                
-                <tr style="height:130px;">
-                  <td >
-                    <a>
-                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
-                    </a>
-                  </td>
-                  <td >상품 이름</td>
-                  <td >주문 일자</td>
-                  <td >
-                    주문 금액<br>
-                    수량 : 5개
-                  </td>
-                  <td>
-                    <div class="container has-text-centered">
-                      배송 준비중<br>
-                      <button class="button">주문 취소</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr style="height:130px;">
-                  <td >
-                    <a>
-                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
-                    </a>
-                  </td>
-                  <td >상품 이름</td>
-                  <td >주문 일자</td>
-                  <td >
-                    주문 금액<br>
-                    수량 : 5개
-                  </td>
-                  <td>
-                    <div class="container has-text-centered">
-                      배송 준비중<br>
-                      <button class="button">주문 취소</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr style="height:130px;">
-                  <td >
-                    <a>
-                      <img class="image" src="path/to/your/image.jpg" alt="상품 이미지" width="50px" height="50px">
-                    </a>
-                  </td>
-                  <td >상품 이름</td>
-                  <td >주문 일자</td>
-                  <td >
-                    주문 금액<br>
-                    수량 : 5개
-                  </td>
-                  <td>
-                    <div class="container has-text-centered">
-                      배송 준비중<br>
-                      <button class="button">주문 취소</button>
-                    </div>
-                  </td>
-                </tr>
+              <tbody id="tableBody">
               </tbody>
             </table>
           </div>

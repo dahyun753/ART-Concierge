@@ -5,7 +5,7 @@
 
 .info-exhibit{
     display: flex;
-    background-color: #FE7A2C;
+    background-color: #a9a9a9;
     height: 40px;
     width: 80px;
     align-items: center;
@@ -13,8 +13,9 @@
 }
 
 .button {
-    background-color: #FE7A2C;
+    background-color: #4a4a4a;
     justify-content: center;
+    color: white;
 }
 
 .content {
@@ -49,6 +50,8 @@ li {
     justify-content: center;
     align-items: center;
 }
+
+
 
 
 
