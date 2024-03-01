@@ -31,7 +31,7 @@ async function searchProductElement(keyword) {
   let fetchedIds = []; // 이미 가져온 데이터의 ID를 저장할 배열
 
   const fetchAndUpdateData = async () => {
-    const res = await fetch(`http://localhost:5001/api/exhibits/search?word=${keyword}&page=${page}&perPage=12`);
+    const res = await fetch(`http://localhost:5001/api/exhibits/search?word=${keyword}`);
     const serverdata = await res.json();
 
     const numColumn = 4;
