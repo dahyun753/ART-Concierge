@@ -25,10 +25,10 @@
 
   <!-- Custom CSS & JS -->
   <script src="../public/loadHTML.js"></script>
-  <link rel="stylesheet" href="../public/Header/header.css" />
-  <link rel="stylesheet" href="../public/Footer/footer.css" />
+  <link rel="stylesheet" href="/public/Header/header.css" />
+  <link rel="stylesheet" href="/public/Footer/footer.css" />
 
-  <script src="./main.js"></script>
+  <script defer src="./main.js"></script>
   <link rel="stylesheet" href="./main.css" />
 
 </head>
@@ -53,38 +53,37 @@
     </header>
 
     <section class="section__container choose__container" id="choose">
-      <img class="choose__bg" src="assets/dot-bg.png" alt="bg" />
       <div class="choose__content">
-        <p class="section__subheader">
+        <h4 class="title is-4">
           당신이 원하는 전시 여기 다 있다! <br>
           나만 몰랐던 요즘 전시관을 배달 받아보세요
-        </p>
+        </h4>
         <div class="choose__grid">
           <div class="choose__card">
             <span><i class="ri-truck-line"></i></span>
-            <h4>전시 갓입문자 당신</h4>
-            <p>
+            <h5 class="title is-5">전시 갓입문자 당신</h5>
+            <p class="introductuon">
               다양한 전시 카테고리를 기반으로 정렬하여<br>다양한 전시를 한 눈에 볼 수 있어요 👀
             </p>
           </div>
           <div class="choose__card">
             <span><i class="ri-shopping-bag-3-line"></i></span>
-            <h4>전시 매니아</h4>
-            <p>
+            <h5 class="title is-5">전시 매니아</h5>
+            <p class="introductuon">
               클릭 한번이면!<br>내가 원하는 전시 티켓이 우리 집으로 받아보세요 📦
             </p>
           </div>
           <div class="choose__card">
             <span><i class="ri-customer-service-2-line"></i></span>
-            <h4>계획이 중요한 당신에게</h4>
-            <p>
+            <h5 class="title is-5">계획이 중요한 당신에게</h5>
+            <p class="introductuon">
               작가, 제목, 전시장 위치, 작품 설명까지<br>모두 담고 있습니다 
             </p>
           </div>
           <div class="choose__card">
             <span><i class="ri-loop-right-line"></i></span>
-            <h4>유행을 따라가고 싶다면</h4>
-            <p>
+            <h5 class="title is-5">유행을 따라가고 싶다면</h5>
+            <p class="introductuon">
               전시 이름이 생각나지 않아도 일부만 검색하면 원하는 정보가 뚝딱 🎫
             </p>
           </div>
@@ -104,7 +103,7 @@
           <p class="section__subheader">
             art concierge에서<br>만나보는 요즘 전시
           </p>
-          <button class="btn">Join now</button>
+          <button class="btn" id="joinNow">Join now</button>
         </div>
       </div>
       <div class="offer__grid__bottom">
@@ -120,7 +119,7 @@
         <p class="section__subheader">
           일상에서 전시를 선물하다
         </p>
-        <button class="btn">Art List</button>
+        <button class="btn" id="artList">Art List</button>
       </div>
       <div class="craft__image">
         <div class="craft__image__content">

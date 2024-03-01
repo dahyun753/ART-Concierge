@@ -256,6 +256,7 @@ async function updateProductListFromIndexedDB() {
         // 커서를 다음 아이템으로 이동합니다.
         cursor.continue();
       }
+      reloadAmount()
     };
 
     // 에러가 발생한 경우 처리합니다.
