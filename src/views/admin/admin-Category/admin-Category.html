@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -258,4 +259,147 @@
     }
   </script>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Collection</title>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Font - Noto Sans Korean semibold 600 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS & JS -->
+    <script src="/public/loadHTML.js"></script>
+    <link rel="stylesheet" href="/public/Header/header.css" />
+    <link rel="stylesheet" href="/public/Footer/footer.css" />
+    <link rel="stylesheet" href="admin-Category.css">
+    <script defer src="admin-Category.js"></script>
+
+</head>
+<body>
+  <!-- Header -->
+  <script>
+    loadHTML("/public/Header/header.html");
+  </script>
+  
+  <main class="main">
+    <aside>
+      <div class="side-menu box">
+        <h3 class="title is-3 has-text-centered">Admin</h3>
+        <a class="has-text-black" href="/admin/categories"><p class="has-text-centered">카테고리 관리</p></a><br />
+        <a class="has-text-black" href="/admin/exhibits"><p class="has-text-centered">상품 관리</p></a><br/>
+        <a class="has-text-black" href="/admin/orders"><p class="has-text-centered">주문 관리</p></a>
+      </div>
+    </aside>
+    <section class="section">
+      <div id="category_Container" class="container is-flex is-flex-direction-column">
+        <h1 class="title has-text-centered">카테고리 관리</h1>
+        <div class="is-flex is-justify-content-end">
+          <div><button id="category_Add" class="button is-rounded is-small" onclick="category_Add()">
+            <p class="has-text-weight-bold">추가</P>
+          </button></div>
+        </div>
+        <table class='table is-fullwidth'>
+          <thead>
+            <tr>
+              <th class="has-text-centered">카테고리명</th>
+              <th class="has-text-centered">수정 & 삭제</th>
+            </tr>
+          </thead>
+          <!-- 카테고리 목록이 들어갈 부분 -->
+          <tbody id="category_List">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 카테고리 추가 modal -->
+    <div class="container" id="app">
+      <div id="add_Modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">카테고리 추가</p>
+            </header>
+            <section class="modal-card-body">
+              <div class="control">
+                  <input class="input add_Input" type="text" placeholder="카테고리를 입력하세요">
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button id="submit_Add" onclick="category_Submit(this.id)" class="button is-success">
+                <span class="icon is-small">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span>확인</span>
+              </button>
+              <button id="cancel_Add" onclick="category_Cancel(this.id)" class="button is-danger is-outlined">
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+                <span>취소</span>
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- 카테고리 수정 modal -->
+    <div class="container" id="app">
+      <div id="modify_Modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">카테고리 수정</p>
+            </header>
+            <section class="modal-card-body">
+              <div class="control">
+                  <input class="input modify_Input" type="text" placeholder="카테고리를 입력하세요">
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button id="submit_Modify" onclick="category_Submit(this.id)" class="button is-success">
+                <span class="icon is-small">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span>확인</span>
+              </button>
+              <button id="cancel_Modify" onclick="category_Cancel(this.id)" class="button is-danger is-outlined">
+                <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+                </span>
+                <span>취소</span>
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </main>
+  <!-- Footer -->
+  <script>
+    loadHTML("/public/Footer/footer.html");
+  </script>
+>>>>>>> feature/FE/admin
 </html>

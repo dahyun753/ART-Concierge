@@ -23,11 +23,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS & JS -->
-    <link rel="stylesheet" href="./admin-Product.css" />
     <script src="/public/loadHTML.js"></script>
     <link rel="stylesheet" href="/public/Header/header.css" />
     <link rel="stylesheet" href="/public/Footer/footer.css" />
-
+    <link rel="stylesheet" href="admin-Product.css" />
+    <script defer src="admin-Product.js"></script>
 </head>
 <body>
   <!-- Header -->
@@ -37,33 +37,27 @@
   
   <main class="main">
     <aside>
-      <div class="side-menu" style="
-        float: left;
-        position: fixed;
-        top: 100px;
-        margin-top : 120px;
-        margin-left : 250px;
-        width: 200px; 
-      ">
-        <h3 class="title is-3">Admin</h3>
-        <a class="active has-text-black" href="/admin/categories" style="font-weight: bold;">카테고리 관리</a><br />
-        <a class="has-text-black" href="/admin/exhibits">상품 관리</a><br/>
-        <a class="has-text-black" href="/admin/orders">주문 관리</a>
+      <div class="side-menu box">
+        <h3 class="title is-3 has-text-centered">Admin</h3>
+        <a class="has-text-black" href="/admin/categories"><p class="has-text-centered">카테고리 관리</p></a><br />
+        <a class="has-text-black" href="/admin/exhibits"><p class="has-text-centered">상품 관리</p></a><br/>
+        <a class="has-text-black" href="/admin/orders"><p class="has-text-centered">주문 관리</p></a>
       </div>
     </aside>
-    <section class="section" style="font-weight: 600 !important;">
-      <div class="container" style="width: 50%;">
+    <section class="section">
+      <div id="product_Container" class="container">
         <h1 class="title has-text-centered">상품 관리</h1>
-        <div style="display: flex; justify-content: flex-end;">
-          <div><button onclick="product_Add()">추가</button></div>
+        <div class="is-flex is-justify-content-flex-end mb-5">
+          <div><button class="button is-rounded is-small" onclick="product_Add()"><p class="has-text-weight-bold">추가</P></button></div>
         </div>
-        <table class='table' style="width: 100%;">
+        <table class='table is-fullwidth'>
           <thead>
             <tr>
-              <th>카테고리명</th>
-              <th>전시회명</th>
-              <th>이미지</th>
-              <th>수정 & 삭제</th>
+              <th class="has-text-centered">카테고리명</th>
+              <th class="has-text-centered">전시회명</th>
+              <th class="has-text-centered">작가명</th>
+              <th class="has-text-centered">이미지</th>
+              <th class="has-text-centered">수정 & 삭제</th>
             </tr>
           </thead>
           <tbody id="product_List">
@@ -76,73 +70,5 @@
   <!-- Footer -->
   <script>
     loadHTML("/public/Footer/footer.html");
-  </script>
-
-  <script>
-    window.onload = function() {
-      loadProduct();
-    };
-
-    // 상품 데이터 load
-    function loadProduct() {
-      // 상품 전체 조회 API(상품ID, 카테고리명, 전시회명, 이미지)
-      axios.get('/api/admin/exhibits')
-        .then(response => {
-          let exhibits_All = response.data.exhibits;
-          let table_Body = document.querySelector("#product_List");
-
-          table_Body.innerHTML = '';
-
-          exhibits_All.forEach(exhibit => {
-            table_Body.innerHTML += `
-              <tr>
-                <td id="td_categoryId">${exhibit.category === null ? '없음' : exhibit.category.category}</td>
-                <td>${exhibit.exhibitName}</td>
-                <td style="max-height: fit-content;"><a href="${exhibit.image}" target="_blank"><img src="${exhibit.image}" alt="" style="max-height: 36px;"></a></td>
-                <td>
-                  <button id="${exhibit._id}" onclick="product_Modify(this.id)">수정</button>
-                  <button id="${exhibit._id}" onclick="product_Delete(this.id)">삭제</button>
-                </td>
-              </tr>
-            `;
-          });
-        })
-        .catch(error => {
-              console.error('에러 발생:', error);
-        });
-    }
-
-    // 상품 추가 버튼 클릭
-    function product_Add(){
-      let add_URL = "/admin/exhibitsAdd"
-  
-      window.location.href = add_URL;
-    }
-
-    // 상품 수정 버튼 클릭
-    function product_Modify(productId) {
-      let modify_URL = `/admin/exhibitsModify?productId=${productId}`;
-
-      window.location.href = modify_URL;
-    }
-
-    // 상품 삭제 버튼 클릭
-    function product_Delete(productId) {
-      let isConfirmed = confirm('삭제하시겠습니까?');
-
-      if (isConfirmed) {
-        // alert(`삭제할 상품ID : ${productId}`);
-        
-        // 상품 삭제 API
-        axios.delete(`/api/admin/exhibits/${productId}`)
-          .then(response => {
-            console.log('Exhibit deleted successfully:', response.data);
-            loadProduct();
-          })
-          .catch(error => {
-            console.error('Error deleting Exhibit:', error);
-          });
-      }
-    }
   </script>
 </html>
