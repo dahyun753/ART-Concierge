@@ -27,6 +27,7 @@
   <script src="./orderComplete.js" type="module" defer></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/public/loadHTML.js"></script>
+  <script src="./orderComplete.js"></script>
 
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -104,8 +105,8 @@
             </div>
           </div>
         </div>
-        <button type="button" class="button is-info field control is-midium" onclick="showModal()" style="background-color: #a9a9a9;">배송지 변경</button>
-       
+        <!-- 모달을 열기 위한 버튼 -->
+        <button type="button" class="button is-info field control is-medium" id="openModalButton">배송지 변경</button>
       </div>
 
       <div class="field is-horizontal">
@@ -135,7 +136,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- 모달 창 -->
@@ -269,8 +269,9 @@
   </div>
   <script>
     loadHTML("../public/Footer/footer.html");
-  </script>
+    
+    // 모달을 열기 위한 버튼에 이벤트 리스너 추가
+    document.getElementById('myModal').addEventListener('click', showModal);
+   </script>
 </body>
-
-
 </html>
