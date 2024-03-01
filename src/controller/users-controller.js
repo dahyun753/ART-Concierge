@@ -1,5 +1,4 @@
 const userService = require("../services/users-service");
-const ERRORS = require("../utils/errors");
 
 //회원정보 조회
 async function getUser(req, res, next) {
@@ -8,8 +7,7 @@ async function getUser(req, res, next) {
     const user = await userService.searchOne(user_Id);
     res.json(user);
   } catch (error) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -30,9 +28,7 @@ async function putUser(req, res, next) {
 
     res.json("수정완료");
   } catch (error) {
-    console.error(error);
-    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -44,11 +40,7 @@ async function deleteUser(req, res, next) {
     const removeUser = await userService.deleteOneUser(user_Id);
     res.json(removeUser);
   } catch (error) {
-    const { statusCode, message } = err.statusCode
-      ? err
-      : ERRORS.INTERNAL_SERVER_ERROR;
-    res.status(statusCode).json({ message });
-    s;
+    res.json(err)
   }
 }
 

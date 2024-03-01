@@ -1,5 +1,5 @@
 const exhibitService = require("../services/exhibits-service");
-const ERRORS = require("../utils/errors");
+
 
 //전시 상세 조회  (작가, 이미지, 전시제목, 날짜, 카테고리)
 async function getdetailExhibit(req, res, next) {
@@ -8,10 +8,7 @@ async function getdetailExhibit(req, res, next) {
     const exhibits = await exhibitService.detailExhibit(exhibitId);
     res.json(exhibits);
   } catch (err) {
-    const { statusCode, message } = err.statusCode
-      ? err
-      : ERRORS.INTERNAL_SERVER_ERROR;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -21,10 +18,7 @@ async function getCategoryList(req, res, next) {
     const contents = await exhibitService.categoryList();
     res.status(201).json(contents);
   } catch (err) {
-    const { statusCode, message } = err.statusCode
-      ? err
-      : ERRORS.INTERNAL_SERVER_ERROR;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -37,10 +31,7 @@ async function getExhibitList(req, res, next) {
     const contents = await exhibitService.exhibitList(page, perPage);
     res.status(200).json(contents);
   } catch (err) {
-    const { statusCode, message } = err.statusCode
-      ? err
-      : ERRORS.INTERNAL_SERVER_ERROR;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -75,10 +66,7 @@ async function getExhibitByWord(req, res, next) {
     );
     res.status(201).json(exhibits);
   } catch (err) {
-    const { statusCode, message } = err.statusCode
-      ? err
-      : ERRORS.INTERNAL_SERVER_ERROR;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 

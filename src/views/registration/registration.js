@@ -3,7 +3,9 @@ const $detailAddress = document.querySelector('#sample6_detailAddress')
 const $research = document.querySelector('#research')
 const $registrationButton = document.querySelector('#registrationButton')
 const $emailCheck = document.querySelector('#checkEmail')
-let isEmailUnique = false;
+const $temp = document.querySelector('#temp')
+
+let isEmailauth = false;
 
 function resetStyles() {
   const allFields = ['email', 'password', 'confirmPassword', 'name', 'detailAddress', 'address', 'phone'];
@@ -34,12 +36,44 @@ $emailCheck.addEventListener('click', async (event) => {
     return;
   }
   try {
-    const response = await axios.post('/api/auth/check-email', {email: email.value });
+    const response = await axios.post('/api/auth/check-email', { email: email.value });
     console.log(response.data);
-    isEmailUnique = true;
+
     $emailCheck.classList.add('is-primary')
-    $emailCheck.textContent = '확인 완료'
+    $emailCheck.textContent = '인증번호 전송 완료'
+    await axios.post('/api/auth/send-email', { email: email.value })
     $emailCheck.disabled = true
+    const authInputDiv = document.createElement('div');
+    authInputDiv.innerHTML = `
+    <div class="column is-2 ">인증번호<span class="essential">*</span></div>
+    <div class="column is-6"><input type="text" class="input is-medium" placeholder="인증번호를 입력해주세요" id="authcode" ></div>
+    <div class="column is-1"></div>
+    <div class="column is-3"><button class="button is-fullwidth is-medium" id="checkEmail">인증하기</button></div>
+      </div>
+    `;
+    authInputDiv.classList.add('columns', 'is-vcentered')
+    $temp.insertAdjacentElement('afterend', authInputDiv);
+    const $checkAuthmail = authInputDiv.querySelector('#checkEmail');
+    const $authcode = authInputDiv.querySelector('#authcode')
+    $checkAuthmail.addEventListener('click', async (e) => {
+      e.preventDefault()
+
+      const res = await axios.post('/api/auth/match-email', { code: $authcode, email: email.value })
+      console.log(res.data)
+
+      if (res.data === "인증 코드가 일치하지 않습니다") {
+        $checkAuthmail.classList.add('is-danger')
+        $checkAuthmail.textContent = '인증실패'
+      }
+      else {
+        isEmailauth = true;
+        $checkAuthmail.classList.add('is-primary')
+        $checkAuthmail.textContent = '인증성공'
+      }
+
+
+
+    })
     const existingEmailCheckElement = document.getElementById('needEmailCheck');
     if (existingEmailCheckElement) {
       existingEmailCheckElement.remove();
@@ -83,7 +117,7 @@ $registrationButton.addEventListener('click', async function (event) {
   const userAddress = document.querySelector('#userAddress')
   const detailAddress = document.querySelector('#detailAddress')
 
-  if (!isEmailUnique) {
+  if (!isEmailauth) {
     // 오류 메시지가 이미 존재하는지 확인
     const existingMessage = document.getElementById('needEmailCheck');
 
@@ -180,8 +214,8 @@ $registrationButton.addEventListener('click', async function (event) {
     });
     Swal.fire({
       title: '회원 가입이 완료되었습니다',
-      text : "다시 로그인 해주세요",
-      icon: 'warning',
+      text: "다시 로그인 해주세요",
+      icon: 'success',
       showCancelButton: false,
       confirmButtonColor: '#363636',
       confirmButtonText: '확인',

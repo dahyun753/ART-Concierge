@@ -1,5 +1,5 @@
 const a_categoryService = require("../services/admin-category-service");
-const ERRORS = require("../utils/errors");
+
 
 //카테고리 추가 (관리자 페이지)
 async function postCategory(req, res, next) {
@@ -9,8 +9,7 @@ async function postCategory(req, res, next) {
     const newcategory = await a_categoryService.addCategory({ category });
     res.status(200).json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -20,10 +19,7 @@ async function getCategory(req, res, next) {
     const newcategory = await a_categoryService.searchCategory();
     res.status(200).json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode
-      ? err
-      : ERRORS.INTERNAL_SERVER_ERROR;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -38,8 +34,7 @@ async function putCategory(req, res, next) {
     });
     res.json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 
@@ -54,8 +49,7 @@ async function deleteCategory(req, res, next) {
     });
     res.json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-    res.status(statusCode).json({ message });
+    res.json(err)
   }
 }
 

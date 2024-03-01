@@ -1,5 +1,5 @@
 const orderService = require("../services/order-service");
-const ERRORS = require("../utils/errors");
+
 
 const orderController = {
   //주문하기
@@ -32,8 +32,7 @@ const orderController = {
         name: newOrder.name,
       });
     } catch (err) {
-      const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 
@@ -45,10 +44,7 @@ const orderController = {
       const orderList = await orderService.getOrder(user_Id);
       res.json(orderList);
     } catch (err) {
-      const { statusCode, message } = err.statusCode
-        ? err
-        : ERRORS.INTERNAL_SERVER_ERROR;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 
@@ -72,8 +68,7 @@ const orderController = {
         res.json("이미 배송중인 상품입니다.");
       }
     } catch (err) {
-      const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 
@@ -87,10 +82,7 @@ const orderController = {
         res.status(200).send("유저의 주문이 취소되었습니다");
       }
     } catch (err) {
-      const { statusCode, message } = err.statusCode
-        ? err
-        : ERRORS.INTERNAL_SERVER_ERROR;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 };

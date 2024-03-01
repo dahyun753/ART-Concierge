@@ -7,11 +7,12 @@ async function uniqueEmail(req, res, next) {  // 중복 확인 버튼으로 실�
   try {
     console.log(req)
     const email = req.body.email;
+    console.log(email)
     await authService.checkEmail(email);
-
     res.status(200).json({ message: "사용 가능한 이메일입니다" });
   } catch (err) {
-    res.json(err)
+
+    res.status(409).json({ error: err.message });
   }
 }
 // 버튼 독립적 
@@ -32,9 +33,9 @@ async function checkMailCode(req, res, next) { // 인증번호 확인 버튼 (�
   try {
     const {code, email} = req.body;
     await authService.checkcode(code, email);
-    res.status(200).json({ message: "인증 되었습니다" });
+    res.json({ message: "인증 되었습니다" });
   } catch (err) {
-    res.json(err)
+    res.status(409).json({error :err.message})
   }
 }
 

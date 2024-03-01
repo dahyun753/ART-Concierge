@@ -93,7 +93,7 @@ async function getUserInformation() {
         cancelButtonText: '취소'
       }).then(async(result) => {
         if (result.value) {
-          await axios.post('/api/auth/logout')
+          await axios.delete('/api/auth/logout')
           window.location.href = '/'
         }
 

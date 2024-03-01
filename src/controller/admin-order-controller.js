@@ -1,5 +1,4 @@
 const adminOrderService = require("../services/admin-order-service");
-const ERRORS = require("../utils/errors");
 
 const adminOrderController = {
   //주문 조회 (관리자 페이지)
@@ -12,10 +11,7 @@ const adminOrderController = {
       }
       res.json(orderList);
     } catch (err) {
-      const { statusCode, message } = err.statusCode
-        ? err
-        : ERRORS.INTERNAL_SERVER_ERROR;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 
@@ -42,8 +38,7 @@ const adminOrderController = {
         res.json("배송상태를 이전과 동일하게 선택할 수 없습니다.");
       }
     } catch (err) {
-      const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 
@@ -59,8 +54,7 @@ const adminOrderController = {
         res.json("배송 중이거나 완료한 상품은 주문삭제가 불가합니다!");
       }
     } catch (err) {
-      const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
-      res.status(statusCode).json({ message });
+      res.json(err)
     }
   },
 };
