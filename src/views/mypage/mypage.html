@@ -27,7 +27,8 @@
   <link rel="stylesheet" href="../public/Footer/footer.css" />
   <link rel="stylesheet" href="mypage.css">
   <script defer src="mypage.js"></script>
-
+  <!-- axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -36,15 +37,13 @@
   <script>
     loadHTML("../public/Header/header.html");
   </script>
-  <aside>
+
+  <section class="section">
     <div class="side-menu">
       <h3 class="title is-3">My Page</h3>
-      <a class="active has-text-black" href="#">회원 정보 수정</a><br />
-      <a class="has-text-black" href="#">주문 / 배송</a><br/>
-      <a class="has-text-black" href="#">장바구니</a>
+      <a class="active has-text-black" href="/users">회원 정보 수정</a><br />
+      <a class="has-text-black" href="/orders">주문 / 배송</a><br />
     </div>
-  </aside>
-  <section class="section">
     <div class="container" style="width: 50%;">
       <h1 class="title has-text-centered">회원 정보</h1>
       <form>
@@ -52,10 +51,10 @@
           <div><span class="essential">*</span> 필수 입력 사항</div>
         </div>
         <div class="container mt-1 px-4 py-3"
-          style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;"> 
+          style="border-top: solid #17171B 2px ; border-bottom: solid #17171B 2px ;">
           <div class="columns is-vcentered">
             <div class="column is-2 ">이메일<span class="essential">*</span></div>
-            <div class="column is-6"><input type="email" class="input is-medium" value="60191645@mju.ac.kr" readonly>
+            <div class="column is-6"><input id="email" type="email" class="input is-medium" value="60191645@mju.ac.kr" readonly>
             </div>
             <div class="column is-1"></div>
 
@@ -73,18 +72,18 @@
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">이름<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" value="김민서"></div>
+            <div class="column is-6"><input id="name" type="text" class="input is-medium" value="김민서"></div>
             <div class="column is-1"></div>
           </div>
           <div class="columns is-vcentered">
             <div class="column is-2">휴대폰<span class="essential">*</span></div>
-            <div class="column is-6"><input type="tel" class="input is-medium" value="01066176739"></div>
+            <div class="column is-6"><input id="phone" type="tel" class="input is-medium" value="01066176739"></div>
             <div class="column is-1"></div>
             <div class="column is-3"></div>
           </div>
           <div class="columns is-vcentered" id="test">
             <div class="column is-2">주소<span class="essential">*</span></div>
-            <div class="column is-6" id="address"><input type="text" class="input is-medium" value="전남 여수시 웅천동 지웰3차"
+            <div class="column is-6" id="address"><input id="addressInput" type="text" class="input is-medium" value="전남 여수시 웅천동 지웰3차"
                 readonly></div>
             <div class="column is-1"></div>
             <div id="research" class="column is-3"><input type="button" onclick="sample6_execDaumPostcode()"
@@ -92,19 +91,15 @@
           </div>
           <div class="columns is-vcentered" id="sample6_detailAddress">
             <div class="column is-2">상세 주소<span class="essential">*</span></div>
-            <div class="column is-6"><input type="text" class="input is-medium" value="309동 1404호"></div>
+            <div class="column is-6"><input id="detailAddressInput" type="text" class="input is-medium" value="309동 1404호"></div>
             <div class="column is-4"></div>
           </div>
           <div class="columns is-vcentered" id="sample6_detailAddress">
             <div class="column is-3"></div>
-            <div class="column is-3 columnhas-text-centered mt-6"> <button class="button is-large">탈퇴 하기</button></div>
-            <div class="column is-3 has-text-centered mt-6"> <button class="button is-large">정보 수정</button></div>
-<<<<<<< HEAD
+            <div class="column is-3 columnhas-text-centered mt-6"> <button id="quit" class="button is-large">탈퇴 하기</button></div>
+            <div class="column is-3 has-text-centered mt-6"> <button id="changeInfo" class="button is-large">정보 수정</button></div>
             <div class="column is-3" </div>
 
-=======
-            
->>>>>>> 7e2980b111d6ceb6add58edbaf983658d6d4c69e
 
             </div>
 

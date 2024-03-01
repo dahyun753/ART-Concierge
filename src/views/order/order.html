@@ -23,24 +23,24 @@
 
   <!-- Custom CSS & JS -->
   <script src="../public/loadHTML.js"></script>
-  <link rel="stylesheet" href="../public/Header/header.css" />
-  <link rel="stylesheet" href="../public/Footer/footer.css" />
+  <link rel="stylesheet" href="/public/Header/header.css" />
+  <link rel="stylesheet" href="/public/Footer/footer.css" />
   <link rel="stylesheet" href="order.css">
-  <script defer src="order.js"></script>
+  <!-- axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
   <!-- Header -->
   <script>
-    loadHTML("../public/Header/header.html");
+    loadHTML("/public/Header/header.html");
   </script>
   <main>
     <section class="section">
       <div class="side-menu">
         <h3 class="title is-3">My Page</h3>
-        <a class="has-text-black" href="#">회원 정보 수정</a><br />
-        <a class="active has-text-black" href="#">주문 / 배송</a><br />
-        <a class="has-text-black" href="#">장바구니</a>
+        <a class="has-text-black" href="/users">회원 정보 수정</a><br />
+        <a class="active has-text-black" href="/orders">주문 / 배송</a><br />
       </div>
       <div class="container">
         <h1 class="title has-text-centered">Your order summary</h1>
@@ -160,6 +160,9 @@
       </div>
     </section>
   </main>
+  <script>
+    loadHTML("/public/Footer/footer.html");
+  </script>
 </body>
 
 </html>

@@ -1,14 +1,17 @@
 const exhibitService = require("../services/exhibits-service");
+const ERRORS = require("../utils/errors");
 
 // 전시 상세 조회 (전체 정보 리턴)
 async function getdetailExhibit(req, res, next) {
   try {
     const { exhibitId } = req.params;
-    const exhibits = await exhibitService.detailhExhibit(exhibitId);
+    const exhibits = await exhibitService.detailExhibit(exhibitId);
     res.json(exhibits);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
   }
 }
 
@@ -18,8 +21,10 @@ async function getCategoryList(req, res, next) {
     const contents = await exhibitService.categoryList();
     res.status(201).json(contents);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
   }
 }
 
@@ -32,8 +37,10 @@ async function getExhibitList(req, res, next) {
     const contents = await exhibitService.exhibitList(page, perPage); // 서비스 함수 호출
     res.status(200).json(contents);
   } catch (err) {
-    // 에러 처리
-    res.status(500).json({ message: "서버 에러" });
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
   }
 }
 
@@ -68,7 +75,10 @@ async function getExhibitByWord(req, res, next) {
     );
     res.status(201).json(exhibits);
   } catch (err) {
-    res.json(err);
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
   }
 }
 

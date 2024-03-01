@@ -25,7 +25,7 @@ router.put("/categories/:categoryId", a_CategoryController.putCategory); // 카�
 router.delete("/categories/:categoryId", a_CategoryController.deleteCategory); // 카테고리 삭제
 
 router.get("/orders", adminOrderController.getOrder); // 주문 내역
-router.put("/orders/:_id", adminOrderController.updateState); // 배송 상태 변경
-router.delete("orders/:_id", adminOrderController.deleteOrder); // 관리자 주문 삭제(취소)
+router.put("/orders/:orderId", adminOrderController.updateState); // 배송 상태 변경
+router.delete("/orders/:orderId", adminOrderController.deleteOrder); // 관리자 주문 삭제(취소)
 
 module.exports = router;

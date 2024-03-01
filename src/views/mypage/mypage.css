@@ -1,4 +1,4 @@
-.section{
+form{
   font-weight: 600 !important; /* 굵게 표시하려면 값을 'bold'로 설정 */ 
 }
 
@@ -9,8 +9,8 @@
 
 .side-menu {
   float: left;
-  position: fixed;
-  top: 100px;
+  position: sticky;
+  top: 200px;
   margin-top : 120px;
   margin-left : 250px;
   width: 200px; 
