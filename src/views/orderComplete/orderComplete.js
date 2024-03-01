@@ -154,7 +154,6 @@ async function cartLoad() {
                 // 각 아이템에 대한 HTML 요소를 만들어 목록에 추가합니다.
                 $listItem.innerHTML = `
                 <td class="td_product">
-                <!-- 전시 정보 -->
                 <div class="connect_img">
                     <img src=${cursor.value.exhibitImg} alt="" width="100"
                     height="200">
@@ -165,11 +164,11 @@ async function cartLoad() {
                     </div>
                 </div>
                 </td>
-                <td><span>${cursor.value.price}</span></td>
+                <td><span>${cursor.value.quantity}</span></td>
                 <td rowspan="1">
                 <span class="box_normal-dlv-amt" data-policy-no="3919">무료</span>
                 </td>
-                <td class="price"><span>${cursor.value.price}</span></td>`
+                <td class="price"><span>${cursor.value.price*cursor.value.quantity}₩</span></td>`
                 console.log($listItem)
                 const item = {
                     exhibitId: cursor.value.exhibitId,

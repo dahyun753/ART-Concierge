@@ -32,9 +32,8 @@ $addCart.addEventListener('click', () => {
     
     checkReq.onsuccess = function() {
         let found = checkReq.result.some(item => item.exhibitId === exhibitId);
-
         if (found) {
-            Swal.fire({g
+            Swal.fire({
                 title: '이미 장바구니에 있는 상품입니다',
                 icon: 'warning',
                 confirmButtonColor: '#363636',
