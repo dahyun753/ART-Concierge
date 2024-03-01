@@ -6,9 +6,10 @@ const $phone = document.querySelector('#phone')
 const $name = document.querySelector('#name')
 const $addressInput = document.querySelector('#addressInput')
 const $detailAddressInput = document.querySelector('#detailAddressInput')
+const $password = document.querySelector('#password')
+
 const $quitButton = document.querySelector('#quit')
 const $changeInfoButton = document.querySelector('#changeInfo')
-
 getUserInformation()
 
 async function getUserInformation() {
@@ -110,10 +111,23 @@ $changeInfoButton.addEventListener('click', (event) => {
     cancelButtonText: '취소'
   }).then(async (result) => {
     if (result.value) {
-      await axios.put('/api/auth/')
+      const $email = document.querySelector('#email')
+      const $phone = document.querySelector('#phone')
+      const $name = document.querySelector('#name')
+      const $addressInput = document.querySelector('#addressInput')
+      const $detailAddressInput = document.querySelector('#detailAddressInput')
+      const $password = document.querySelector('#password')
+      await axios.put('/api/users/', {
+        name: $name.value,
+        email: $email.value,
+        password: $password.value,
+        userAddress: $addressInput.value,
+        detailAddress: $detailAddressInput.value,
+        phone: $phone.value,
+      })
       Swal.fire({
         title: '수정 완료',
-        icon: 'warning',
+        icon: 'success',
         showCancelButton: false,
         confirmButtonColor: '#363636',
         confirmButtonText: '확인'

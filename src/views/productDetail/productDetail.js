@@ -44,6 +44,7 @@ $addCart.addEventListener('click', () => {
             confirmButtonText: '확인',
         })
     });
+
 });
 
 async function insertExhibitionName() {

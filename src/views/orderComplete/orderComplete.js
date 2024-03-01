@@ -127,7 +127,7 @@ async function placeOrder(items) {
             timerProgressBar: true // 타이머 프로그레스 바 표시
         }).then(() => {
             clearIndexedDB();
-            window.location.href = '/'; // 메인 페이지 URL에 맞게 수정
+            window.location.href = '/orders'; // 메인 페이지 URL에 맞게 수정
         });
 
     } catch (error) {
@@ -139,7 +139,6 @@ async function placeOrder(items) {
 
 
 async function cartLoad() {
-
     const $productList = document.querySelector('#productList');
 
     try {
