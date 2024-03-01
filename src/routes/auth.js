@@ -8,7 +8,7 @@ const router = Router();
 
 router.post('/join', authController.postUser);
 router.post('/check-email', authController.uniqueEmail);
-// router.post('/', authController.loginUser);
+router.post('/send-email', authController.sendMail_check);
 router.post('/find-password', authController.findPassword);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
