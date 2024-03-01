@@ -91,70 +91,58 @@
     // 페이지 로드 시 주문 목록 렌더링
     function loadOrder() {
       // 주문 데이터 가져오기(주문번호(ID), 유저데이터.name(주문자명), 주문일자, 배송상태)
-      let data = [[1, 
-      {
-        email : 'test@abc.com',
-        name : "이름 1",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송시작'], 
-      [2, 
-      {
-        email : 'test@abc.com',
-        name : "이름 2",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송완료'], 
-      [3, 
-      {
-        email : 'test@abc.com',
-        name : "이름 3",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송준비중'], 
-      [4, 
-      {
-        email : 'test@abc.com',
-        name : "이름 4",
-        user_address : "경기도 XX시 XX구 XX동 XX마을 XXX동 XXX호",
-        phone : "010-1234-1234",
-      }, convertDate(Date.now())[0],convertDate(Date.now())[1], '배송완료'], 
-      ];
-      let order_Area = document.querySelector(".order-container");
+      axios.get(`/api/admin/orders`)
+        .then(response => {
+          let order_Data = response.data;
+          let order_Area = document.querySelector(".order-container");
+          order_Area.innerHTML = '';
 
-      data.forEach(order => {
-        order_Area.innerHTML += `
-          <div class="card" style="margin-bottom: 20px">
-            <header class="card-header">
-              <p class="card-header-title">
-                주문 정보
-              </p>
-            </header>
-            <div class="card-content is-flex">
-              <div class="content" style="flex: 1;">
-                <p id="id${order[0]}" class="p_OrderID"><strong>주문번호 :</strong> ${order[0]}</p>
-                <p><strong>주문자명 :</strong> ${order[1].name}</p>
-                <p><strong>주문일자 :</strong> ${order[2]}</p>
-                <p><strong>주문시간 :</strong> ${order[3]}</p>
-                <p id="id${order[0]}" class="p_DeliveryStatus"><strong>배송상태 :</strong> ${order[4]}</p>
-              </div>
-              <div class="content" style="flex: 1;">
-                <div class="select is-hovered">
-                  <select id="id${order[0]}" class="delivery_Select">
-                    <option>배송준비중</option>
-                    <option>배송시작</option>
-                    <option>배송완료</option>
-                  </select>
+          order_Data.forEach(order => {
+            // console.log(`${order._id} / ${order.deliveryStatus} / ${order.name} / ${order.orderedDate.replace("T", " ").replace("Z", "")} / ${order.phone} / ${order.userAddress} / ${order.userId}`);
+            let delivery_Status = (order.deliveryStatus === '1') ? "배송준비중" :
+                                  (order.deliveryStatus === '2') ? "배송시작" :
+                                  (order.deliveryStatus === '3') ? "배송완료" :
+                                  undefined;
+            
+            let order_Date = order.orderedDate.replace("T", " ").replace("Z", "").split(' ')[0];
+            let order_Time = order.orderedDate.replace("T", " ").replace("Z", "").split(' ')[1].split('.')[0];
+
+            order_Area.innerHTML += `
+            <div class="card" style="margin-bottom: 20px">
+              <header class="card-header">
+                <p class="card-header-title">
+                  주문정보
+                </p>
+              </header>
+              <div class="card-content is-flex">
+                <div class="content" style="flex: 1;">
+                  <p><strong>주문자명 :</strong> ${order.name}</p>
+                  <p><strong>전화번호 :</strong> ${order.phone}</p>
+                  <p><strong>주문일자 :</strong> ${order_Date}</p>
+                  <p><strong>주문시간 :</strong> ${order_Time}</p>
+                  <p id="id${order._id}" class="p_DeliveryStatus"><strong>배송상태 :</strong> ${delivery_Status}</p>
                 </div>
-                <div>
-                  <button id=${order[0]} onclick="order_Modify(this.id)">수정</button>
-                  <button id=${order[0]} onclick="order_Delete(this.id)">삭제</button>
+                <div class="content" style="flex: 1;">
+                  <div class="select is-hovered">
+                    <select id="id${order._id}" class="delivery_Select">
+                      <option>배송준비중</option>
+                      <option>배송시작</option>
+                      <option>배송완료</option>
+                    </select>
+                  </div>
+                  <div>
+                    <button id=${order._id} onclick="order_Modify(this.id)">수정</button>
+                    <button id=${order._id} onclick="order_Delete(this.id)">삭제</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        `;
-      });
+          `;
+        });
+        })
+        .catch(error => {
+              console.error('에러 발생:', error);
+        });
     }
 
     // 주문 수정
@@ -166,8 +154,26 @@
       // 기존의 값과 새로 입력한 값이 다를 경우 Update
       if (old_DeliveryValue !== deliverySelect.value) {
         alert(`변경할 주문 데이터의 ID : ${id} / 변경할 배송상태 : ${deliverySelect.value}`);
+        let delivery_Number = "";
+        
+        if (deliverySelect.value === '배송준비중') {
+          delivery_Number = "1";
+        } else if (deliverySelect.value === '배송시작') {
+          delivery_Number = "2";
+        } else if (deliverySelect.value === '배송완료') {
+          delivery_Number = "3";
+        }
+
         // 주문 데이터 Update
-        // 주문 데이터 Load
+        axios.put(`/api/admin/orders/${id}`, { status: delivery_Number })
+          .then(response => {
+            console.log('Product updated successfully:', response.data);
+            // 주문 데이터 Load
+            loadOrder();
+          })
+          .catch(error => {
+            console.error('Error updating product:', error);
+          });
       } else {
         alert(`선택한 배송상태가 이전 값과 같습니다.`);
       }
@@ -181,6 +187,14 @@
         let orderId = id;
         alert(`삭제할 주문ID : ${orderId}`);
         // 주문 데이터 삭제 API
+        axios.delete(`/api/admin/orders/${orderId}`)
+          .then(response => {
+            console.log('Order deleted successfully:', response.data);
+            loadOrder();
+          })
+          .catch(error => {
+            console.error('Error deleting order:', error);
+          });
       }
     }
   </script>
