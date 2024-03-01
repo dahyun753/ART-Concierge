@@ -1,10 +1,10 @@
 const authService = require("../services/auth-service");
 const ERRORS = require("../utils/errors");
-const state = 0;
-const mailCode = '';
+let state = 0;
+let mailCode = '';
 
 // 이메일 중복 체크
-async function uniqueEmail(req, res, next) {
+async function uniqueEmail(req, res, next) {  // 중복 확인 버튼으로 실행
   try {
     const email = req.body.email;
     await authService.checkEmail(email);
@@ -16,26 +16,26 @@ async function uniqueEmail(req, res, next) {
   }
 }
 
-async function sendMail(req, res, next) {
+async function sendMail(req, res, next) { // 인증번호 발급 버튼
   try {
     const email = req.body.email;
     const result = await authService.sendMail(email);
-    mailCode = result.code;
-
+    mailCode = result.code 
+    res.json('인증코드가 발급되었습니다!')
+    return;
   } catch (err) {
     const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
     res.status(statusCode).json({ message });
   }
 }
 
-async function checkMailCode(req, res, next) {
+async function checkMailCode(req, res, next) { // 인증번호 확인 버튼 (메일로 보낸 인증번호 입력)
   try {
-
     const input = req.body.code;
-    await authService.checkcode(input, result.code, state);
-    
-    state = 1;
+    console.log(mailCode)  // 여기에서 문제 생김 ! code 값 못 받음
+    await authService.checkcode(input, mailCode);
     res.status(200).json({ message: "인증 되었습니다" });
+    state = 1; // 인증됨
   } catch (err) {
     const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
     res.status(statusCode).json({ message });
