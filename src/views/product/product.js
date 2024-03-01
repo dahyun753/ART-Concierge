@@ -58,7 +58,7 @@ async function searchProductElement(keyword) {
                   <div class="exhibitTitle">
                     <a href="/exhibits/productDetail/${data._id}/"><div>${data.author}: ${data.exhibitName}</div></a>
                   </div>
-                  <div class="exhibitInfo" id='listEnd'>
+                  <div class="exhibitInfo">
                     <a href="/exhibits/productDetail/${data._id}/" class="date">${data.startDate}~${data.endDate}</a>
                   </div>
               </div>`;
@@ -95,7 +95,7 @@ async function searchProductElement(keyword) {
 
   // Intersection Observer 생성 및 관찰 시작
   let observer = new IntersectionObserver(onIntersect, options);
-  observer.observe(document.getElementById('listEnd'));
+  observer.observe(document.querySelector('footer'));
 }
 
 
@@ -126,7 +126,7 @@ async function insertProductElement() {
                 <a href="/exhibits/productDetail/${data._id}/">
                     <img src="${data.image}" alt=""></a>
                     <div class="exhibitTitle"><a href="/exhibits/productDetail/${data._id}/"><div>${data.author}: ${data.exhibitName}</div></a></div>
-                    <div class="exhibitInfo" id='listEnd'><a href="/exhibits/productDetail/${data._id}/" class="date">${data.startDate}~${data.endDate}</a></div>
+                    <div class="exhibitInfo" class="date">${data.startDate}~${data.endDate}</div>
             </div>`;
           columnsContainer.innerHTML += columnContents;
         }
@@ -134,24 +134,23 @@ async function insertProductElement() {
       list.appendChild(columnsContainer);
     }
 
-    page++; // 페이지 번호 증가
+    page++; 
   };
 
-  // 초기 로드 후 데이터 가져오기
+  // 초기 데이터 로드
   await fetchAndUpdateData();
 
   // Intersection Observer 설정
   const options = {
     root: null,
-    rootMargin: "0px 0px 10px 0px",
+    rootMargin: "0px",
     threshold: 0,
   };
 
-  // Intersection Observer 콜백함수
+  // Intersection Observer 콜백 함수
   const onIntersect = async (entries, observer) => {
     entries.forEach(async (entry) => {
       if (entry.isIntersecting) {
-        // 새로운 데이터 추가
         await fetchAndUpdateData();
       }
     });
@@ -159,7 +158,7 @@ async function insertProductElement() {
 
   // Intersection Observer 생성 및 관찰 시작
   let observer = new IntersectionObserver(onIntersect, options);
-  observer.observe(document.getElementById('listEnd'));
+  observer.observe(document.querySelector("footer"));
 }
 
 
@@ -230,5 +229,5 @@ async function filterProductElement(categoryKeyword) {
 
   // Intersection Observer 생성 및 관찰 시작
   let observer = new IntersectionObserver(onIntersect, options);
-  observer.observe(document.getElementById('listEnd'));
+  observer.observe(document.getElementById('footer'));
 }
