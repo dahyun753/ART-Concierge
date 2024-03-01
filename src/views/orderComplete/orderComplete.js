@@ -49,8 +49,32 @@ async function getUserInformation() {
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-            // 코드 생략
+            // 우편번호와 주소 정보를 가져와서 각 입력 필드에 채워넣기
+            document.getElementById('postcode').value = data.zonecode;
+            document.getElementById('address').value = data.roadAddress;
+            document.getElementById('detailA_address').value = ''; // 상세 주소 필드 초기화
+
+            // 사용자가 입력한 배송지 명을 가져오기
+            var deliveryName = prompt('배송지 명을 입력하세요.', data.buildingName || data.address || '새로운 주소');
+
+            if (deliveryName) { // 사용자가 배송지 명을 입력했을 경우에만 처리
+                // 새로운 라디오 버튼 엘리먼트 생성
+                var newRadioButton = document.createElement('input');
+                newRadioButton.type = 'radio';
+                newRadioButton.name = 'delivery_choice';
+                newRadioButton.value = deliveryName;
+                newRadioButton.checked = true; // 새로운 라디오 버튼에 체크
+
+                // 새로운 라디오 버튼을 라벨과 함께 추가
+                var newLabel = document.createElement('label');
+                newLabel.classList.add('radio');
+                newLabel.appendChild(newRadioButton);
+                newLabel.appendChild(document.createTextNode(deliveryName));
+
+                // 새로운 라디오 버튼을 배송지 옵션 컨테이너에 추가
+                var deliveryOptionsContainer = document.querySelector('.field.is-normal');
+                deliveryOptionsContainer.appendChild(newLabel);
+            }
         }
     }).open();
 }
