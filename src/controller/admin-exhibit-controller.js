@@ -1,7 +1,7 @@
 const a_exhibitService = require("../services/admin-exhibit-service");
 const ERRORS = require("../utils/errors");
 
-// 전시 추가 (관리자 페이지)
+//전시 추가 (관리자 페이지)
 async function postExhibit(req, res, next) {
   try {
     const {
@@ -31,12 +31,12 @@ async function postExhibit(req, res, next) {
 
     res.status(201).json(exhibit);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
 
-// 전시 리스트 조회 (작가, 이미지, 전시제목, 날짜, 카테고리만) + 카테고리도 함께
+//전시 리스트 조회
 async function getExhibitList(req, res, next) {
   try {
     const contents = await a_exhibitService.searchExhibit();
@@ -49,19 +49,19 @@ async function getExhibitList(req, res, next) {
   }
 }
 
-// id를 통한 전시 검색 (작가, 이미지, 전시제목, 날짜, 카테고리만) + 카테고리도 함께
+//특정 전시 조회
 async function getExhibitById(req, res, next) {
   try {
     const { exhibitId } = req.params;
     const content = await a_exhibitService.searchById(exhibitId);
     res.status(201).json(content);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
 
-// 전시 수정 (관리자 페이지)
+//전시 수정 (관리자 페이지)
 async function putExhibit(req, res, next) {
   try {
     const { exhibitId } = req.params;
@@ -79,7 +79,7 @@ async function putExhibit(req, res, next) {
 
     const image = req.file.location;
 
-    const content = await adminService.updateExhibit(exhibitId, {
+    const content = await a_exhibitService.updateExhibit(exhibitId, {
       exhibitName,
       exhibitAddress,
       price,
@@ -93,20 +93,22 @@ async function putExhibit(req, res, next) {
 
     res.status(201).json(content);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
 
-// 전시 삭제 (관리자)
+//전시 삭제 (관리자)
 async function deleteExhibit(req, res, next) {
   try {
     const { exhibitId } = req.params;
     const content = await a_exhibitService.deleteExhibit(exhibitId);
     res.status(201).json(content);
   } catch (err) {
-    // res.status(err.statusCode || 500).json(message: err.message );
-    res.json(err);
+    const { statusCode, message } = err.statusCode
+      ? err
+      : ERRORS.INTERNAL_SERVER_ERROR;
+    res.status(statusCode).json({ message });
   }
 }
 

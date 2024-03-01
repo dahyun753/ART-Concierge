@@ -6,12 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
   <link rel="stylesheet" href="./orderComplete.css" />
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Font - Noto Sans Korean semibold 600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS & JS -->
+  <script src="../public/loadHTML.js"></script>
+  <link rel="stylesheet" href="/public/Header/header.css" />
+  <link rel="stylesheet" href="/public/Footer/footer.css" />
+  <script src="./orderComplete.js" type="module" defer></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/public/loadHTML.js"></script>
+
+  <!-- axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  
+  
   <title>orderComplete</title>
 </head>
 
 <body>
-  <!-- 헤더 삽입 -->
-  <!-- /헤더 삽입 -->
+  <script>
+    loadHTML("/public/Header/header.html");
+  </script>
 
   <div class="section">
     <div class="center-text">Order / Payment</div>
@@ -42,11 +69,20 @@
       <div class="field is-horizontal">
         <div class="field-label is-normal">
           <label class="label" for="delivery-addr">주소</label>
-        </div>
+        </div>   
         <div class="field-body">
           <div class="field">
-            <div class="control" id="delivery-addr">
-              (17900) 경기 평택시 비전동
+            <div class="control" id="delivery-addr">(17900) 경기 평택시 비전동</div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label" for="delivery-addr">상세주소</label>
+        </div>   
+        <div class="field-body">
+          <div class="field">
+            <div class="control" id="detail-addr">
             </div>
           </div>
         </div>
@@ -61,8 +97,8 @@
             <div class="control">
               <label class="radio" for="delivery_choice_0">
                 <input type="radio" onclick="ChoiceQuickDeliveryAddress(11492778)" id="delivery_choice_0"
-                  name="delivery_choice" value="이유림님 배송지" checked>
-                이유림님 배송지
+                  name="delivery_choice" checked>
+                <span id="nameForDelivery"></span>님 배송지
               </label>
             </div>
           </div>
@@ -192,38 +228,19 @@
             <th scope="col">주문금액</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td class="td_product">
-              <!-- 전시 정보 -->
-              <div class="connect_img">
-                <img src="https://prestigecollection.kr/data/item/1693554614/6re466a87.jpg" alt="" width="100"
-                  height="200">
-              </div>
-              <div class="article_info connect_info">
-                <div class="box_product">
-                  <span class="list_info">상품명</span>
-                </div>
-              </div>
-            </td>
-            <td><span>1 개</span></td>
-            <td rowspan="1">
-              <span class="box_normal-dlv-amt" data-policy-no="3919">무료</span>
-            </td>
-            <td class="price"><span>0 원</span></td>
-          </tr>
+        <tbody id="productList">
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="has-text-centered">
-    <button class="button is-primary is-medium" onclick="placeOrder()">주문하기</button>
+    <button class="button is-primary is-medium" id="order">주문하기</button>
   </div>
-
+  <script>
+    loadHTML("../public/Footer/footer.html");
+  </script>
 </body>
-<script src="./orderComplete.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 
 </html>
-

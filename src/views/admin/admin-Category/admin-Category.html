@@ -132,43 +132,26 @@
     // 페이지 로드 시 카테고리 목록 렌더링
     function loadCategory() {
       // 카테고리 데이터 가져오기(카테고리ID, 카테고리명, 카테고리 갯수)
-      // axios.get('/api/admin/categories')
-      // .then(response => {
-      //   let category_All = response.data;
-      //   let category_List = [];
+      axios.get('/api/admin/categories')
+      .then(response => {
+        let category_All = response.data;
+        let table_Body = document.querySelector("#category_List");
+        table_Body.innerHTML = '';
 
-      //   for (let element of category_All) {
-      //     category_List.push(element.category)
-      //   }
-
-      //   let element_Select = document.querySelector('.navbar-dropdown');
-      //   element_Select.innerHTML = '';
-
-      //   category_List.forEach(category => {
-      //     const createElement = document.createElement("a");
-      //     createElement.className = 'navbar-item';
-      //     createElement.textContent = category;
-      //     createElement.href = `/exhibits?categoryName=${category}`;
-      //     element_Select.appendChild(createElement);
-      //   });
-      // })
-      // .catch(error => {
-      //       console.error('에러 발생:', error);
-      // });
-
-      let data = [[1, '카테고리1'], [2, '카테고리2'], [3, '카테고리3'], [4, '카테고리4']];
-      let table_Body = document.querySelector("#category_List");
-
-      data.forEach(category => {
-        table_Body.innerHTML += `
-          <tr>
-            <td>${category[1]}</td>
-            <td>
-              <button id="${category[0]}" onclick="category_Modify(this)">수정</button>
-              <button id="${category[0]}" onclick="category_Delete(this)">삭제</button>
-            </td>
-          </tr>
-        `;
+        for (let category_One of category_All) {
+          table_Body.innerHTML += `
+            <tr>
+              <td>${category_One.category}</td>
+              <td>
+                <button id="${category_One._id}" onclick="category_Modify(this)">수정</button>
+                <button id="${category_One._id}" onclick="category_Delete(this)">삭제</button>
+              </td>
+            </tr>
+          `;
+        }
+      })
+      .catch(error => {
+            console.error('에러 발생:', error);
       });
     }
 
@@ -202,8 +185,17 @@
 
       if (isConfirmed) {
         let categoryId = element.id;
-        alert(`삭제 : ${categoryId}`);
+        // alert(`삭제 : ${categoryId}`);
+        
         // 삭제 API
+        axios.delete(`/api/admin/categories/${categoryId}`)
+          .then(response => {
+            console.log('Category deleted successfully:', response.data);
+            loadCategory();
+          })
+          .catch(error => {
+            console.error('Error deleting category:', error);
+          });
       }
     }
 
@@ -213,9 +205,20 @@
       let modal;
       if (id === "submit_Add") {
         input_Data = document.querySelector('.input.add_Input').value;
-        alert("추가할 카테고리 : " + input_Data);
+        // alert("추가할 카테고리 : " + input_Data);
         document.querySelector('.input.add_Input').value = "";
         modal = document.getElementById('add_Modal');
+
+        // 카테고리 추가 API
+        axios.post('/api/admin/categories', { category_name: input_Data, category: input_Data })
+          .then(response => {
+            console.log('Product added successfully:', response.data);
+            loadCategory();
+          })
+          .catch(error => {
+            console.error('Error adding product:', error);
+          });
+
       } else if(id === 'submit_Modify') {
         // 수정할 내용
         input_Data = document.querySelector('.input.modify_Input').value;
@@ -224,8 +227,18 @@
         // 기존 카테고리명
         old_Category = document.querySelector('.input.modify_Input').placeholder;
 
-        // 카테고리 Update API
-        alert(`${input_Data}, ${input_Id}, ${old_Category}`);
+        // alert(`${input_Data}, ${input_Id}, ${old_Category}`);
+        
+        // 카테고리 수정 API
+        axios.put(`/api/admin/categories/${input_Id}`, { categoryId:input_Id, category: input_Data })
+          .then(response => {
+            console.log('Product updated successfully:', response.data);
+            loadCategory();
+          })
+          .catch(error => {
+            console.error('Error updating product:', error);
+          });
+
         document.querySelector('.input.modify_Input').value = "";
         modal = document.getElementById('modify_Modal');
       }

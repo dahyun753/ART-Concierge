@@ -1,6 +1,6 @@
-const hashed = require('../utils/hash-password');
-const { User } = require('../db');
-const nodemailerSend = require('../utils/send-mail');
+const hashed = require("../utils/hash-password");
+const { User } = require("../db");
+const nodemailerSend = require("../utils/send-mail");
 
 //이메일 중복 체크 
 async function checkEmail(email) {
@@ -33,21 +33,21 @@ async function checkcode (input, code) {
     return;            
 }
 
-// 회원 가입 
+//회원 가입
 async function addUser(userInfo) {
-    const { name, password, email, phone, userAddress, detailAddress } = userInfo;
-    const hashedPassword = await hashed(password);
+  const { name, password, email, phone, userAddress, detailAddress } = userInfo;
+  const hashedPassword = await hashed(password);
 
-    const newUser = await User.create({
-        name,
-        password: hashedPassword,
-        email,
-        phone,
-        userAddress,
-        detailAddress
-    });
+  const newUser = await User.create({
+    name,
+    password: hashedPassword,
+    email,
+    phone,
+    userAddress,
+    detailAddress,
+  });
 
-    return newUser;
+  return newUser;
 }
 
 async function generateRandomPassword () {
@@ -55,7 +55,6 @@ async function generateRandomPassword () {
         .toString()
         .padStart(8, "0");
 };
-
 
 
 module.exports = { addUser, checkEmail, sendMail, checkcode  };

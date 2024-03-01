@@ -6,9 +6,6 @@ const $plusButton = document.querySelector('.plus');
 const $countElement = document.querySelector('.cartCount');
 const $addCart = document.querySelector('#addCart')
 const $exhibitionInfo = document.querySelector('#exhibitionInfo');
-const $modal = document.querySelector('.modal')
-const $modalCheck = document.querySelector('#modalCheck')
-
 
 const currentUrl = window.location.href;
 const match = currentUrl.match(/\/exhibits\/productDetail\/([^\/]+)/);
@@ -16,9 +13,6 @@ const exhibitId = match[1]
 
 insertExhibitionName();
 
-$modalCheck.addEventListener('click', () => {
-    $modal.classList.remove('is-active')
-})
 
 $minusButton.addEventListener('click', function () {
     var count = parseInt($countElement.innerText);
@@ -40,13 +34,16 @@ $addCart.addEventListener('click', () => {
         exhibitName: document.querySelector('#exhibitName').textContent,
         quantity: document.querySelector('#quantity').textContent,
         price: document.querySelector('#price').textContent,
-        exhibitImg : document.querySelector('#exhibitImg').src,
+        exhibitImg: document.querySelector('#exhibitImg').src,
     });
     addReq.addEventListener('success', function (event) {
-        console.log(event);
+        Swal.fire({
+            title: '장바구니에 상품을 담았습니다',
+            icon: 'success',
+            confirmButtonColor: '#363636',
+            confirmButtonText: '확인',
+        })
     });
-    $modal.classList.add('is-active')
-
 });
 
 async function insertExhibitionName() {
@@ -60,10 +57,10 @@ async function insertExhibitionName() {
     const data = await res.json();
     console.log(data)
     $exhibitName.textContent = data.exhibitName;
-    $price.textContent =data.price
-    $startDate.textContent=data.startDate
-    $endDate.textContent=data.endDate
-    $location.textContent=data.exhibitAddress
+    $price.textContent = data.price
+    $startDate.textContent = data.startDate
+    $endDate.textContent = data.endDate
+    $location.textContent = data.exhibitAddress
     $exhibitImg.src = data.image
     console.log(exhibitName);
 

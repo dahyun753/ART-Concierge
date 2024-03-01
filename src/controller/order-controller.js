@@ -2,24 +2,27 @@ const orderService = require("../services/order-service");
 const ERRORS = require("../utils/errors");
 
 const orderController = {
+  //주문하기
   async postOrder(req, res, next) {
     try {
       const {
         item: [{ exhibitId, exhibitName, quantity, price, image }],
         userAddress,
+        detailAddress,
         phone,
         name,
       } = req.body;
 
       const user_Id = req.user;
 
-      const orderedDate = new Date(); // 주문일을 현재 날짜로 설정
-      // 여기에서 주문을 생성하고 데이터베이스에 저장
+      const orderedDate = new Date(); //주문일을 현재 날짜로 설정
+      //주문 생성 후 DB에 저장
       const newOrder = await orderService.createOrder({
         userId: user_Id,
         name,
         phone,
         userAddress,
+        detailAddress,
         item: [{ exhibitId, exhibitName, quantity, price, image }],
         orderedDate,
       });
@@ -29,13 +32,12 @@ const orderController = {
         name: newOrder.name,
       });
     } catch (err) {
-      const { statusCode, message } = err.statusCode
-        ? err
-        : ERRORS.INVALID_INPUT;
+      const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
       res.status(statusCode).json({ message });
     }
   },
 
+  //주문 조회
   async getOrder(req, res, next) {
     //사용자의 주문내역
     try {
@@ -50,14 +52,16 @@ const orderController = {
     }
   },
 
+  //주문 수정
   async updateOrder(req, res, next) {
     try {
       //배송전 주문정보 수정
       const user_Id = req.user;
-      const { userAddress, phone, name } = req.body;
+      const { userAddress, detailAddress, phone, name } = req.body;
       const order = await orderService.updateOrder(
         user_Id,
         userAddress,
+        detailAddress,
         phone,
         name
       );
@@ -68,13 +72,12 @@ const orderController = {
         res.json("이미 배송중인 상품입니다.");
       }
     } catch (err) {
-      const { statusCode, message } = err.statusCode
-        ? err
-        : ERRORS.INVALID_INPUT;
+      const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
       res.status(statusCode).json({ message });
     }
   },
 
+  //주문 삭제
   async deleteOrder(req, res, next) {
     try {
       const user_Id = req.user;

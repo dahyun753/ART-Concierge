@@ -15,6 +15,8 @@
   box-sizing: border-box;
 }
 
+
+
 .section__container {
   max-width: var(--max-width);
   margin: auto;
@@ -28,16 +30,20 @@
   font-family: var(--header-font);
   color: var(--text-dark);
 }
-
 .section__subheader {
   color: var(--text-dark);
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 800;
 }
 
+
+
+
 .btn {
+  width: 200px;
+  height: 50px;
   padding: 0.5rem 1rem;
-  font-size: 0.7rem;
+  font-size: 1.2rem;
   color: var(--white);
   background-color: var(--primary-color);
   border-radius: 5rem;
@@ -61,7 +67,6 @@ a {
 html,
 body {
   scroll-behavior: smooth;
-  width: 1024px;
 }
 
 body {
@@ -184,7 +189,7 @@ header {
 
 .choose__card p {
   color: var(--text-light);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -307,6 +312,7 @@ header {
   opacity: 0;
   transition: 0.3s;
 }
+
 
 .craft__image:hover a {
   opacity: 1;
@@ -439,3 +445,4 @@ header {
     flex-direction: column;
   }
 }
+
