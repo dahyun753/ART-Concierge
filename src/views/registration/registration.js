@@ -180,13 +180,14 @@ $registrationButton.addEventListener('click', async function (event) {
     });
     Swal.fire({
       title: '회원 가입이 완료되었습니다',
+      text : "다시 로그인 해주세요",
       icon: 'warning',
       showCancelButton: false,
       confirmButtonColor: '#363636',
       confirmButtonText: '확인',
     }).then((result) => {
       if (result.value) {
-        window.location.href = '/'
+        window.location.href = '/auth'
       }
     })
 

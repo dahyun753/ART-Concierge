@@ -2,6 +2,12 @@ const $registrationButton = document.querySelector('#registrationButton');
 const $loginForm = document.querySelector('#loginForm')
 const $failModal = document.querySelector('.modal')
 const $closeModalButton = document.querySelector('#closeModal')
+const $googleLogin = document.querySelector('#googleLogin')
+
+$googleLogin.addEventListener('click',()=>{
+  const res = axios.get('/api/auth/google')
+  console.log(res)
+})
 
 $closeModalButton.addEventListener('click',()=>{
   $failModal.classList.remove('is-active');
