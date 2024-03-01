@@ -1,16 +1,17 @@
-// JavaScript 코드
 import { getDB } from '../indexedDB.js';
 const db = await getDB();
-const $order = document.querySelector('#order')
+const $order = document.querySelector('#order');
 const orderItems = [];
 
-cartLoad()
-getUserInformation()
+cartLoad();
+getUserInformation();
 
 $order.addEventListener('click', async () => {
     await getUserInformation();
     placeOrder(orderItems);
 });
+
+document.getElementById('addrSearch').addEventListener('click', sample6_execDaumPostcode); // 우편번호 찾기 버튼에 클릭 이벤트 연결
 
 async function clearIndexedDB() {
     try {
@@ -35,14 +36,23 @@ async function getUserInformation() {
     try {
         const response = await axios.get('/api/users/');
         console.log(response);
-        document.querySelector('#delivery-mobile').textContent= response.data.phone;
+        document.querySelector('#delivery-mobile').textContent = response.data.phone;
         document.querySelector('#delivery-name').textContent = response.data.name;
         document.querySelector('#delivery-addr').textContent = response.data.userAddress;
         document.querySelector('#detail-addr').textContent = response.data.detailAddress;
-        document.querySelector('.radio').textContent= response.data.name + "님 배송지";
+        document.querySelector('.radio').textContent = response.data.name + "님 배송지";
     } catch (error) {
         console.error('Error fetching user information:', error);
     }
+}
+
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            // 코드 생략
+        }
+    }).open();
 }
 
 function showModal() {
@@ -51,16 +61,6 @@ function showModal() {
 
 function closeModal() {
     document.getElementById('myModal').classList.remove('is-active');
-}
-
-export function execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function (data) {
-            document.getElementById('postcode').value = data.zonecode;
-            document.getElementById('address').value = data.address;
-            document.getElementById('detailA_address').focus();
-        }
-    }).open();
 }
 
 function chk_submit() {

@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
   <link rel="stylesheet" href="./orderComplete.css" />
   <!-- JQuery -->
@@ -19,8 +20,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
-
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
   <!-- Custom CSS & JS -->
   <script src="../public/loadHTML.js"></script>
@@ -59,7 +58,7 @@
             <ul class="order__delivery__user">
               <li id="delivery-name"><input type="text" placeholder="김철수"></li>
               <li id="info-separator">|</li>
-              <li id="delivery-mobile"><input type="" placeholder="010-1234-5678"></li>
+              <li id="delivery-mobile"><input type="tel" placeholder="010-1234-5678"></li>
             </ul>
           </div>
         </div>
@@ -105,7 +104,8 @@
         </div>
         <!-- 모달을 열기 위한 버튼 -->
         <!-- 배송지 변경 버튼 -->
-        <button type="button" class="button is-info field control is-medium" id="openModalButton">배송지 변경</button>
+
+        <button type="button" class="button is-info field control is-medium" id="openModalButton" style="background-color: #a9a9a9;">배송지 변경</button>
       </div>
 
       <div class="field is-horizontal">
@@ -121,7 +121,7 @@
                   <option value="fragile">부재 시 경비실에 맡겨주세요</option>
                   <option value="fragile">부재 시 집 앞에 놓고 가주세요</option>
                   <option value="contact">배송 전 연락 바랍니다</option>
-                  <!-- <option value="etc">직접 입력</option> -->
+
                 </select>
               </div>
             </div>
@@ -176,22 +176,22 @@
                     <div class="field">
                       <div class="control">
                         <!-- 우편번호 찾기 버튼에 onclick 이벤트를 통해 다음 우편번호 검색 함수 호출 -->
-                        <button class="button is-info" type="button" onclick="execDaumPostcode()">우편번호 찾기</button>
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+                          class="button is-fullwidth is-medium" id="addrSearch">
                       </div>
-                    </div>
 
-                    <div class="field">
-                      <div class="control">
-                        <input class="input" type="text" id="address" name="address" placeholder="도로명 주소" readonly>
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" id="address" name="address" placeholder="도로명 주소" readonly>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="field">
-                      <div class="control">
-                        <input class="input" type="text" id="detailA_address" name="detailAddress" placeholder="상세 주소"
-                          required>
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" id="detailA_address" name="detailAddress" placeholder="상세 주소"
+                            required>
+                        </div>
                       </div>
-                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -242,4 +242,6 @@
     loadHTML("../public/Footer/footer.html");
   </script>
 </body>
+<script src="orderComplete.js"></script>
+
 </html>
