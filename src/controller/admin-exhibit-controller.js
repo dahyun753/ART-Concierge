@@ -79,7 +79,7 @@ async function putExhibit(req, res, next) {
 
     const image = req.file.location;
 
-    const content = await adminService.updateExhibit(exhibitId, {
+    const content = await a_exhibitService.updateExhibit(exhibitId, {
       exhibitName,
       exhibitAddress,
       price,
