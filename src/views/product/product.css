@@ -53,3 +53,16 @@ a{
 .exhibitInfo{
     text-align: left;
 }
+
+footer{
+    padding: 0;
+    margin-top: 200px;
+}
+
+footer .columns{
+    padding: 0px;
+}
+
+footer .column{
+    padding: 0px;
+}
