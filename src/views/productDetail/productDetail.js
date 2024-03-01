@@ -69,9 +69,11 @@ async function insertExhibitionName() {
     const $endDate = document.querySelector('#endDate')
     const $location = document.querySelector('#location')
     const $exhibitImg = document.querySelector('#exhibitImg')
+    const $author = document.querySelector('#author')
     const res = await fetch(`/api/exhibits/detail/${exhibitId}`);
     const data = await res.json();
     console.log(data)
+    $author.textContent = data.author
     $exhibitName.textContent = data.exhibitName;
     $price.textContent = data.price
     $startDate.textContent = data.startDate
