@@ -9,7 +9,7 @@ async function postCategory(req, res, next) {
     const newcategory = await a_categoryService.addCategory({ category });
     res.status(200).json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
@@ -38,7 +38,7 @@ async function putCategory(req, res, next) {
     });
     res.json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
@@ -54,7 +54,7 @@ async function deleteCategory(req, res, next) {
     });
     res.json(newcategory);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }

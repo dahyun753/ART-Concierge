@@ -31,7 +31,7 @@ const orderController = {
     } catch (err) {
       const { statusCode, message } = err.statusCode
         ? err
-        : ERRORS.INVALID_INPUT;
+        : ERRORS.BAD_REQUEST;
       res.status(statusCode).json({ message });
     }
   },
@@ -70,7 +70,7 @@ const orderController = {
     } catch (err) {
       const { statusCode, message } = err.statusCode
         ? err
-        : ERRORS.INVALID_INPUT;
+        : ERRORS.BAD_REQUEST;
       res.status(statusCode).json({ message });
     }
   },

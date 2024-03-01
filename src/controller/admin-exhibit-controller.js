@@ -31,7 +31,7 @@ async function postExhibit(req, res, next) {
 
     res.status(201).json(exhibit);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
@@ -56,7 +56,7 @@ async function getExhibitById(req, res, next) {
     const content = await a_exhibitService.searchById(exhibitId);
     res.status(201).json(content);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
@@ -93,7 +93,7 @@ async function putExhibit(req, res, next) {
 
     res.status(201).json(content);
   } catch (err) {
-    const { statusCode, message } = err.statusCode ? err : ERRORS.INVALID_INPUT;
+    const { statusCode, message } = err.statusCode ? err : ERRORS.BAD_REQUEST;
     res.status(statusCode).json({ message });
   }
 }
