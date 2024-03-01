@@ -1,3 +1,4 @@
+// JavaScript 코드
 import { getDB } from '../indexedDB.js';
 const db = await getDB();
 const $order = document.querySelector('#order')
@@ -52,7 +53,7 @@ function closeModal() {
     document.getElementById('myModal').classList.remove('is-active');
 }
 
-function execDaumPostcode() {
+export function execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {
             document.getElementById('postcode').value = data.zonecode;
@@ -183,3 +184,6 @@ document.getElementById('myModal').addEventListener('click', function(event) {
         closeModal();
     }
 });
+
+// 초기화 버튼 클릭 이벤트 리스너 추가
+document.querySelector('.modal-content .button.is-light').addEventListener('click', clearFields);
