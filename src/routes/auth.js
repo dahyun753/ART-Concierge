@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { setUserToken } = require('../utils/jwt'); // JWT 사용
 
-const authController = require('../controller/auth-controller');
+const authController = require('../controller/auth-Controller');
 const passport = require('passport');
 
 const router = Router();
@@ -9,8 +9,8 @@ const router = Router();
 router.post('/join', authController.postUser);
 router.post('/check-email', authController.uniqueEmail);
 router.post('/send-email', authController.sendMail); // 이메일 발송
-router.post('/match-email', authController.checkMailCode); // 이메일 발송
-router.post('/find-password', authController.findPassword);
+router.post('/match-email', authController.checkMailCode); // 매칭
+// router.post('/find-password', authController.findPassword);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
