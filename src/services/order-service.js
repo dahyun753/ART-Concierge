@@ -62,22 +62,29 @@ const orderService = {
   },
 
   //사용자의 주문 수정 (주문 전 주문 취소)
-  async deleteOrder(user_Id) {
-    try {
-      const order = await Order.find({ userId: user_Id }).lean();
-      const deliveryStatus = order[0].deliveryStatus;
-      if (deliveryStatus == 1) {
-        await Order.deleteOne({ userId: user_Id });
-        console.log("유저 주문이 취소되었습니다.");
-        return 1;
-      } else {
-        console.log("이미 배송된 상품입니다.");
-        return 2;
+    async deleteOrder(user_Id, orderId) {
+      try {
+        const order = await Order.find({ _id: orderId, userId: user_Id });
+        console.log(order)
+        if (!order) {
+          console.log("주문이 존재하지 않습니다.");
+          return 0;
+        }
+  
+        const deliveryStatus = order[0].deliveryStatus;
+        if (deliveryStatus === "1") {
+          await Order.deleteOne({ "_id": orderId, userId: user_Id });
+          console.log("유저의 주문이 취소되었습니다.");
+          return 1;
+        } else {
+          console.log("이미 배송된 상품입니다.");
+          return 2;
+        }
+      } catch (err) {
+        console.log(err);
+        throw err;
       }
-    } catch (err) {
-      console.log(err);
     }
-  },
-};
+}
 
 module.exports = orderService;

@@ -73,18 +73,24 @@ const orderController = {
   },
 
   //주문 삭제
-  async deleteOrder(req, res, next) {
-    try {
-      const user_Id = req.user;
-      const isDelivered = await orderService.deleteOrder(user_Id);
-
-      if (isDelivered == 1) {
-        res.status(200).send("유저의 주문이 취소되었습니다");
+    async deleteOrder(req, res, next) {
+      try {
+        const user_Id = req.user;
+        const orderId = req.params.orderId;
+        const isDelivered = await orderService.deleteOrder(user_Id, orderId);
+  
+        if (isDelivered === 1) {
+          res.status(200).send("유저의 주문이 취소되었습니다");
+        } else if (isDelivered === 2) {
+          res.status(400).send("이미 배송된 상품입니다.");
+        } else {
+          res.status(404).send("주문이 존재하지 않습니다.");
+        }
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
       }
-    } catch (err) {
-      res.json(err)
-    }
-  },
-};
+    },
+  }
 
 module.exports = orderController;
