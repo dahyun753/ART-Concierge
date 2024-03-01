@@ -5,6 +5,7 @@ const $selectionDelete = document.querySelector('.deleteSelection')
 const $buy = document.querySelector('.buy')
 const $totalItemPrice = document.querySelector('.totalItemPrice')
 const $totalPrice = document.querySelector('.totalPrice')
+const $deleteAll = document.querySelector('.deleteAll')
 const db = await getDB();
 let flag = false;
 token = getCookie('token');
@@ -81,6 +82,39 @@ $buy.addEventListener('click', async (event) => {
 
   window.location.href = '/orderComplete'
 })
+
+$deleteAll.addEventListener('click', async () => {
+  Swal.fire({
+    title: '장바구니를 비우시겠습니까?',
+    text: "삭제하시면 다시 복구시킬 수 없습니다.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#363636',
+    cancelButtonColor: '#C0C0C0',
+    confirmButtonText: '확인',
+    cancelButtonText: '취소'
+  }).then(async (result) => {
+    if (result.value) {
+      try {
+        const transaction = db.transaction('shoppingCart', 'readwrite');
+        const objectStore = transaction.objectStore('shoppingCart');
+        const clearRequest = objectStore.clear();
+
+        clearRequest.onsuccess = function () {
+          console.log('Shopping cart cleared successfully');
+          updateProductListFromIndexedDB(); // Update the UI after clearing the items
+          reloadAmount(); // Reload the total amount
+        };
+
+        clearRequest.onerror = function (event) {
+          console.error('Error clearing shopping cart:', event.target.error);
+        };
+      } catch (error) {
+        console.error('Error clearing shopping cart:', error);
+      }
+    }
+  });
+});
 
 
 
@@ -282,7 +316,7 @@ async function updateProductListFromIndexedDB() {
           <div class="column is-4 is-flex is-flex-direction-column">
             <span class="itemName">${cursor.value.exhibitName}</span>
             <div>
-            <span class="price">${cursor.value.price}</span> ￦
+            <span class="price">${cursor.value.price * cursor.value.quantity}</span> ￦
             </div>
             
           </div>
@@ -307,7 +341,7 @@ async function updateProductListFromIndexedDB() {
         $productList.appendChild($listItem);
 
         // 커서를 다음 아이템으로 이동합니다.
-        
+
         cursor.continue();
       } else {
         // 모든 아이템을 처리한 후에 reloadAmount() 호출
