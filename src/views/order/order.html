@@ -31,8 +31,56 @@
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+<div class="modal" id="editOrderModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">주문 정보 수정</p>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">이름</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="이름을 입력해주세요" id="modalName">
+        </div>
+      </div>
 
+      <div class="field">
+        <label class="label">연락처</label>
+        <div class="control">
+          <input class="input" type="tel" placeholder="연락처를 입력해주세요" id="modalPhone">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">주소</label>
+        <div class="control" id="changetemp">
+          <input class="button type="button" value="주소 찾기" id="findAddress" id="modalAddress">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">상세주소</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Enter detailed address" id="sample6_detailAddress">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">수량</label>
+        <div class="control">
+          <input class="input" type="number" placeholder="Enter quantity" value="1" id="modalQuantity">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" id="editOrder" style="background-color: #171717;" >수정</button>
+      <button class="button"  id="cancelModal">취소</button>
+    </footer>
+  </div>
+</div>
 <body>
+  
   <!-- Header -->
   <script>
     loadHTML("/public/Header/header.html");
@@ -72,7 +120,9 @@
                   <th  width: 350px;">상품 이름</th>
                   <th>주문 일자</th>
                   <th>주문 금액<br></th>
+                  <th  style="text-align:center">주문 정보</th>
                   <th  style="text-align:center">주문 상태</th>
+                  
                 </tr>
               </thead>
               <tbody id="tableBody">

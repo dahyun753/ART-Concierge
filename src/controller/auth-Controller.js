@@ -5,6 +5,7 @@ let state = 0;
 // 이메일 중복 체크
 async function uniqueEmail(req, res, next) {  // 중복 확인 버튼으로 실행
   try {
+    console.log(req)
     const email = req.body.email;
     await authService.checkEmail(email);
 

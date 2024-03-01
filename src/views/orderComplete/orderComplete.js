@@ -185,6 +185,7 @@ async function cartLoad() {
                 cursor.continue();
             }
         }
+        console.log(orderItems)
     }
     catch {
         request.onerror = function (event) {

@@ -4,12 +4,14 @@ const nodemailerSend = require("../utils/send-mail");
 
 //이메일 중복 체크 
 async function checkEmail(email) {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({email});
+    console.log('User:', user);
     if (user) {
+        console.log('fuck')
         throw new Error('이미 가입된 이메일입니다');
     }
     return;
-    }
+}
 
 // 이메일 발송
 async function sendMail(email) {

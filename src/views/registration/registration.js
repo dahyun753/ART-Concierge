@@ -34,7 +34,7 @@ $emailCheck.addEventListener('click', async (event) => {
     return;
   }
   try {
-    const response = await axios.post('/api/auth/check-email', { email: email.value });
+    const response = await axios.post('/api/auth/check-email', {email: email.value });
     console.log(response.data);
     isEmailUnique = true;
     $emailCheck.classList.add('is-primary')
