@@ -38,7 +38,20 @@
     <script>
         loadHTML("/public/Header/header.html");
     </script>
-
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">알림</p>
+            </header>
+            <section class="modal-card-body">
+                장바구니에 상품이 담겼습니다
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success" id="modalCheck">확인</button>
+            </footer>
+        </div>
+    </div>
     <main>
 
         <section class="section">
@@ -58,7 +71,7 @@
                     <div class="column is-5">
                         <ul>
                             <li>
-                                <span class="title subject" style="font-weight: bold;"><strong>제목</strong></span>
+                                <span class="subject" style="font-weight: bold;"><strong>제목</strong></span>
                                 <span id="exhibitName">An Insane Desire for You</span>
                             </li>
                             <li>
@@ -89,13 +102,13 @@
                                 <span class="subject" style="font-weight: bold;"><strong>수량</strong></span>
                                 <div class="columns is-vcentered">
                                     <div class="column ">
-                                        <button class="minus button is-warning is-light">-</button>
+                                        <button class="minus button is-warning is-light" style="background-color: #a9a9a9;">-</button>
                                     </div>
                                     <div class="column is-vcentered">
                                         <span class="cartCount" id="quantity">1</span>
                                     </div>
                                     <div class="column">
-                                        <button class="plus button is-warning is-light">+</button>
+                                        <button class="plus button is-warning is-light" style="background-color: #a9a9a9;">+</button>
                                     </div>
                                 </div>
                             </li>
@@ -159,3 +172,5 @@
 
 
 </html>
+
+
