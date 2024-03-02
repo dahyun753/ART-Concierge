@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
   <link rel="stylesheet" href="./orderComplete.css" />
   <!-- JQuery -->
@@ -21,16 +22,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap" rel="stylesheet">
 
   <!-- Custom CSS & JS -->
-  <script src="../public/loadHTML.js"></script>
+  <script src="/public/loadHTML.js"></script>
   <link rel="stylesheet" href="/public/Header/header.css" />
   <link rel="stylesheet" href="/public/Footer/footer.css" />
   <script src="./orderComplete.js" type="module" defer></script>
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="/public/loadHTML.js"></script>
 
   <!-- axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 
   <title>orderComplete</title>
 </head>
@@ -60,7 +58,7 @@
             <ul class="order__delivery__user">
               <li id="delivery-name"><input type="text" placeholder="김철수"></li>
               <li id="info-separator">|</li>
-              <li id="delivery-mobile"><input type="" placeholder="010-1234-5678"></li>
+              <li id="delivery-mobile"><input type="tel" placeholder="010-1234-5678"></li>
             </ul>
           </div>
         </div>
@@ -104,112 +102,113 @@
             </div>
           </div>
         </div>
-        
+        <!-- 모달을 열기 위한 버튼 -->
+        <!-- 배송지 변경 버튼 -->
+
+        <button type="button" class="button is-info field control is-medium" id="openModalButton" style="background-color: #a9a9a9;">배송지 변경</button>
       </div>
-      
 
-      
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">배송 요청사항</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <div class="select">
+                <select name="dlv_selectbox" id="dlv_selectbox">
+                  <option value="" selected disabled>배송 시 요청사항을 선택해주세요</option>
+                  <option value="fragile">부재 시 경비실에 맡겨주세요</option>
+                  <option value="fragile">부재 시 집 앞에 놓고 가주세요</option>
+                  <option value="contact">배송 전 연락 바랍니다</option>
 
-      <!-- 모달 창 -->
-      <div id="myModal" class="modal">
-        <div class="modal-background"></div>
-
-        <!-- 모달 내용 -->
-        <div class="modal-content">
-          <div class="box">
-            <!-- 배송지 변경 폼이나 내용 추가 가능한 부분 -->
-            <div class="is-normal center-label">
-              <label class="center-label">신규 배송지</label>
-            </div>
-          </div>
-          <div class="box">
-            <div class="is-normal center-label">
-              <div class="table-container">
-                <table class="table is-fullwidth">
-                  <colgroup>
-                    <col style="width:122px">
-                    <col style="width:0">
-                  </colgroup>
-                  <tbody> <!-- 여기로 이동 -->
-                    <tr>
-                      <th scope="row">배송지명</th>
-                      <td>
-                        <input name="title" type="text" class="input" value="">
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">주소 <span class="has-text-danger">*</span></th>
-                      <td>
-                        <div class="field">
-                          <div class="control">
-                            <input class="input" type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
-                          </div>
-                        </div>
-
-                        <div class="field">
-                          <div class="control">
-                            <button class="button is-info" type="button" onclick="execDaumPostcode()">우편번호 찾기</button>
-                          </div>
-                        </div>
-
-                        <div class="field">
-                          <div class="control">
-                            <input class="input" type="text" id="address" name="address" placeholder="도로명 주소" readonly>
-                          </div>
-                        </div>
-
-                        <div class="field">
-                          <div class="control">
-                            <input class="input" type="text" id="detailA_address" name="detailAddress"
-                              placeholder="상세 주소" required>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <!-- 모달창 하단 버튼 -->
-                <div class="buttons has-addons">
-                  <button type="button" class="button is-info" onclick="chk_submit();">등록</button>
-                  <button type="button" class="button is-light" onclick="clearFields();">초기화</button>
-                </div>
+                </select>
               </div>
             </div>
           </div>
-        </div>
-
-        <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">배송 요청사항</label>
-      </div>
-      <div class="field-body">
-        <div class="field">
-          <div class="control">
-            <div class="select">
-              <select name="dlv_selectbox" id="dlv_selectbox" onchange="showEtc(this.value);">
-                <option value="" selected disabled>배송 시 요청사항을 선택해주세요</option>
-                <option value="fragile">부재 시 경비실에 맡겨주세요</option>
-                <option value="fragile">부재 시 집 앞에 놓고 가주세요</option>
-                <option value="contact">배송 전 연락 바랍니다</option>
-                <!-- <option value="etc">직접 입력</option> -->
-              </select>
+          <div class="field">
+            <div class="control">
+              <textarea class="textarea" name="etc_textarea" id="etc_textarea" style="display:none" maxlength="50"
+                onkeyup="return textarea_maxlength(this)" placeholder="최대 50자까지 입력 가능합니다."></textarea>
             </div>
-          </div>
-        </div>
-        <div class="field">
-          <div class="control">
-            <textarea class="textarea" name="etc_textarea" id="etc_textarea" style="display:none" maxlength="50"
-              onkeyup="return textarea_maxlength(this)" placeholder="최대 50자까지 입력 가능합니다."></textarea>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- 모달 창 -->
+  <div id="myModal" class="modal">
+    <div class="modal-background"></div>
+
+    <!-- 모달 내용 -->
+    <div class="modal-content">
+      <div class="box">
+        <!-- 배송지 변경 폼이나 내용 추가 가능한 부분 -->
+        <div class="is-normal center-label">
+          <label class="center-label">신규 배송지</label>
+        </div>
+      </div>
+      <div class="box">
+        <div class="is-normal center-label">
+          <div class="table-container">
+            <table class="table is-fullwidth">
+              <colgroup>
+                <col style="width:122px">
+                <col style="width:0">
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th scope="row">배송지명</th>
+                  <td>
+                    <input name="title" type="text" class="input" value="">
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">주소 <span class="has-text-danger">*</span></th>
+                  <td>
+                    <div class="field">
+                      <div class="control">
+                        <input class="input" type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="control">
+                        <!-- 우편번호 찾기 버튼에 onclick 이벤트를 통해 다음 우편번호 검색 함수 호출 -->
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+                          class="button is-fullwidth is-medium" id="addrSearch">
+                      </div>
+
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" id="address" name="address" placeholder="도로명 주소" readonly>
+                        </div>
+                      </div>
+
+                      <div class="field">
+                        <div class="control">
+                          <input class="input" type="text" id="detailA_address" name="detailAddress" placeholder="상세 주소"
+                            required>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- 모달창 하단 버튼 -->
+            <div class="buttons has-addons">
+              <button type="button" class="button is-info" onclick="chk_submit();">등록</button>
+              <button type="button" class="button is-light" onclick="clearFields();">초기화</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
   </div>
 
   <!-- 전시 정보 -->
@@ -240,9 +239,9 @@
     <button class="button is-outlined completebtn" id="order">주문하기</button>
   </div>
   <script>
-    loadHTML("../public/Footer/footer.html");
+    loadHTML("/public/Footer/footer.html");
   </script>
 </body>
-
+<script src="orderComplete.js"></script>
 
 </html>
