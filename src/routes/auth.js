@@ -28,7 +28,7 @@ router.post('/', passport.authenticate('local', { session: false }), (req, res, 
     });
 
 // 로그아웃 3계층 분리 ... 보류 (로그아웃은 delete)
-router.post('/logout', (req, res, next) => {
+router.delete('/logout', (req, res, next) => {
     res.cookie('token', null, {
         maxAge: 0,
     })
