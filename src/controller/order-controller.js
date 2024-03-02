@@ -51,24 +51,14 @@ const orderController = {
   //주문 수정
   async updateOrder(req, res, next) {
     try {
-      //배송전 주문정보 수정
-      const user_Id = req.user;
-      const { userAddress, detailAddress, phone, name } = req.body;
-      const order = await orderService.updateOrder(
-        user_Id,
-        userAddress,
-        detailAddress,
-        phone,
-        name
-      );
-
-      if (order === "배송전") {
-        res.json("유저 주문 정보가 수정되었습니다.");
-      } else {
-        res.json("이미 배송중인 상품입니다.");
-      }
+      const userId = req.user;
+      let { orderId } = req.params; 
+      const { userAddress, detailAddress, phone, name, quantity } = req.body;
+  
+      const result = await orderService.updateOrder(orderId, userAddress, detailAddress, phone, name, quantity);
+      res.json('수정완료!')
     } catch (err) {
-      res.json(err)
+      res.json(err);
     }
   },
 
@@ -76,16 +66,10 @@ const orderController = {
     async deleteOrder(req, res, next) {
       try {
         const user_Id = req.user;
-        const orderId = req.params.orderId;
-        const isDelivered = await orderService.deleteOrder(user_Id, orderId);
+        const {orderId} = req.params;
+        await orderService.deleteOrder(orderId);
   
-        if (isDelivered === 1) {
-          res.status(200).send("유저의 주문이 취소되었습니다");
-        } else if (isDelivered === 2) {
-          res.status(400).send("이미 배송된 상품입니다.");
-        } else {
-          res.status(404).send("주문이 존재하지 않습니다.");
-        }
+        res.json('삭제 완료');
       } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
