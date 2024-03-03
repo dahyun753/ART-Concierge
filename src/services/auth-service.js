@@ -7,7 +7,6 @@ async function checkEmail(email) {
     const user = await User.findOne({ email });
     console.log('User:', user);
     if (user) {
-        console.log('fuck')
         throw ('이미 가입된 이메일입니다');
     }
     return;
@@ -45,7 +44,7 @@ async function checkcode(code, email) {
 
         if (!valid.isTokenMatch || valid.isTokenMatch === 'undefined' || valid.isTokenMatch === 'null') {
             if (valid.validPassword !== code) {
-                throw new Error('인증 코드가 일치하지 않습니다');
+                throw ('인증 코드가 일치하지 않습니다');
             } else {
                 // isTokenMatch를 1로 업데이트
                 valid.isTokenMatch = 1;
