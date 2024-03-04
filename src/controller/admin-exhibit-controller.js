@@ -26,7 +26,7 @@ async function postExhibit(req, res, next) {
       category,
       author,
       information,
-      image,
+      image
     });
 
     res.status(201).json(exhibit);
@@ -56,7 +56,7 @@ async function getExhibitById(req, res, next) {
   }
 }
 
-//전시 수정 (관리자 페이지)
+// 전시 수정 (관리자 페이지)
 async function putExhibit(req, res, next) {
   try {
     const { exhibitId } = req.params;
@@ -86,9 +86,9 @@ async function putExhibit(req, res, next) {
       image,
     });
 
-    res.status(201).json(content);
+    res.status(201).json('수정 완료');
   } catch (err) {
-    res.json(err)
+    res.json(err);
   }
 }
 

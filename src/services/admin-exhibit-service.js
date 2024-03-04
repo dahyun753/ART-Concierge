@@ -2,10 +2,9 @@ const { Exhibit, Category } = require("../db");
 const pagination = require("../utils/pagination");
 
 //전시 추가
-async function addExhibit(newExhibit) {
-  if (!newExhibit) throw new Error("상품 추가를 위한 데이터가 필요합니다!");
+async function addExhibit(content) {
 
-  const exhibit = await Exhibit.create(newExhibit);
+  const exhibit = await Exhibit.create(content);
   return exhibit;
 }
 
@@ -28,15 +27,20 @@ async function searchById(exhibitId) {
   return exhibit;
 }
 
-//전시 수정
+// 전시 수정
 async function updateExhibit(exhibitId, content) {
-  if (!exhibitId) throw Error("업데이트에 필요한 PRODUCT ID가 없습니다");
+  try {
+    if (!exhibitId) throw new Error("업데이트에 필요한 전시 ID가 없습니다");
 
-  const result = await Exhibit.updateOne({ _id: exhibitId }, content);
+    const result = await Exhibit.updateOne({_id: exhibitId}, content
+    );
 
-  if (!result) throw new Error("제품을 찾지 못했습니다.");
+    if (!result) throw new Error("전시를 찾지 못했습니다.");
 
-  return result;
+    return result;
+  } catch (error) {
+    throw new Error(`전시 업데이트 중 오류 발생: ${error.message}`);
+  }
 }
 
 //전시 삭제
