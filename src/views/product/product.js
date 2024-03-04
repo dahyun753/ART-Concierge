@@ -104,7 +104,7 @@ async function insertProductElement() {
   let page = 1;
 
   const fetchAndUpdateData = async () => {
-    const res = await fetch(`http://localhost:5001/api/exhibits?page=${page}&perPage=12`);
+    const res = await fetch(`/api/exhibits?page=${page}&perPage=12`);
     const serverdata = await res.json();
     
     const numColumn = 4;
@@ -168,7 +168,7 @@ async function filterProductElement(categoryKeyword) {
   let page = 1;
 
   const fetchAndUpdateData = async () => {
-    const res = await fetch(`http://localhost:5001/api/exhibits/categories/${categoryKeyword}?page=1&perpage=2`);
+    const res = await fetch(`/api/exhibits/categories/${categoryKeyword}?page=1&perpage=2`);
     
     const serverdata = await res.json();
 
