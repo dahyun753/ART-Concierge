@@ -26,35 +26,18 @@ async function searchOne(user_Id) {
 }
 
 //회원 정보 수정
-async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress, NdetailAddress) {
+async function putOneUser(content, user_Id) {
     try {
-        const updatedUser = await User.findOneAndUpdate(
+        const updatedUser = await User.updateOne(
             { _id: user_Id },
-            {
-                $set: {
-                    email: Nemail,
-                    password: hashed(Npassword),
-                    phone: Nphone,
-                    userAddress: NuserAddress,
-                    detailAddress: NdetailAddress,
-                },
-            },
-            { new: true } // 업데이트 표시
+            content
         );
 
         if (!updatedUser) {
             throw new Error('사용자를 찾을 수 없습니다.');
         }
 
-        const userInfo = {
-            name: updatedUser.name,
-            email: updatedUser.email,
-            userAddress: updatedUser.userAddress,
-            detailAddress: updatedUser.detailAddress,
-            phone: updatedUser.phone,
-        };
-
-        return userInfo;
+        return updatedUser;
     } catch (err) {
         console.error(err);
         throw new Error('회원 정보 수정 중 에러가 발생했습니다.');
@@ -63,7 +46,7 @@ async function putOneUser(user_Id, Nemail, Npassword, Nphone, NuserAddress, Ndet
 
 //회원 탈퇴
 async function deleteOneUser(user_Id) {
-    const deleteUser = await User.deleteMany({ _id: { $in: user_Id } });
-    return deleteUser;
+    const deleteUser = await User.deleteMany({ _id: user_Id });
+    return;
 }
 module.exports = { searchOne, putOneUser, deleteOneUser };

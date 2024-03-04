@@ -13,17 +13,16 @@ async function getUser(req, res, next) {
 
 //회원정보 수정
 async function putUser(req, res, next) {
-  const { email, password, phone, userAddress, detailAddress } = req.body;
-
   try {
     const user_Id = req.user;
-    await userService.putOneUser(
-      user_Id,
-      email,
-      password,
-      phone,
-      userAddress,
-      detailAddress
+    const {name, password, phone, userAddress, detailAddress } = req.body;
+    await userService.putOneUser({
+      name, 
+      password, 
+      phone, 
+      userAddress, 
+      detailAddress },
+      user_Id
     );
 
     res.json("수정완료");
@@ -38,7 +37,7 @@ async function deleteUser(req, res, next) {
 
   try {
     const removeUser = await userService.deleteOneUser(user_Id);
-    res.json(removeUser);
+    res.json('탈퇴 완료');
   } catch (error) {
     res.json(err)
   }
