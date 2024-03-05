@@ -3,6 +3,7 @@
     <a class="navbar-item logo" href="/">
       ART CONCIERGE
     </a>
+<<<<<<< Updated upstream
     <a class="navbar-burger" id="burger">
       <span></span>
       <span></span>
@@ -14,6 +15,19 @@
     
     <div class="navbar-start">
       <div class="navbar-item has-dropdown is-hoverable ">
+=======
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item has-dropdown is-hoverable">
+>>>>>>> Stashed changes
         <a class="navbar-link">
           CATEGORY
         </a>
@@ -30,7 +44,11 @@
         </div>
       </div>
     </div>
+<<<<<<< Updated upstream
     <div class="navbar-item" id="search-box">
+=======
+    <div class="navbar-item">
+>>>>>>> Stashed changes
       <form id="header-search-box" class="pl-4">
         <input id="header-search-input" type="text" placeholder="Search Exhibition">
         <button id="header-search-submit" type="button" onclick="search_Keyword()">
@@ -50,15 +68,24 @@
         LOGIN
       </a>
     </div>
+<<<<<<< Updated upstream
 
+=======
+  </div>
+  </div>
+  </div>
+>>>>>>> Stashed changes
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
   const $loginButton = document.querySelector('#login');
   const $myPage = document.querySelector('#mypage')
+<<<<<<< Updated upstream
   const $burgerIcon = document.querySelector('#burger')
   const $navbarMenu = document.querySelector('#nav-links')
   const $searchBox = document.querySelector('#search-box')
+=======
+>>>>>>> Stashed changes
   let token;
   let user_Data;
   loadCategory();
@@ -73,6 +100,7 @@
     $loginButton.textContent = "LOGIN";
   }
 
+<<<<<<< Updated upstream
   async function getUserInformation() {
     try {
       const response = await axios.get('/api/users/');
@@ -85,6 +113,17 @@
   $burgerIcon.addEventListener('click',()=>{
     $navbarMenu.classList.toggle('is-active')
   })
+=======
+async function getUserInformation() {
+  try {
+    const response = await axios.get('/api/users/');
+    user_Data = response.data;
+  } catch (error) {
+    console.error('Error fetching user information:', error);
+  }
+};
+
+>>>>>>> Stashed changes
   $loginButton.addEventListener('click', () => {
     if (token) {
       Swal.fire({
@@ -95,7 +134,11 @@
         cancelButtonColor: '#C0C0C0',
         confirmButtonText: '로그아웃',
         cancelButtonText: '취소'
+<<<<<<< Updated upstream
       }).then(async (result) => {
+=======
+      }).then(async(result) => {
+>>>>>>> Stashed changes
         if (result.value) {
           await axios.delete('/api/auth/logout')
           window.location.href = '/'
@@ -161,10 +204,18 @@
         console.error('에러 발생:', error);
       });
   }
+<<<<<<< Updated upstream
 
   // 키워드 검색
   function search_Keyword() {
     let input_Element = document.getElementById('header-search-input');
+=======
+  
+  // 키워드 검색
+  function search_Keyword() {
+    let input_Element = document.getElementById('header-search-input');
+
+>>>>>>> Stashed changes
     let keyword = input_Element.value;
 
     if (keyword.trim() === '') {

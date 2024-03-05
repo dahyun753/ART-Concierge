@@ -7,7 +7,11 @@ async function getUser(req, res, next) {
     const user = await userService.searchOne(user_Id);
     res.json(user);
   } catch (error) {
+<<<<<<< Updated upstream
     res.json(err)
+=======
+    res.json(error)
+>>>>>>> Stashed changes
   }
 }
 

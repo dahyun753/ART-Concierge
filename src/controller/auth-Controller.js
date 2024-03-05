@@ -35,7 +35,11 @@ async function checkMailCode(req, res, next) { // 인증번호 확인 버튼 (�
     await authService.checkcode(code, email);
     res.json({ message: "인증 되었습니다" });
   } catch (err) {
+<<<<<<< Updated upstream
     res.status(400).json({ error: err.message});
+=======
+    res.json({error :err.message})
+>>>>>>> Stashed changes
   }
 }
 
