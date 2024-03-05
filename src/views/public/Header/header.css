@@ -70,3 +70,12 @@ li{
   font-family: "Noto Sans KR", sans-serif !important;
   color: #4a4a4a !important;
 }
+
+@media only screen and (max-width: 767px) {
+  #burger{
+   margin-top: 12px;;
+  }
+  #search-box {
+      display: none !important; 
+  }
+}

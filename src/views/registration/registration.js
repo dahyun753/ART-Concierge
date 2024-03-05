@@ -55,24 +55,22 @@ $emailCheck.addEventListener('click', async (event) => {
     $temp.insertAdjacentElement('afterend', authInputDiv);
     const $checkAuthmail = authInputDiv.querySelector('#checkEmail');
     const $authcode = authInputDiv.querySelector('#authcode')
+
     $checkAuthmail.addEventListener('click', async (e) => {
       e.preventDefault()
-
-      const res = await axios.post('/api/auth/match-email', { code: $authcode, email: email.value })
-      console.log(res.data)
-
-      if (res.data === "인증 코드가 일치하지 않습니다") {
-        $checkAuthmail.classList.add('is-danger')
-        $checkAuthmail.textContent = '인증실패'
-      }
-      else {
+      
+      try{
+        const res = await axios.post('/api/auth/match-email', { code: $authcode.value, email: email.value })
+        console.log(res)
         isEmailauth = true;
         $checkAuthmail.classList.add('is-primary')
         $checkAuthmail.textContent = '인증성공'
       }
-
-
-
+      catch{
+        $checkAuthmail.classList.add('is-danger')
+        $checkAuthmail.textContent = '인증실패'
+      }
+      
     })
     const existingEmailCheckElement = document.getElementById('needEmailCheck');
     if (existingEmailCheckElement) {
@@ -230,7 +228,7 @@ $registrationButton.addEventListener('click', async function (event) {
   }
 });
 
-function sample6_execDaumPostcode() {
+function findPostCode() {
   new daum.Postcode({
     oncomplete: function (data) {
       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
