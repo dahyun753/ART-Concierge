@@ -25,7 +25,6 @@ async function getUserInformation() {
   }
 };
 
-
 function sample6_execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -70,9 +69,9 @@ function sample6_execDaumPostcode() {
   }).open();
 }
 
-$quitButton.addEventListener('click', (event) => {
+$quitButton.addEventListener('click', async (event) => {
   event.preventDefault();
-  Swal.fire({
+  const confirmResult = await Swal.fire({
     title: '회원 탈퇴 하시겠습니까?',
     icon: 'warning',
     showCancelButton: true,
@@ -80,23 +79,31 @@ $quitButton.addEventListener('click', (event) => {
     cancelButtonColor: '#C0C0C0',
     confirmButtonText: '탈퇴',
     cancelButtonText: '취소'
-  }).then(async (result) => {
-    if (result.value) {
-      await axios.post('/api/auth/logout')
-      await axios.delete('/api/users')
-      Swal.fire({
+  });
+
+  if (confirmResult.isConfirmed) {
+    try {
+      await axios.post('/api/auth/logout');
+      await axios.delete('/api/users');
+      await Swal.fire({
         title: '탈퇴 완료',
-        icon: 'warning',
-        showCancelButton: false,
-        confirmButtonColor: '#363636',
-        confirmButtonText: '확인'
-      }).then(() => {
-        window.location.href = "/"
-      })
+        text: '회원 탈퇴가 완료되었습니다.',
+        icon: 'success',
+        confirmButtonColor: '#363636'
+      });
+      window.location.href = "/";
+    } catch (error) {
+      console.error('Error while quitting:', error);
+      Swal.fire({
+        title: '에러 발생',
+        text: '탈퇴 중 오류가 발생했습니다.',
+        icon: 'error',
+        confirmButtonColor: '#363636'
+      });
     }
-  })
-}
-)
+  }
+});
+
 
 $changeInfoButton.addEventListener('click', (event) => {
   event.preventDefault();
@@ -135,7 +142,3 @@ $changeInfoButton.addEventListener('click', (event) => {
     }
   })
 })
-
-
-
-

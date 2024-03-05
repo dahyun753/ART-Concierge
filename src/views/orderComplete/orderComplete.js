@@ -46,7 +46,7 @@ async function getUserInformation() {
     }
 }
 
-function sample6_execDaumPostcode() {
+function findPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
             // 우편번호와 주소 정보를 가져와서 각 입력 필드에 채워넣기
