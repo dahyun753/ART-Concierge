@@ -7,11 +7,7 @@ async function searchOne(user_Id) {
         const user = await User.findOne({ _id: user_Id });
 
         if (!user) {
-<<<<<<< Updated upstream
-            return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
-=======
             throw new Error('사용자를 찾을 수 없습니다.');
->>>>>>> Stashed changes
         }
 
         const userInfo = {
