@@ -6,33 +6,49 @@ const orderController = {
   async postOrder(req, res, next) {
     try {
       const {
-        item: [{ exhibitId, exhibitName, quantity, price, image }],
+        items,
         userAddress,
         detailAddress,
         phone,
         name,
       } = req.body;
-
+  
       const user_Id = req.user;
-
-      const orderedDate = new Date(); //주문일을 현재 날짜로 설정
-      //주문 생성 후 DB에 저장
-      const newOrder = await orderService.createOrder({
-        userId: user_Id,
-        name,
-        phone,
-        userAddress,
-        detailAddress,
-        item: [{ exhibitId, exhibitName, quantity, price, image }],
-        orderedDate,
-      });
-      console.log(newOrder);
-      res.json({
-        userId: newOrder.userId,
-        name: newOrder.name,
-      });
+  
+      const orderedDate = new Date(); 
+  
+      const newOrders = await Promise.all(items.map(async item => {
+        const {
+          exhibitId,
+          exhibitName,
+          quantity,
+          price,
+          image
+        } = item;
+  
+        const newOrder = await orderService.createOrder({
+          user_Id,
+          name,
+          phone,
+          userAddress,
+          detailAddress,
+          exhibitId,
+          exhibitName,
+          quantity,
+          price,
+          item,
+          image,
+          orderedDate,
+        });
+  
+        return newOrder;
+      }));
+  
+      // console.log(newOrders);
+      res.status(201).json(newOrders );
     } catch (err) {
-      res.json(err)
+      console.error(err);
+      res.status(500).json({ error: '입력값을 확인해주세요' });
     }
   },
 

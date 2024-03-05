@@ -44,7 +44,7 @@ async function checkcode(code, email) {
 
         if (!valid.isTokenMatch || valid.isTokenMatch === 'undefined' || valid.isTokenMatch === 'null') {
             if (valid.validPassword !== code) {
-                throw ('인증 코드가 일치하지 않습니다');
+                throw new Error ('인증 코드가 일치하지 않습니다');
             } else {
                 // isTokenMatch를 1로 업데이트
                 valid.isTokenMatch = 1;

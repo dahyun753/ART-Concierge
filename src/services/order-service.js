@@ -1,26 +1,42 @@
 const { Order } = require("../db");
 
 const orderService = {
-  //주문하기
+  // 주문하기
   async createOrder({
-    userId: user_Id,
+    user_Id,
     name,
     phone,
     userAddress,
     detailAddress,
-    item: [{ exhibitId, exhibitName, quantity, price, image }],
+    exhibitId,
+    exhibitName,
+    quantity,
+    price,
+    item,
+    image,
     orderedDate,
   }) {
-    const createOrder = await Order.create({
-      userId: user_Id,
-      name,
-      phone,
-      userAddress,
-      detailAddress,
-      item: [{ exhibitId, exhibitName, quantity, price, image }],
-      orderedDate,
-    });
-    return createOrder;
+    try {
+      const createdOrder = await Order.create({
+        userId: user_Id,
+        name,
+        phone,
+        userAddress,
+        detailAddress,
+        exhibitId,
+        exhibitName,
+        quantity,
+        price,
+        item,
+        image,
+        orderedDate,
+      });
+
+      return createdOrder;
+    } catch (err) {
+      console.error(err);
+      throw new Error('Error creating order');
+    }
   },
 
   //사용자의 주문 조회

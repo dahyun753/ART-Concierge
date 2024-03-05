@@ -15,7 +15,7 @@ async function uniqueEmail(req, res, next) {  // 중복 확인 버튼으로 실�
     res.status(409).json({ error: err.message });
   }
 }
-// 버튼 독립적 
+// 메일 발송 (노드 메일러 호출)
 async function sendMail(req, res, next) { // 인증번호 발급 버튼
   try {
     const email = req.body.email;
