@@ -140,7 +140,6 @@ function clearFields() {
     document.getElementById("postcode").value = "";
     document.getElementById("address").value = "";
     document.getElementById("detailA_address").value = "";
-
     document.getElementsByName("title")[0].value = "";
 }
 
@@ -150,7 +149,7 @@ async function placeOrder(items) {
         phone: document.querySelector('#delivery-mobile').textContent,
         userAddress: document.querySelector('#delivery-addr').textContent,
         detailAddress: document.querySelector('#detail-addr').textContent,
-        item: items,
+        items: items,
     };
     console.log(orderInfo);
     try {

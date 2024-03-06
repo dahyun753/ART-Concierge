@@ -1,16 +1,10 @@
 const response = await axios.get('/api/orders');
 const orderData = response.data;
-const $searchAddress = document.querySelector('#findAddress')
+const $searchAddress = document.querySelector('#modalAddress')
 const $detailAddress = document.querySelector('#detailAddress')
 const $cancelModal = document.querySelector('#cancelModal')
-const $editOrder = document.querySelector('#editOrder')
 
-$editOrder.addEventListener('click',async ()=>{
-  const $modalName = document.querySelector('#modalName');
-  
-})
-
-$searchAddress.addEventListener('click', sample6_execDaumPostcode)
+$searchAddress.addEventListener('click', findPostcode)
 function openEditOrderModal() {
   document.getElementById('editOrderModal').classList.add('is-active');
 }
@@ -19,7 +13,7 @@ function closeEditOrderModal() {
   document.getElementById('editOrderModal').classList.remove('is-active');
 }
 
-function sample6_execDaumPostcode() {
+function findPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -66,8 +60,8 @@ function sample6_execDaumPostcode() {
 
 // 데이터를 HTML에 표시하는 함수
 function displayOrderInfo(order) {
+  console.log(order)
   const tableBody = document.querySelector('#tableBody')
-
   const newRow = document.createElement('tr');
   newRow.style.height = '130px';
   newRow.innerHTML = `
@@ -85,7 +79,7 @@ function displayOrderInfo(order) {
     <td>
     <div class="container has-text-centered">
   
-    <button id="changeOrder" data-exhibit-id="${order.item[0].exhibitId}" class="button" style="display: ${order.deliveryStatus === '1' ? 'inline-block' : 'none'}">주문 수정</button>
+    <button id="changeOrder" data-order-id="${order._id}" class="button" style="display: ${order.deliveryStatus === '1' ? 'inline-block' : 'none'}">주문 수정</button>
     </div>
     </td>
     <td>
@@ -96,7 +90,7 @@ function displayOrderInfo(order) {
         ${order.deliveryStatus === '3' ? '배송 완료' : ''}
     </span>
     <br>
-    <button id="cancelButton" data-exhibit-id="${order.item[0].exhibitId}" class="button" style="display: ${order.deliveryStatus === '1' ? 'inline-block' : 'none'}">주문 취소</button>
+    <button id="cancelButton" data-order-id="${order._id}" class="button" style="display: ${order.deliveryStatus === '1' ? 'inline-block' : 'none'}">주문 취소</button>
     </div>
     </td>
   `;
@@ -104,8 +98,10 @@ function displayOrderInfo(order) {
   const $cancelButton = newRow.querySelector('#cancelButton')
   const $changeOrder = newRow.querySelector('#changeOrder')
   $cancelButton.addEventListener('click', async () => {
+    const orderId = $cancelButton.getAttribute('data-order-id')
+    console.log(orderId)
     try {
-      await axios.delete('/api/orders/')
+      await axios.delete(`/api/orders/${orderId}`)
       Swal.fire({
         title: '주문이 취소 되었습니다',
         icon: 'success',
@@ -118,10 +114,45 @@ function displayOrderInfo(order) {
     catch {
     }
   })
+
   $changeOrder.addEventListener('click', () => {
     openEditOrderModal();
+    const $editOrder = document.querySelector('#editOrder')
+    $editOrder.addEventListener('click', async () => {
+      const orderId = $changeOrder.getAttribute('data-order-id')
+
+      const editName = document.querySelector('#modalName').value
+      const editPhone = document.querySelector('#modalPhone').value
+      const editAddress = document.querySelector('#userAddress').value
+      const editDetailAddress = document.querySelector('#sample6_detailAddress').value
+      const editQuantity = document.querySelector('#modalQuantity').value
+      console.log(editName,"이름")
+      try {
+        await axios.put(`/api/orders/${orderId}`, {
+          orderId: orderId,
+          userAddress: editAddress,
+          detailAddress: editDetailAddress,
+          phone: editPhone,
+          name: editName,
+          quantity: editQuantity
+        })
+        Swal.fire({
+          title: '주문이 수정 되었습니다',
+          icon: 'success',
+          confirmButtonColor: '#363636',
+          confirmButtonText: '확인'
+        }).then(() => {
+          location.reload();
+        })
+      }
+      catch {
+      }
+    })
   });
   tableBody.appendChild(newRow);
+
+
+
 }
 $cancelModal.addEventListener('click', () => {
   closeEditOrderModal()
