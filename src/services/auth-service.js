@@ -45,14 +45,8 @@ async function checkcode(code, email) {
         if (!valid.isTokenMatch || valid.isTokenMatch === 'undefined' || valid.isTokenMatch === 'null') {
             if (valid.validPassword !== code) {
                 throw new Error ('인증 코드가 일치하지 않습니다');
-            } else {
-                // isTokenMatch를 1로 업데이트
-                valid.isTokenMatch = 1;
-                // 변경 사항 저장
-                await valid.save();
-
-                return valid.isTokenMatch;
-            }
+            } 
+        return;
         }
     } catch (error) {
         // 여기서 에러를 처리합니다.
@@ -67,6 +61,7 @@ async function addUser(userInfo) {
     const { name, password, email, phone, userAddress, detailAddress } = userInfo;
     const hashedPassword = await hashed(password);
 
+
     const newUser = await User.create({
         name,
         password: hashedPassword,
@@ -75,6 +70,9 @@ async function addUser(userInfo) {
         userAddress,
         detailAddress,
     });
+
+    await ValidPsw.deleteOne({ email});
+
 
     return newUser;
 }
