@@ -46,7 +46,7 @@ async function putOneUser(content, user_Id) {
 
 //회원 탈퇴
 async function deleteOneUser(user_Id) {
-    const deleteUser = await User.deleteMany({ _id: user_Id });
+    const deleteUser = await User.deleteOne({ _id: user_Id });
     return;
 }
 module.exports = { searchOne, putOneUser, deleteOneUser };

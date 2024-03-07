@@ -37,7 +37,11 @@ async function deleteUser(req, res, next) {
 
   try {
     const removeUser = await userService.deleteOneUser(user_Id);
-    res.json('탈퇴 완료');
+    res.cookie('token', null, {
+      maxAge: 0,
+   })
+  console.log('회원탈퇴 성공!')
+  res.status(204).send()
   } catch (error) {
     res.json(err)
   }
