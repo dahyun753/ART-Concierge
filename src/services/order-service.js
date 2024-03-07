@@ -57,19 +57,32 @@ const orderService = {
   },
 
   //주문 수정
-  async updateOrder(orderId, userAddress, detailAddress, phone, name, quantity) {
+  async updateOrder(orderId, newQuantity, userAddress, detailAddress, phone, name ) {
     try {
-      const order = await Order.findOne({ _id: orderId });
+      const order = await Order.findOne({_id:orderId});
       console.log(order)
+
 
       if (!order) {
         return "주문이 존재하지 않습니다.";
       }
-  
+      const item = order.item[0];
+
+      if (item) {
+        item.quantity = newQuantity;
+      }
+
       await Order.updateOne(
-          { _id: orderId},
-          { userAddress, detailAddress, phone, name, quantity })
-   
+        {_id : orderId},
+        {
+          item: [item],
+          userAddress,
+          detailAddress,
+          phone,
+          name,
+        }
+      );
+      
         console.log(`${name} 유저의 주문정보가 수정되었습니다`);
   
     } catch (err) {
@@ -78,8 +91,8 @@ const orderService = {
     }
   },
 
-  //사용자의 주문 수정 (주문 전 주문 취소)
-    async deleteOrder(user_Id, orderId) {
+  //사용자의 주문 수정 (주문 전 주문 취소) _ 주문 삭제
+    async deleteOrder(orderId) {
       try {
         const order = await Order.find({ _id: orderId });
         console.log(order)
