@@ -42,19 +42,18 @@ const orderController = {
         });
   
         return newOrder;
-      }));
-  
+      })); 
+
       // console.log(newOrders);
-      res.status(201).json(newOrders );
+      res.status(201).json(newOrders);
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: '입력값을 확인해주세요' });
     }
   },
 
-  //주문 조회
+  //주문 조회 (사용자의 주문내역)
   async getOrder(req, res, next) {
-    //사용자의 주문내역
     try {
       const user_Id = req.user;
       const orderList = await orderService.getOrder(user_Id);
@@ -71,7 +70,7 @@ const orderController = {
       let { orderId } = req.params; 
       const { userAddress, detailAddress, phone, name, quantity } = req.body;
   
-      const result = await orderService.updateOrder(orderId, userAddress, detailAddress, phone, name, quantity);
+      const result = await orderService.updateOrder(orderId,  quantity, userAddress, detailAddress, phone, name);
       res.json('수정완료!')
     } catch (err) {
       res.json(err);
@@ -87,8 +86,7 @@ const orderController = {
   
         res.json('삭제 완료');
       } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json(error);
       }
     },
   }
